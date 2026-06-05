@@ -8,126 +8,146 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
+  <div class="top-date-bar body-s">
+    <i class="far fa-calendar-alt"></i> <span id="currentDate"></span>
   </div>
 
-  <!-- Header Bar -->
   <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+    <div class="header-info body-m">
+      <div id="studentIdentity"><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
       <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      <div><strong>:: BEBAN SKS MAKSIMAL : 24 SKS</strong></div>
     </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
+    <a href="#" class="logout-btn headline-caps" onclick="logout(); return false;">
       <i class="fas fa-sign-out-alt"></i> Logout
     </a>
   </div>
 
-  <!-- Main Container -->
   <div class="main-container">
-    <!-- Sidebar -->
     <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
-      </ul>
+      <div>
+        <ul class="sidebar-menu headline-m">
+          <li><a href="index.html"><i class="fas fa-th-large"></i> HOME</a></li>
+          <li><a href="#"><i class="fas fa-info-circle"></i> PANDUAN</a></li>
+        </ul>
+        
+        <ul class="sidebar-menu headline-m" style="margin-top: 24px;">
+          <li><a href="krs.html"><i class="fas fa-edit"></i> REGISTRASI MATAKULIAH</a></li>
+          <li><a href="jadwal-absen.html"><i class="fas fa-calendar-check"></i> JADWAL KULIAH</a></li>
+          <li><a href="khs.html" class="active"><i class="fas fa-graduation-cap"></i> HASIL STUDI (KHS)</a></li>
+        </ul>
+        
+        <ul class="sidebar-menu headline-m" style="margin-top: 24px;">
+          <li><a href="profil.html"><i class="fas fa-user-cog"></i> DATA PRIBADI</a></li>
+          <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
+        </ul>
+      </div>
       
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="krs.html"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html" class="active"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users"></i> 127 user online
+      <div class="online-users headline-caps">
+        <span style="height: 8px; width: 8px; background-color: var(--color-blue-dark); border-radius: 50%; display: inline-block;"></span>
+        127 user online
       </div>
     </aside>
 
-    <!-- Content Area -->
     <main class="content-area">
-      <div class="page-header">
-        <i class="fas fa-graduation-cap" style="color: #4CAF50; font-size: 20px;"></i>
-        <h1 class="page-title">KARTU HASIL STUDI (KHS)</h1>
+      <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h1 class="title-l">Kartu Hasil Studi (KHS)</h1>
+        <button class="btn body-s" style="display: inline-flex; align-items: center; gap: 8px;" onclick="window.print()">
+          <i class="fas fa-print"></i> Cetak KHS
+        </button>
       </div>
       
-      <button class="btn print-btn" onclick="window.print()">
-        <i class="fas fa-print"></i> Cetak KHS
-      </button>
-      <div style="clear: both;"></div>
-      
-      <div class="gpa-box">
-        <h4>INDEKS PRESTASI KUMULATIF (IPK)</h4>
-        <div class="gpa-value" id="gpaValue">0.00</div>
-        <div class="gpa-info">Total SKS Lulus: <span id="totalCredits">0</span> SKS</div>
+      <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start;">
+        
+        <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 24px;">
+          
+          <div class="welcome-box" style="padding: 24px; border: 1px solid var(--color-gray);">
+            <h4 class="headline-caps" style="color: #78716C; margin-bottom: 12px;">Indeks Prestasi Kumulatif (IPK)</h4>
+            <div class="title-l" id="gpaValue" style="font-size: 48px; line-height: 1; color: var(--color-blue-dark); font-weight: 700; margin-bottom: 8px;">0.00</div>
+            <div class="body-m" style="color: #524F4C;">Total SKS Lulus: <span id="totalCredits" style="font-weight: 600;">0</span> SKS</div>
+          </div>
+          
+          <div class="welcome-box" style="padding: 24px; border: 1px solid var(--color-blue-light); background-color: #f0f7ff;">
+            <h4 class="headline-m" style="color: var(--color-blue-dark); margin-bottom: 8px;">
+              <i class="fas fa-chart-line"></i> IPK Predictor & Target Tracker
+            </h4>
+            <p class="body-s" style="color: #524F4C; margin-bottom: 16px;">
+              Masukkan target IPK yang ingin Anda capai berikutnya untuk melihat simulasi beban nilai minimum semester ini.
+            </p>
+            
+            <div class="form-table" style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+              <input type="number" id="targetGPAInput" step="0.01" min="0.00" max="4.00" placeholder="Contoh: 3.50" style="padding: 8px 12px; font-size: 13px; border-radius: 6px; border: 1px solid var(--color-gray); max-width: 150px;">
+              <button class="btn body-s" style="padding: 8px 16px; background-color: var(--color-dark); border-radius: 6px;" onclick="trackTargetGPA()">Hitung Target</button>
+            </div>
+            
+            <div id="predictorResult" class="body-s" style="padding: 12px; background: #ffffff; border-radius: 6px; border: 1px solid var(--color-blue-light); display: none;">
+              </div>
+          </div>
+
+        </div>
+
+        <div class="welcome-box" style="flex: 2; min-width: 500px; padding: 24px;">
+          <h3 class="title-s" style="margin-bottom: 16px; color: var(--color-dark);">
+            <i class="fas fa-list-ol" style="color: var(--color-blue-dark); margin-right: 8px;"></i>Daftar Nilai Akademik
+          </h3>
+          
+          <table class="data-table body-m" id="gradesTable" style="margin-bottom: 0;">
+            <thead>
+              <tr class="headline-caps">
+                <th style="width: 60px; text-align: center;">No</th>
+                <th>Kode MK</th>
+                <th>Nama Mata Kuliah</th>
+                <th style="text-align: center;">SKS</th>
+                <th style="text-align: center;">Nilai Huruf</th>
+                <th style="text-align: center;">Bobot</th>
+                <th style="text-align: center;">Nilai x Bobot</th>
+              </tr>
+            </thead>
+            <tbody id="gradesBody">
+              </tbody>
+          </table>
+        </div>
+
       </div>
-      
-      <h3 class="section-header"><i class="fas fa-list-ol"></i> Daftar Nilai</h3>
-      <table class="data-table" id="gradesTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Nilai Huruf</th>
-            <th>Bobot</th>
-            <th>Nilai x Bobot</th>
-          </tr>
-        </thead>
-        <tbody id="gradesBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <div class="footer">
+
+      <footer class="footer body-s">
         <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
-      </div>
+      </footer>
     </main>
   </div>
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
+    // Check session aktif melalui app.js
     const user = checkSession();
     
     if (user) {
-      // Set current date
+      // Menyetel Tanggal Hari Ini Menggunakan Standar Tanggal Lokal Indonesia
       const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('id-ID', { 
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+      });
       
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      // Memperbarui Komponen Identitas Mahasiswa di Bagian Atas
+      document.getElementById('studentIdentity').innerHTML = `
+        <strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)
       `;
       
-      // Load GPA and stats
+      // Memuat data IPK dan total SKS kelulusan awal
       document.getElementById('gpaValue').textContent = calculateGPA();
       document.getElementById('totalCredits').textContent = getTotalPassedCredits();
       
-      // Load grades table
+      // Load data tabel nilai KHS
       const grades = getGrades();
       const gradesBody = document.getElementById('gradesBody');
       
       if (grades.length === 0) {
-        gradesBody.innerHTML = '<tr><td colspan="7" class="text-center">Belum ada data nilai</td></tr>';
+        gradesBody.innerHTML = '<tr><td colspan="7" class="text-center" style="color: var(--color-gray); padding: 24px;">Belum ada data nilai akademik</td></tr>';
       } else {
         let totalWeighted = 0;
         let totalSks = 0;
         
+        gradesBody.innerHTML = '';
         grades.forEach((grade, index) => {
           const weightedScore = grade.weight * grade.sks;
           totalWeighted += weightedScore;
@@ -135,38 +155,77 @@
           
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td>${grade.code}</td>
-            <td>${grade.name}</td>
-            <td class="text-center">${grade.sks}</td>
-            <td class="text-center"><strong>${grade.grade}</strong></td>
-            <td class="text-center">${grade.weight}</td>
-            <td class="text-center">${weightedScore.toFixed(1)}</td>
+            <td style="text-align: center; font-weight: 600;">${index + 1}</td>
+            <td style="font-weight: 600; color: var(--color-blue-dark);">${grade.code}</td>
+            <td style="font-weight: 600;">${grade.name}</td>
+            <td style="text-align: center;">${grade.sks}</td>
+            <td style="text-align: center;"><span style="background: #F5F4F3; padding: 4px 10px; border-radius: 4px; font-weight: 700; color: var(--color-dark);">${grade.grade}</span></td>
+            <td style="text-align: center;">${grade.weight.toFixed(1)}</td>
+            <td style="text-align: center; font-weight: 600;">${weightedScore.toFixed(1)}</td>
           `;
           gradesBody.appendChild(row);
         });
         
-        // Add summary row
+        // Baris Ringkasan Total Akumulasi Nilai
         const summaryRow = document.createElement('tr');
-        summaryRow.style.fontWeight = 'bold';
-        summaryRow.style.backgroundColor = '#e8e8e8';
+        summaryRow.className = "headline-m";
+        summaryRow.style.backgroundColor = "#F5F4F3";
         summaryRow.innerHTML = `
-          <td colspan="3" class="text-right">TOTAL</td>
-          <td class="text-center">${totalSks}</td>
+          <td colspan="3" style="text-align: right; font-weight: 600; color: var(--color-dark);">TOTAL</td>
+          <td style="text-align: center; font-weight: 700;">${totalSks}</td>
           <td colspan="2"></td>
-          <td class="text-center">${totalWeighted.toFixed(1)}</td>
+          <td style="text-align: center; font-weight: 700; color: var(--color-blue-dark);">${totalWeighted.toFixed(1)}</td>
         `;
         gradesBody.appendChild(summaryRow);
-        
-        // Add IPK row
-        const ipkRow = document.createElement('tr');
-        ipkRow.style.fontWeight = 'bold';
-        ipkRow.style.backgroundColor = '#d4edda';
-        ipkRow.innerHTML = `
-          <td colspan="6" class="text-right">INDEKS PRESTASI KUMULATIF (IPK)</td>
-          <td class="text-center" style="font-size: 14px; color: #4CAF50;">${calculateGPA()}</td>
+      }
+    }
+
+    // Fungsionalitas Logika Fitur Cemerlang: IPK Predictor
+    function trackTargetGPA() {
+      const targetInput = document.getElementById('targetGPAInput').value;
+      const resultBox = document.getElementById('predictorResult');
+      
+      if (!targetInput || targetInput < 0 || targetInput > 4) {
+        alert('Silakan masukkan target IPK yang valid di antara 0.00 - 4.00!');
+        return;
+      }
+      
+      const currentGPA = parseFloat(calculateGPA());
+      const passedCredits = parseInt(getTotalPassedCredits());
+      const targetGPA = parseFloat(targetInput);
+      
+      // Asumsikan mahasiswa mengambil rata-rata 20 SKS aktif di semester berjalan ini
+      const ongoingCredits = 20; 
+      const totalFutureCredits = passedCredits + ongoingCredits;
+      
+      // Rumus matematika pencarian bobot rata-rata semester depan yang dibutuhkan
+      const currentTotalPoints = currentGPA * passedCredits;
+      const requiredTotalPoints = targetGPA * totalFutureCredits;
+      const neededPointsForSemester = requiredTotalPoints - currentTotalPoints;
+      const requiredAverageWeight = neededPointsForSemester / ongoingCredits;
+      
+      resultBox.style.display = 'block';
+      
+      if (requiredAverageWeight <= 0) {
+        resultBox.innerHTML = `
+          <span style="color: #0077E6; font-weight: 600;"><i class="fas fa-star"></i> Target Tercapai!</span><br>
+          IPK Anda saat ini sudah melebihi target simulasi tersebut. Pertahankan performa belajar Anda!
         `;
-        gradesBody.appendChild(ipkRow);
+      } else if (requiredAverageWeight > 4.0) {
+        resultBox.innerHTML = `
+          <span style="color: #d32f2f; font-weight: 600;"><i class="fas fa-exclamation-triangle"></i> Target Terlalu Tinggi!</span><br>
+          Untuk mencapai IPK <strong>${targetGPA.toFixed(2)}</strong>, rata-rata bobot nilai semester ini harus <strong>${requiredAverageWeight.toFixed(2)}</strong> (Melebihi batas maksimum 4.00). Coba turunkan sedikit target Anda.
+        `;
+      } else {
+        let recommendedGrade = "B";
+        if (requiredAverageWeight > 3.5) recommendedGrade = "A";
+        else if (requiredAverageWeight > 3.0) recommendedGrade = "B+";
+        else if (requiredAverageWeight > 2.0) recommendedGrade = "C";
+
+        resultBox.innerHTML = `
+          <span style="color: var(--color-blue-dark); font-weight: 600;"><i class="fas fa-calculator"></i> Hasil Analisis Target:</span><br>
+          Untuk mencapai target IPK Kumulatif <strong>${targetGPA.toFixed(2)}</strong>, maka minimal rata-rata nilai mata kuliah aktif Anda di semester berjalan ini harus setara dengan nilai <strong>${recommendedGrade}</strong> (Bobot rata-rata: ${requiredAverageWeight.toFixed(2)}).
+        `;
       }
     }
   </script>

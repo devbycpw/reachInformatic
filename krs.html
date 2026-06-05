@@ -6,169 +6,212 @@
   <title>Registrasi Matakuliah - Portal Administratif Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Status Badge Khusus untuk Halaman KRS */
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 11px;
+    }
+    .badge-draft {
+      background-color: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+    }
+    .badge-approved {
+      background-color: #D1FAE5;
+      color: #065F46;
+      border: 1px solid #6EE7B7;
+    }
+  </style>
 </head>
 <body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
+  <div class="top-date-bar body-s">
+    <i class="far fa-calendar-alt"></i> <span id="currentDate"></span>
   </div>
 
-  <!-- Header Bar -->
   <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+    <div class="header-info body-m">
+      <div id="studentIdentity"><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
       <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      <div><strong>:: BEBAN SKS MAKSIMAL : 24 SKS</strong></div>
     </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
+    <a href="#" class="logout-btn headline-caps" onclick="logout(); return false;">
       <i class="fas fa-sign-out-alt"></i> Logout
     </a>
   </div>
 
-  <!-- Main Container -->
   <div class="main-container">
-    <!-- Sidebar -->
     <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
-      </ul>
+      <div>
+        <ul class="sidebar-menu headline-m">
+          <li><a href="index.html"><i class="fas fa-th-large"></i> HOME</a></li>
+          <li><a href="#"><i class="fas fa-info-circle"></i> PANDUAN</a></li>
+        </ul>
+        
+        <ul class="sidebar-menu headline-m" style="margin-top: 24px;">
+          <li><a href="krs.html" class="active"><i class="fas fa-edit"></i> REGISTRASI MATAKULIAH</a></li>
+          <li><a href="jadwal-absen.html"><i class="fas fa-calendar-check"></i> JADWAL KULIAH</a></li>
+          <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI (KHS)</a></li>
+        </ul>
+        
+        <ul class="sidebar-menu headline-m" style="margin-top: 24px;">
+          <li><a href="profil.html"><i class="fas fa-user-cog"></i> DATA PRIBADI</a></li>
+          <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
+        </ul>
+      </div>
       
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="krs.html" class="active"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users"></i> 127 user online
+      <div class="online-users headline-caps">
+        <span style="height: 8px; width: 8px; background-color: var(--color-blue-dark); border-radius: 50%; display: inline-block;"></span>
+        127 user online
       </div>
     </aside>
 
-    <!-- Content Area -->
     <main class="content-area">
       <div class="page-header">
-        <i class="fas fa-clipboard-list" style="color: #4CAF50; font-size: 20px;"></i>
-        <h1 class="page-title">KARTU RENCANA STUDI (KRS)</h1>
+        <h1 class="title-l">Kartu Rencana Studi (KRS)</h1>
       </div>
       
-      <div class="krs-status-box">
-        <strong>Total SKS Diambil:</strong> <span id="totalSKS">0</span> / 24 SKS | 
-        <strong>Status KRS:</strong> <span id="krsStatus" class="status-draft">Draft</span>
+      <div class="welcome-box" style="padding: 20px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div class="body-m" style="font-weight: 600; color: var(--color-dark);">
+          Total SKS Diambil: <span id="totalSKS" style="color: var(--color-blue-dark); font-size: 18px; font-weight: 700;">0</span> / 24 SKS
+        </div>
+        <div class="body-m" style="display: flex; align-items: center; gap: 8px;">
+          <span style="color: #78716C;">Status Pengajuan:</span>
+          <span id="krsStatus" class="status-badge badge-draft">Draft</span>
+        </div>
+      </div>
+
+      <div class="welcome-box" style="padding: 24px; border: 1px solid var(--color-blue-light); background-color: #f0f7ff; margin-bottom: 32px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <h4 class="headline-m" style="color: var(--color-blue-dark); margin-bottom: 6px;">
+              <i class="fas fa-magic"></i> Smart Auto-Scheduler & Rekomendasi Paket
+            </h4>
+            <p class="body-s" style="color: #524F4C; max-width: 700px;">
+              Sistem cerdas akan secara otomatis menganalisis dan mengambil paket kombinasi mata kuliah pilihan terbaik semester 3 yang **bebas dari bentrok jadwal** dalam satu kali klik.
+            </p>
+          </div>
+          <button class="btn body-s" style="background-color: var(--color-blue-dark); padding: 10px 20px; border-radius: 6px;" onclick="autoScheduleHandler()">
+            <i class="fas fa-bolt"></i> Ambil Paket Rekomendasi
+          </button>
+        </div>
       </div>
       
-      <h3 class="section-header"><i class="fas fa-list"></i> Mata Kuliah yang Sudah Diambil</h3>
-      <table class="data-table" id="myKRSTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Ruangan</th>
-            <th>Dosen</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="myKRSBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <h3 class="section-header"><i class="fas fa-plus-circle"></i> Daftar Mata Kuliah Tersedia</h3>
-      <table class="data-table" id="availableTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Ruangan</th>
-            <th>Dosen</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="availableBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <div class="action-buttons">
-        <button class="btn" onclick="approveKRSHandler()">
-          <i class="fas fa-check-double"></i> Ajukan Persetujuan KRS
-        </button>
+      <div class="welcome-box" style="padding: 24px; margin-bottom: 32px;">
+        <h3 class="title-s" style="margin-bottom: 16px; color: var(--color-dark);">
+          <i class="fas fa-list" style="color: var(--color-blue-dark); margin-right: 8px;"></i>Mata Kuliah yang Sudah Diambil
+        </h3>
+        <table class="data-table body-m" id="myKRSTable">
+          <thead>
+            <tr class="headline-caps">
+              <th style="width: 50px; text-align: center;">No</th>
+              <th>Kode MK</th>
+              <th>Nama Mata Kuliah</th>
+              <th style="text-align: center; width: 60px;">SKS</th>
+              <th>Hari</th>
+              <th>Jam</th>
+              <th>Ruangan</th>
+              <th>Dosen</th>
+              <th style="text-align: center; width: 100px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="myKRSBody">
+            </tbody>
+        </table>
+
+        <div style="text-align: right; margin-top: 16px;">
+          <button class="btn body-m" style="padding: 12px 24px; background-color: var(--color-dark);" onclick="approveKRSHandler()">
+            <i class="fas fa-check-double"></i> Ajukan Persetujuan KRS
+          </button>
+        </div>
       </div>
       
-      <div class="footer">
+      <div class="welcome-box" style="padding: 24px;">
+        <h3 class="title-s" style="margin-bottom: 16px; color: var(--color-dark);">
+          <i class="fas fa-plus-circle" style="color: var(--color-blue-dark); margin-right: 8px;"></i>Daftar Mata Kuliah Tersedia
+        </h3>
+        <table class="data-table body-m" id="availableTable" style="margin-bottom: 0;">
+          <thead>
+            <tr class="headline-caps">
+              <th style="width: 50px; text-align: center;">No</th>
+              <th>Kode MK</th>
+              <th>Nama Mata Kuliah</th>
+              <th style="text-align: center; width: 60px;">SKS</th>
+              <th>Hari</th>
+              <th>Jam</th>
+              <th>Ruangan</th>
+              <th>Dosen</th>
+              <th style="text-align: center; width: 100px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="availableBody">
+            </tbody>
+        </table>
+      </div>
+
+      <footer class="footer body-s">
         <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
-      </div>
+      </footer>
     </main>
   </div>
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
+    // Check session aktif melalui app.js
     const user = checkSession();
     
     if (user) {
-      // Set current date
+      // Menyetel Tanggal Hari Ini Menggunakan Standar Tanggal Lokal Indonesia
       const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('id-ID', { 
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+      });
       
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      // Memperbarui Komponen Identitas Mahasiswa di Bagian Atas
+      document.getElementById('studentIdentity').innerHTML = `
+        <strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)
       `;
       
       loadKRSData();
     }
     
     function loadKRSData() {
-      // Update stats
+      // Update data statistik SKS diambil
       document.getElementById('totalSKS').textContent = getTotalSKS();
       
+      // Update visual komponen badge status
       const status = getKRSStatus();
       const statusEl = document.getElementById('krsStatus');
       statusEl.textContent = status;
-      statusEl.className = status === 'Disetujui' ? 'status-approved' : 'status-draft';
+      if (status === 'Disetujui') {
+        statusEl.className = 'status-badge badge-approved';
+      } else {
+        statusEl.className = 'status-badge badge-draft';
+      }
       
-      // Load my KRS
+      // Render data tabel Mata Kuliah Diambil (KRS Saya)
       const myKRS = getKRS();
       const myKRSBody = document.getElementById('myKRSBody');
       
       if (myKRS.length === 0) {
-        myKRSBody.innerHTML = '<tr><td colspan="9" class="text-center">Belum ada mata kuliah yang diambil</td></tr>';
+        myKRSBody.innerHTML = '<tr><td colspan="9" class="text-center" style="color: var(--color-gray); padding: 24px;">Belum ada mata kuliah yang diambil</td></tr>';
       } else {
         myKRSBody.innerHTML = '';
         myKRS.forEach((course, index) => {
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td class="text-center">${course.sks}</td>
-            <td>${course.day}</td>
+            <td style="text-align: center; font-weight: 600;">${index + 1}</td>
+            <td style="font-weight: 600; color: var(--color-blue-dark);">${course.code}</td>
+            <td style="font-weight: 600;">${course.name}</td>
+            <td style="text-align: center;">${course.sks}</td>
+            <td><span class="headline-m">${course.day}</span></td>
             <td>${course.time}</td>
-            <td>${course.room}</td>
+            <td><span style="background: #F5F4F3; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">${course.room}</span></td>
             <td>${course.lecturer}</td>
-            <td class="text-center">
-              <button class="btn btn-danger" onclick="dropCourseHandler('${course.code}')">
+            <td style="text-align: center;">
+              <button class="btn body-s" style="padding: 6px 12px; background-color: #ef4444; border-radius: 6px;" onclick="dropCourseHandler('${course.code}')">
                 <i class="fas fa-times"></i> Batal
               </button>
             </td>
@@ -177,28 +220,28 @@
         });
       }
       
-      // Load available courses
+      // Render data tabel Mata Kuliah Tersedia
       const availableCourses = getAvailableCourses();
       const myKRSCodes = JSON.parse(localStorage.getItem('my_krs') || '[]');
       const availableBody = document.getElementById('availableBody');
       
       availableBody.innerHTML = '';
       let availableCount = 0;
-      availableCourses.forEach((course, index) => {
+      availableCourses.forEach((course) => {
         if (!myKRSCodes.includes(course.code)) {
           availableCount++;
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td class="text-center">${availableCount}</td>
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td class="text-center">${course.sks}</td>
-            <td>${course.day}</td>
+            <td style="text-align: center; font-weight: 600;">${availableCount}</td>
+            <td style="font-weight: 600; color: var(--color-blue-dark);">${course.code}</td>
+            <td style="font-weight: 600;">${course.name}</td>
+            <td style="text-align: center;">${course.sks}</td>
+            <td><span class="headline-m">${course.day}</span></td>
             <td>${course.time}</td>
-            <td>${course.room}</td>
+            <td><span style="background: #F5F4F3; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">${course.room}</span></td>
             <td>${course.lecturer}</td>
-            <td class="text-center">
-              <button class="btn" onclick="addCourseHandler('${course.code}')">
+            <td style="text-align: center;">
+              <button class="btn body-s" style="padding: 6px 12px; background-color: var(--color-dark); border-radius: 6px;" onclick="addCourseHandler('${course.code}')">
                 <i class="fas fa-plus"></i> Ambil
               </button>
             </td>
@@ -208,14 +251,13 @@
       });
       
       if (availableCount === 0) {
-        availableBody.innerHTML = '<tr><td colspan="9" class="text-center">Tidak ada mata kuliah tersedia</td></tr>';
+        availableBody.innerHTML = '<tr><td colspan="9" class="text-center" style="color: var(--color-gray); padding: 24px;">Tidak ada mata kuliah tersedia</td></tr>';
       }
     }
     
     function addCourseHandler(courseCode) {
       const result = addCourse(courseCode);
       if (result.success) {
-        alert(result.message);
         loadKRSData();
       } else {
         alert(result.message);
@@ -226,7 +268,6 @@
       if (confirm('Yakin ingin membatalkan mata kuliah ini?')) {
         const result = dropCourse(courseCode);
         if (result.success) {
-          alert(result.message);
           loadKRSData();
         } else {
           alert(result.message);
@@ -241,9 +282,44 @@
         return;
       }
       
-      if (confirm('Ajukan KRS untuk persetujuan?')) {
+      if (confirm('Ajukan KRS untuk persetujuan dosen wali?')) {
         approveKRS();
         alert('KRS berhasil diajukan untuk persetujuan!');
+        loadKRSData();
+      }
+    }
+
+    // Fungsionalitas Logika Fitur Cemerlang: Auto-Scheduler Rekomendasi Paket
+    function autoScheduleHandler() {
+      if (confirm('Sistem akan mendeteksi kombinasi otomatis mata kuliah pilihan semester ini tanpa ada jadwal bentrok. Lanjutkan?')) {
+        const availableCourses = getAvailableCourses();
+        // Reset krs aktif terlebih dahulu untuk menyusun paket optimal dari awal
+        localStorage.setItem('my_krs', JSON.stringify([]));
+        
+        let SKSAdded = 0;
+        availableCourses.forEach(course => {
+          // Tambahkan mata kuliah secara iteratif jika tidak melebihi batas SKS dan tidak bentrok
+          const currentKRS = JSON.parse(localStorage.getItem('my_krs') || '[]');
+          
+          // Memeriksa bentrok jadwal
+          let hasConflict = false;
+          const currentKRSObjects = availableCourses.filter(c => currentKRS.includes(c.code));
+          for (const activeCourse of currentKRSObjects) {
+            if (activeCourse.day === course.day && activeCourse.time === course.time) {
+              hasConflict = true;
+              break;
+            }
+          }
+          
+          if (!hasConflict && (SKSAdded + course.sks <= 24)) {
+            currentKRS.push(course.code);
+            localStorage.setItem('my_krs', JSON.stringify(currentKRS));
+            SKSAdded += course.sks;
+          }
+        });
+        
+        localStorage.setItem('krs_status', JSON.stringify('Draft'));
+        alert(`Sukses! Sistem berhasil menyusun paket rekomendasi otomatis sebanyak ${SKSAdded} SKS yang bebas dari bentrok jadwal.`);
         loadKRSData();
       }
     }

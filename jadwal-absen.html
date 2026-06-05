@@ -8,144 +8,141 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
+  <div class="top-date-bar body-s">
+    <i class="far fa-calendar-alt"></i> <span id="currentDate"></span>
   </div>
 
-  <!-- Header Bar -->
   <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+    <div class="header-info body-m">
+      <div id="studentIdentity"><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
       <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      <div><strong>:: BEBAN SKS MAKSIMAL : 24 SKS</strong></div>
     </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
+    <a href="#" class="logout-btn headline-caps" onclick="logout(); return false;">
       <i class="fas fa-sign-out-alt"></i> Logout
     </a>
   </div>
 
-  <!-- Main Container -->
   <div class="main-container">
-    <!-- Sidebar -->
     <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
-      </ul>
+      <div>
+        <ul class="sidebar-menu headline-m">
+          <li><a href="index.html"><i class="fas fa-th-large"></i> HOME</a></li>
+          <li><a href="#"><i class="fas fa-info-circle"></i> PANDUAN</a></li>
+        </ul>
+        
+        <ul class="sidebar-menu headline-m" style="margin-top: 24px;">
+          <li><a href="krs.html"><i class="fas fa-edit"></i> REGISTRASI MATAKULIAH</a></li>
+          <li><a href="jadwal-absen.html" class="active"><i class="fas fa-calendar-check"></i> JADWAL KULIAH</a></li>
+          <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI (KHS)</a></li>
+        </ul>
+        
+        <ul class="sidebar-menu headline-m" style="margin-top: 24px;">
+          <li><a href="profil.html"><i class="fas fa-user-cog"></i> DATA PRIBADI</a></li>
+          <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
+        </ul>
+      </div>
       
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="krs.html"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html" class="active"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users"></i> 127 user online
+      <div class="online-users headline-caps">
+        <span style="height: 8px; width: 8px; background-color: var(--color-blue-dark); border-radius: 50%; display: inline-block;"></span>
+        127 user online
       </div>
     </aside>
 
-    <!-- Content Area -->
     <main class="content-area">
       <div class="page-header">
-        <i class="fas fa-calendar-alt" style="color: #4CAF50; font-size: 20px;"></i>
-        <h1 class="page-title">JADWAL KULIAH & PRESENSI</h1>
+        <h1 class="title-l">Jadwal Kuliah & Presensi</h1>
       </div>
       
-      <h3 class="section-header"><i class="fas fa-table"></i> Jadwal Kuliah Semester Ini</h3>
-      <table class="data-table" id="scheduleTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Ruangan</th>
-            <th>Dosen</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="scheduleBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <h3 class="section-header"><i class="fas fa-history"></i> Riwayat Absensi</h3>
-      <table class="data-table" id="attendanceTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="attendanceBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <div class="footer">
+      <div class="welcome-box">
+        <h3 class="title-s" style="margin-bottom: 16px; color: var(--color-dark);">
+          <i class="fas fa-table" style="color: var(--color-blue-dark); margin-right: 8px;"></i>Jadwal Kuliah Semester Ini
+        </h3>
+        <table class="data-table body-m" id="scheduleTable">
+          <thead>
+            <tr class="headline-caps">
+              <th style="width: 60px; text-align: center;">No</th>
+              <th>Hari</th>
+              <th>Jam</th>
+              <th>Kode MK</th>
+              <th>Nama Mata Kuliah</th>
+              <th style="text-align: center;">SKS</th>
+              <th>Ruangan</th>
+              <th>Dosen</th>
+              <th style="text-align: center; width: 120px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleBody">
+            </tbody>
+        </table>
+        
+        <h3 class="title-s" style="margin: 32px 0 16px 0; color: var(--color-dark);">
+          <i class="fas fa-history" style="color: var(--color-blue-dark); margin-right: 8px;"></i>Riwayat Absensi
+        </h3>
+        <table class="data-table body-m" id="attendanceTable">
+          <thead>
+            <tr class="headline-caps">
+              <th style="width: 60px; text-align: center;">No</th>
+              <th>Tanggal</th>
+              <th>Kode MK</th>
+              <th>Nama Mata Kuliah</th>
+              <th style="text-align: center; width: 150px;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="attendanceBody">
+            </tbody>
+        </table>
+      </div>
+
+      <footer class="footer body-s">
         <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
-      </div>
+      </footer>
     </main>
   </div>
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
+    // Check session aktif melalui app.js
     const user = checkSession();
     
     if (user) {
-      // Set current date
+      // Menyetel Tanggal Hari Ini Menggunakan Standar Tanggal Lokal Indonesia
       const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('id-ID', { 
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+      });
       
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      // Memperbarui Komponen Identitas Mahasiswa di Bagian Atas
+      document.getElementById('studentIdentity').innerHTML = `
+        <strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)
       `;
       
-      // Load schedule
+      // Load schedule data
       const krs = getKRS();
       const scheduleBody = document.getElementById('scheduleBody');
       
       if (krs.length === 0) {
-        scheduleBody.innerHTML = '<tr><td colspan="9" class="text-center">Belum ada mata kuliah yang diambil</td></tr>';
+        scheduleBody.innerHTML = '<tr><td colspan="9" class="text-center" style="color: var(--color-gray); padding: 24px;">Belum ada mata kuliah yang diambil</td></tr>';
       } else {
-        // Sort by day
+        // Urutkan berdasarkan hari
         const dayOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
         krs.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
         
+        scheduleBody.innerHTML = '';
         krs.forEach((course, index) => {
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td>${course.day}</td>
+            <td style="text-align: center; font-weight: 600;">${index + 1}</td>
+            <td><span class="headline-m">${course.day}</span></td>
             <td>${course.time}</td>
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td class="text-center">${course.sks}</td>
-            <td>${course.room}</td>
+            <td style="font-weight: 600; color: var(--color-blue-dark);">${course.code}</td>
+            <td style="font-weight: 600;">${course.name}</td>
+            <td style="text-align: center;">${course.sks}</td>
+            <td><span style="background: #F5F4F3; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">${course.room}</span></td>
             <td>${course.lecturer}</td>
-            <td class="text-center">
-              <button class="btn" onclick="attendClass('${course.code}')">
-                <i class="fas fa-check"></i> Absen
+            <td style="text-align: center;">
+              <button class="btn body-s" style="padding: 6px 16px; background-color: var(--color-dark);" onclick="attendClass('${course.code}')">
+                <i class="fas fa-check" style="margin-right: 4px;"></i> Absen
               </button>
             </td>
           `;
@@ -172,7 +169,7 @@
       const attendanceBody = document.getElementById('attendanceBody');
       
       if (attendanceLog.length === 0) {
-        attendanceBody.innerHTML = '<tr><td colspan="5" class="text-center">Belum ada riwayat absensi</td></tr>';
+        attendanceBody.innerHTML = '<tr><td colspan="5" class="text-center" style="color: var(--color-gray); padding: 24px;">Belum ada riwayat absensi</td></tr>';
       } else {
         // Sort by date (newest first)
         const sortedLog = [...attendanceLog].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -182,11 +179,15 @@
           const course = getCourseByCode(log.courseCode);
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
+            <td style="text-align: center; font-weight: 600;">${index + 1}</td>
             <td>${formatDate(log.date)}</td>
-            <td>${log.courseCode}</td>
-            <td>${course ? course.name : '-'}</td>
-            <td class="text-center"><span style="color: #4CAF50;"><i class="fas fa-check-circle"></i> ${log.status}</span></td>
+            <td style="font-weight: 600; color: var(--color-blue-dark);">${log.courseCode}</td>
+            <td style="font-weight: 600;">${course ? course.name : '-'}</td>
+            <td style="text-align: center;">
+              <span class="headline-m" style="color: #0077E6; display: inline-flex; align-items: center; gap: 6px;">
+                <i class="fas fa-check-circle"></i> ${log.status}
+              </span>
+            </td>
           `;
           attendanceBody.appendChild(row);
         });
