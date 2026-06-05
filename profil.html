@@ -4,174 +4,247 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Pribadi - Portal Administratif Mahasiswa</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    
+    /* Toast Notification styles */
+    #toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 100;
+    }
+    .toast {
+      transition: all 0.3s ease-in-out;
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
 </head>
-<body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
-  </div>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
 
-  <!-- Header Bar -->
-  <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-    </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
-      <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
-  </div>
+  <!-- Sidebar Component Placeholder -->
+  <div id="sidebar-container"></div>
 
-  <!-- Main Container -->
-  <div class="main-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="krs.html"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="profil.html" class="active"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users"></i> 127 user online
-      </div>
-    </aside>
+  <!-- Main Layout -->
+  <div class="md:pl-20 transition-all duration-300 min-h-screen flex flex-col pb-16 md:pb-0">
+    <!-- Header Component Placeholder -->
+    <div id="header-container"></div>
 
     <!-- Content Area -->
-    <main class="content-area">
-      <div class="page-header">
-        <i class="fas fa-user" style="color: #4CAF50; font-size: 20px;"></i>
-        <h1 class="page-title">DATA PRIBADI MAHASISWA</h1>
-      </div>
+    <main class="flex-1 p-4 md:p-6 max-w-4xl mx-auto w-full">
       
-      <div class="info-box">
-        <p class="info-text">
-          UNTUK KEPERLUAN ADMINISTRASI ANDA, SILAHKAN UPDATE ISIAN DI BAWAH INI. 
-          DATA INI DIPERGUNAKAN UNTUK SYARAT PELAPORAN KE DIREKTORAT JENDERAL PENDIDIKAN TINGGI (DIKTI).
-          <strong>KARENA PENTINGNYA DATA KEPENDUDUKAN MAHASISWA DALAM PELAPORAN PD DIKTI DAN VERIFIKASI KEBSAHAN IJAZAH, 
-          MAKA WAJIB MELAKUKAN PENGISIAN NIK DAN NOMOR KK SECARA BENAR</strong>
-        </p>
+      <!-- Page Header -->
+      <div class="mb-6 md:mb-8">
+        <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+          <i class="ph-fill ph-user-circle text-indigo-600"></i>
+          Data Pribadi Mahasiswa
+        </h2>
+        <p class="text-sm text-slate-500 mt-1">Perbarui informasi kependudukan dan detail bank Anda.</p>
       </div>
-      
-      <form id="profileForm">
-        <table class="form-table">
-          <tr>
-            <td>NIM</td>
-            <td>:</td>
-            <td><input type="text" id="nim" name="nim" readonly></td>
-          </tr>
-          <tr>
-            <td>Nama Lengkap</td>
-            <td>:</td>
-            <td><input type="text" id="name" name="name" required></td>
-          </tr>
-          <tr>
-            <td>Alamat</td>
-            <td>:</td>
-            <td><input type="text" id="address" name="address" required></td>
-          </tr>
-          <tr>
-            <td>No. Telepon / Handphone</td>
-            <td>:</td>
-            <td><input type="tel" id="phone" name="phone" required></td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td>:</td>
-            <td><input type="email" id="email" name="email" placeholder="email@student.univ.ac.id"></td>
-          </tr>
-          <tr>
-            <td>Nama Bank</td>
-            <td>:</td>
-            <td><input type="text" id="bank" name="bank" required></td>
-          </tr>
-          <tr>
-            <td>Nomor Rekening</td>
-            <td>:</td>
-            <td><input type="text" id="accountNumber" name="accountNumber" required></td>
-          </tr>
-          <tr>
-            <td>Atas Nama Rekening</td>
-            <td>:</td>
-            <td><input type="text" id="accountName" name="accountName" required></td>
-          </tr>
-          <tr>
-            <td>Hubungan Dengan Pemilik Rekening</td>
-            <td>:</td>
-            <td><input type="text" id="accountRelation" name="accountRelation" value="Saya sendiri"></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td>
-              <button type="submit" class="btn">
-                <i class="fas fa-save"></i> Simpan
-              </button>
-            </td>
-          </tr>
-        </table>
+
+      <!-- Alert Box -->
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6 md:mb-8 flex gap-4">
+        <i class="ph-fill ph-warning-circle text-2xl text-amber-600 shrink-0 mt-0.5"></i>
+        <div>
+          <h3 class="font-bold text-amber-800">Perhatian Penting</h3>
+          <p class="text-sm text-amber-700 mt-1 leading-relaxed">
+            Data ini dipergunakan untuk syarat pelaporan ke Direktorat Jenderal Pendidikan Tinggi (DIKTI).
+            <strong>Karena pentingnya data kependudukan dalam verifikasi keabsahan ijazah, wajib mengisi data secara benar.</strong>
+          </p>
+        </div>
+      </div>
+
+      <form id="profileForm" class="space-y-6">
+        
+        <!-- Section 1: Informasi Akademik (Read Only) -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex items-center gap-2">
+             <i class="ph-fill ph-student text-slate-400"></i>
+             <h3 class="font-semibold text-slate-800">Informasi Akademik</h3>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">NIM (Nomor Induk Mahasiswa)</label>
+                <input type="text" id="nim" name="nim" readonly class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 font-medium focus:outline-none cursor-not-allowed">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Program Studi</label>
+                <input type="text" value="Teknik Informatika" readonly class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 font-medium focus:outline-none cursor-not-allowed">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Data Diri -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex items-center gap-2">
+             <i class="ph-fill ph-identification-card text-slate-400"></i>
+             <h3 class="font-semibold text-slate-800">Data Diri & Kontak</h3>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="md:col-span-2">
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Nama Lengkap</label>
+                <input type="text" id="name" name="name" required class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+              </div>
+              
+              <div class="md:col-span-2">
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Alamat Domisili</label>
+                <textarea id="address" name="address" required rows="3" class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all resize-none"></textarea>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Nomor Telepon / HP</label>
+                <input type="tel" id="phone" name="phone" required class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Email Universitas</label>
+                <input type="email" id="email" name="email" placeholder="nama@student.univ.ac.id" class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Data Bank -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex items-center gap-2">
+             <i class="ph-fill ph-bank text-slate-400"></i>
+             <h3 class="font-semibold text-slate-800">Data Rekening Bank</h3>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Nama Bank</label>
+                <input type="text" id="bank" name="bank" required placeholder="BCA, Mandiri, BNI, dll" class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Nomor Rekening</label>
+                <input type="text" id="accountNumber" name="accountNumber" required class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Atas Nama Rekening</label>
+                <input type="text" id="accountName" name="accountName" required class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+              </div>
+              
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Hubungan dengan Pemilik</label>
+                <select id="accountRelation" name="accountRelation" class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                  <option value="Saya sendiri">Saya Sendiri</option>
+                  <option value="Orang Tua">Orang Tua</option>
+                  <option value="Wali">Wali</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Action -->
+        <div class="flex justify-end pt-4 pb-8">
+          <button type="submit" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-sm shadow-indigo-200 transition-all flex items-center gap-2">
+            <i class="ph-bold ph-floppy-disk"></i> Simpan Perubahan
+          </button>
+        </div>
+
       </form>
       
-      <div class="info-box" style="margin-top: 20px; background-color: #e3f2fd; border-color: #2196F3;">
-        <p class="info-text" style="font-size: 10px; color: #666;">
-          <i class="fas fa-info-circle" style="color: #2196F3;"></i> 
-          Demi kelancaran pengiriman email dari Bagian Administrasi Akademik, silahkan menggunakan email student.univ.ac.id yang telah diberikan.<br>
-          Bagian Administrasi Akademik tidak bertanggung jawab, apabila data yang anda berikan salah.
-        </p>
-      </div>
-      
-      <div class="footer">
-        <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
-      </div>
     </main>
   </div>
 
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
   <script src="assets/app.js"></script>
   <script>
-    // Check session
-    const user = checkSession();
-    
-    if (user) {
-      // Set current date
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Initialize Layout
+      await initLayout();
+
+      // 2. Check Session
+      const user = checkSession();
+      if (!user) return;
+
+      // 3. Update Page Header
+      updatePageHeader('Profil Saya');
+
+      // 4. Update Header Date
       const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateEl = document.getElementById('header-date');
+      if (dateEl) dateEl.textContent = now.toLocaleDateString('id-ID', options);
       
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-      `;
-      
-      // Load profile data
+      // Load initial header info
+      updateHeaderUser(user.name, user.nim);
+
+      // 5. Load profile data into form
       const profile = getProfile();
       document.getElementById('nim').value = profile.nim || '';
       document.getElementById('name').value = profile.name || '';
       document.getElementById('address').value = profile.address || '';
       document.getElementById('phone').value = profile.phone || '';
+      // Mock email if not present
+      document.getElementById('email').value = profile.email || `${profile.nim}@student.univ.ac.id`;
       document.getElementById('bank').value = profile.bank || '';
       document.getElementById('accountNumber').value = profile.accountNumber || '';
       document.getElementById('accountName').value = profile.accountName || '';
+    });
+
+    function updateHeaderUser(name, nim) {
+      const nameEl = document.getElementById('header-user-name');
+      const nimEl = document.getElementById('header-user-nim');
+      if (nameEl) nameEl.textContent = name;
+      if (nimEl) nimEl.textContent = nim;
     }
-    
+
+    function showToast(message, isSuccess = true) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      const bgColor = isSuccess ? 'bg-emerald-50 border-emerald-200' : 'bg-red-50 border-red-200';
+      const textColor = isSuccess ? 'text-emerald-800' : 'text-red-800';
+      const icon = isSuccess ? 'ph-check-circle text-emerald-600' : 'ph-x-circle text-red-600';
+      
+      toast.className = `toast flex items-center gap-3 px-4 py-3 rounded-xl border shadow-lg mb-3 ${bgColor} ${textColor}`;
+      toast.innerHTML = `
+        <i class="ph-fill ${icon} text-xl"></i>
+        <span class="font-medium text-sm">${message}</span>
+      `;
+      
+      container.appendChild(toast);
+      
+      // Animate in
+      setTimeout(() => toast.classList.add('show'), 10);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
     // Handle form submission
     document.getElementById('profileForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -181,30 +254,29 @@
         name: document.getElementById('name').value,
         address: document.getElementById('address').value,
         phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
         bank: document.getElementById('bank').value,
         accountNumber: document.getElementById('accountNumber').value,
         accountName: document.getElementById('accountName').value
       };
       
       const result = updateProfile(profileData);
+      
       if (result.success) {
-        alert(result.message);
+        showToast('Profil berhasil disimpan!', true);
+        
         // Update session name if changed
         const session = getCurrentUser();
         if (session && session.name !== profileData.name) {
           session.name = profileData.name;
           session.loginAt = new Date().toISOString();
           localStorage.setItem('active_session', JSON.stringify(session));
+          
+          // Update header display
+          updateHeaderUser(profileData.name, profileData.nim);
         }
-        // Update header
-        const headerInfo = document.querySelector('.header-info');
-        headerInfo.innerHTML = `
-          <div><strong>:: ${profileData.nim} - ${profileData.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-          <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-          <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-        `;
       } else {
-        alert('Gagal memperbarui profil');
+        showToast('Gagal memperbarui profil', false);
       }
     });
   </script>

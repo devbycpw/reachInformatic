@@ -292,3 +292,64 @@ function getCourseByCode(code) {
 
 // Initialize data on script load
 initMockData();
+
+// ============================================
+// MODULAR LAYOUT INJECTION
+// ============================================
+
+async function loadComponent(id, url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Failed to load ${url}`);
+    const html = await response.text();
+    document.getElementById(id).innerHTML = html;
+  } catch (error) {
+    console.error('Error loading component:', error);
+  }
+}
+
+async function initLayout() {
+  await Promise.all([
+    loadComponent('sidebar-container', 'components/sidebar.html'),
+    loadComponent('header-container', 'components/header.html')
+  ]);
+  setActiveMenu();
+}
+
+function updatePageHeader(title) {
+  const titleEl = document.getElementById('header-page-title');
+  if (titleEl) titleEl.textContent = title;
+}
+
+function setActiveMenu() {
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  
+  // Desktop
+  const desktopLinks = document.querySelectorAll('.nav-link');
+  desktopLinks.forEach(link => {
+    if (link.getAttribute('data-page') === currentPath) {
+      link.classList.add('bg-indigo-50', 'text-indigo-600', 'border-indigo-600');
+      link.classList.remove('text-slate-500', 'border-transparent');
+      // Update icon classes if needed
+      const icon = link.querySelector('i');
+      if (icon) {
+        icon.classList.remove('ph');
+        icon.classList.add('ph-fill');
+      }
+    }
+  });
+
+  // Mobile
+  const mobileLinks = document.querySelectorAll('.nav-link-mobile');
+  mobileLinks.forEach(link => {
+    if (link.getAttribute('data-page') === currentPath) {
+      link.classList.add('text-indigo-600');
+      link.classList.remove('text-slate-400');
+      const icon = link.querySelector('i');
+      if (icon) {
+        icon.classList.remove('ph');
+        icon.classList.add('ph-fill');
+      }
+    }
+  });
+}

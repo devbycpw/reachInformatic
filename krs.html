@@ -3,173 +3,223 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrasi Matakuliah - Portal Administratif Mahasiswa</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>KRS - Portal Administratif Mahasiswa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    /* Hide scrollbar for clean table overflow */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
 </head>
-<body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
-  </div>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
 
-  <!-- Header Bar -->
-  <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-    </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
-      <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
-  </div>
+  <!-- Sidebar Component Placeholder -->
+  <div id="sidebar-container"></div>
 
-  <!-- Main Container -->
-  <div class="main-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="krs.html" class="active"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users"></i> 127 user online
-      </div>
-    </aside>
+  <!-- Main Layout -->
+  <div class="md:pl-20 transition-all duration-300 min-h-screen flex flex-col pb-16 md:pb-0">
+    <!-- Header Component Placeholder -->
+    <div id="header-container"></div>
 
     <!-- Content Area -->
-    <main class="content-area">
-      <div class="page-header">
-        <i class="fas fa-clipboard-list" style="color: #4CAF50; font-size: 20px;"></i>
-        <h1 class="page-title">KARTU RENCANA STUDI (KRS)</h1>
+    <main class="flex-1 p-4 md:p-6 max-w-7xl mx-auto w-full">
+      
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+            <i class="ph-fill ph-books text-indigo-600"></i>
+            Kartu Rencana Studi (KRS)
+          </h2>
+          <p class="text-sm text-slate-500 mt-1">Pilih dan kelola mata kuliah untuk semester berjalan.</p>
+        </div>
+        
+        <!-- Status Box -->
+        <div class="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+          <div>
+            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Total SKS</p>
+            <p class="text-lg font-bold text-slate-800 leading-none mt-1"><span id="totalSKS">0</span> <span class="text-sm font-medium text-slate-400">/ 24</span></p>
+          </div>
+          <div class="w-px h-8 bg-slate-200"></div>
+          <div>
+            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Status</p>
+            <div class="mt-1" id="krsStatusBadge">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
       </div>
-      
-      <div class="krs-status-box">
-        <strong>Total SKS Diambil:</strong> <span id="totalSKS">0</span> / 24 SKS | 
-        <strong>Status KRS:</strong> <span id="krsStatus" class="status-draft">Draft</span>
-      </div>
-      
-      <h3 class="section-header"><i class="fas fa-list"></i> Mata Kuliah yang Sudah Diambil</h3>
-      <table class="data-table" id="myKRSTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Ruangan</th>
-            <th>Dosen</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="myKRSBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <h3 class="section-header"><i class="fas fa-plus-circle"></i> Daftar Mata Kuliah Tersedia</h3>
-      <table class="data-table" id="availableTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Ruangan</th>
-            <th>Dosen</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="availableBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <div class="action-buttons">
-        <button class="btn" onclick="approveKRSHandler()">
-          <i class="fas fa-check-double"></i> Ajukan Persetujuan KRS
+
+      <!-- Action Banner -->
+      <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 md:p-5 mb-6 md:mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
+            <i class="ph-fill ph-info text-xl"></i>
+          </div>
+          <div>
+            <h3 class="font-semibold text-indigo-900">Pengisian KRS Aktif</h3>
+            <p class="text-xs md:text-sm text-indigo-700 mt-0.5">Pastikan tidak ada jadwal yang bentrok sebelum mengajukan persetujuan.</p>
+          </div>
+        </div>
+        <button onclick="approveKRSHandler()" class="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-xl shadow-sm transition-colors flex items-center justify-center gap-2">
+          <i class="ph-bold ph-check-circle"></i> Ajukan KRS
         </button>
       </div>
-      
-      <div class="footer">
-        <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
+
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 md:gap-8">
+        <!-- My KRS Table -->
+        <div class="xl:col-span-7 space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-6 bg-indigo-500 rounded-full"></div>
+            <h3 class="text-lg font-bold text-slate-800">Mata Kuliah Diambil</h3>
+          </div>
+          
+          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            <div class="overflow-x-auto no-scrollbar">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                    <th class="px-4 py-3 text-center w-12">No</th>
+                    <th class="px-4 py-3">Mata Kuliah</th>
+                    <th class="px-4 py-3">Jadwal</th>
+                    <th class="px-4 py-3 text-center w-24">SKS</th>
+                    <th class="px-4 py-3 text-center w-24">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="myKRSBody" class="divide-y divide-slate-100 text-sm">
+                  <!-- Will be filled by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Available Courses Table -->
+        <div class="xl:col-span-5 space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-6 bg-slate-300 rounded-full"></div>
+            <h3 class="text-lg font-bold text-slate-800">Mata Kuliah Tersedia</h3>
+          </div>
+          
+          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            <div class="overflow-x-auto no-scrollbar">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                    <th class="px-4 py-3">Mata Kuliah</th>
+                    <th class="px-4 py-3 text-center w-20">SKS</th>
+                    <th class="px-4 py-3 text-center w-24">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="availableBody" class="divide-y divide-slate-100 text-sm">
+                  <!-- Will be filled by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
+      
     </main>
   </div>
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
-    const user = checkSession();
-    
-    if (user) {
-      // Set current date
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Initialize Layout
+      await initLayout();
+
+      // 2. Check Session
+      const user = checkSession();
+      if (!user) return;
+
+      // 3. Update Page Header details via app.js helper
+      updatePageHeader('KRS');
+
+      // 4. Update Header User Info & Date (Manual injection because app.js doesn't expose a global header updater yet)
       const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateEl = document.getElementById('header-date');
+      if (dateEl) dateEl.textContent = now.toLocaleDateString('id-ID', options);
       
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-      `;
-      
+      const nameEl = document.getElementById('header-user-name');
+      const nimEl = document.getElementById('header-user-nim');
+      if (nameEl) nameEl.textContent = user.name;
+      if (nimEl) nimEl.textContent = user.nim;
+
+      // 5. Load Initial Data
       loadKRSData();
-    }
-    
+    });
+
     function loadKRSData() {
-      // Update stats
+      // Update Total SKS
       document.getElementById('totalSKS').textContent = getTotalSKS();
       
+      // Update Status Badge
       const status = getKRSStatus();
-      const statusEl = document.getElementById('krsStatus');
-      statusEl.textContent = status;
-      statusEl.className = status === 'Disetujui' ? 'status-approved' : 'status-draft';
+      const badgeContainer = document.getElementById('krsStatusBadge');
+      if (status === 'Disetujui') {
+        badgeContainer.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 border border-emerald-200"><i class="ph-fill ph-check-circle"></i> Disetujui</span>`;
+      } else {
+        badgeContainer.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 border border-amber-200"><i class="ph-fill ph-clock"></i> Draft</span>`;
+      }
       
-      // Load my KRS
+      // Load My KRS
       const myKRS = getKRS();
       const myKRSBody = document.getElementById('myKRSBody');
       
       if (myKRS.length === 0) {
-        myKRSBody.innerHTML = '<tr><td colspan="9" class="text-center">Belum ada mata kuliah yang diambil</td></tr>';
+        myKRSBody.innerHTML = `
+          <tr>
+            <td colspan="5" class="px-6 py-12 text-center">
+              <div class="flex flex-col items-center justify-center text-slate-400">
+                <i class="ph-fill ph-empty text-4xl mb-2 text-slate-300"></i>
+                <p>Belum ada mata kuliah yang diambil</p>
+              </div>
+            </td>
+          </tr>`;
       } else {
         myKRSBody.innerHTML = '';
         myKRS.forEach((course, index) => {
           const row = document.createElement('tr');
+          row.className = "hover:bg-slate-50 transition-colors group";
           row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td class="text-center">${course.sks}</td>
-            <td>${course.day}</td>
-            <td>${course.time}</td>
-            <td>${course.room}</td>
-            <td>${course.lecturer}</td>
-            <td class="text-center">
-              <button class="btn btn-danger" onclick="dropCourseHandler('${course.code}')">
-                <i class="fas fa-times"></i> Batal
+            <td class="px-4 py-3 text-center text-slate-500 font-medium">${index + 1}</td>
+            <td class="px-4 py-3">
+              <p class="font-semibold text-slate-800">${course.name}</p>
+              <p class="text-xs text-slate-500 mt-0.5">${course.code} • ${course.lecturer}</p>
+            </td>
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-1.5 text-slate-700">
+                <i class="ph ph-calendar-blank text-slate-400"></i>
+                <span>${course.day}, ${course.time}</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs text-slate-500 mt-0.5">
+                <i class="ph ph-map-pin"></i>
+                <span>${course.room}</span>
+              </div>
+            </td>
+            <td class="px-4 py-3 text-center">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 font-bold">${course.sks}</span>
+            </td>
+            <td class="px-4 py-3 text-center">
+              <button onclick="dropCourseHandler('${course.code}')" class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors group-hover:opacity-100 focus:outline-none" title="Batal">
+                <i class="ph-bold ph-trash text-lg"></i>
               </button>
             </td>
           `;
@@ -177,29 +227,30 @@
         });
       }
       
-      // Load available courses
+      // Load Available Courses
       const availableCourses = getAvailableCourses();
       const myKRSCodes = JSON.parse(localStorage.getItem('my_krs') || '[]');
       const availableBody = document.getElementById('availableBody');
       
       availableBody.innerHTML = '';
       let availableCount = 0;
-      availableCourses.forEach((course, index) => {
+      availableCourses.forEach((course) => {
         if (!myKRSCodes.includes(course.code)) {
           availableCount++;
           const row = document.createElement('tr');
+          row.className = "hover:bg-slate-50 transition-colors";
           row.innerHTML = `
-            <td class="text-center">${availableCount}</td>
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td class="text-center">${course.sks}</td>
-            <td>${course.day}</td>
-            <td>${course.time}</td>
-            <td>${course.room}</td>
-            <td>${course.lecturer}</td>
-            <td class="text-center">
-              <button class="btn" onclick="addCourseHandler('${course.code}')">
-                <i class="fas fa-plus"></i> Ambil
+            <td class="px-4 py-3">
+              <p class="font-semibold text-slate-800">${course.name}</p>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-medium">${course.code}</span>
+                <span class="text-xs text-slate-500 truncate">${course.day}, ${course.time}</span>
+              </div>
+            </td>
+            <td class="px-4 py-3 text-center font-medium text-slate-700">${course.sks}</td>
+            <td class="px-4 py-3 text-center">
+              <button onclick="addCourseHandler('${course.code}')" class="px-3 py-1.5 bg-white border border-slate-200 text-indigo-600 text-xs font-semibold rounded-lg hover:bg-indigo-50 hover:border-indigo-200 transition-colors shadow-sm">
+                Ambil
               </button>
             </td>
           `;
@@ -208,14 +259,19 @@
       });
       
       if (availableCount === 0) {
-        availableBody.innerHTML = '<tr><td colspan="9" class="text-center">Tidak ada mata kuliah tersedia</td></tr>';
+        availableBody.innerHTML = `
+          <tr>
+            <td colspan="3" class="px-4 py-8 text-center text-slate-400 text-sm">
+              Semua mata kuliah sudah diambil.
+            </td>
+          </tr>`;
       }
     }
     
     function addCourseHandler(courseCode) {
       const result = addCourse(courseCode);
       if (result.success) {
-        alert(result.message);
+        // Optional: Replace alert with a custom toast notification in a real app
         loadKRSData();
       } else {
         alert(result.message);
@@ -226,7 +282,6 @@
       if (confirm('Yakin ingin membatalkan mata kuliah ini?')) {
         const result = dropCourse(courseCode);
         if (result.success) {
-          alert(result.message);
           loadKRSData();
         } else {
           alert(result.message);

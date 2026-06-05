@@ -3,164 +3,198 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jadwal Kuliah - Portal Administratif Mahasiswa</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Jadwal Kuliah & Absen - Portal Administratif Mahasiswa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
 </head>
-<body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
-  </div>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
 
-  <!-- Header Bar -->
-  <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-    </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
-      <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
-  </div>
+  <!-- Sidebar Component Placeholder -->
+  <div id="sidebar-container"></div>
 
-  <!-- Main Container -->
-  <div class="main-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="krs.html"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html" class="active"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users"></i> 127 user online
-      </div>
-    </aside>
+  <!-- Main Layout -->
+  <div class="md:pl-20 transition-all duration-300 min-h-screen flex flex-col pb-16 md:pb-0">
+    <!-- Header Component Placeholder -->
+    <div id="header-container"></div>
 
     <!-- Content Area -->
-    <main class="content-area">
-      <div class="page-header">
-        <i class="fas fa-calendar-alt" style="color: #4CAF50; font-size: 20px;"></i>
-        <h1 class="page-title">JADWAL KULIAH & PRESENSI</h1>
+    <main class="flex-1 p-4 md:p-6 max-w-7xl mx-auto w-full">
+      
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+            <i class="ph-fill ph-calendar-check text-indigo-600"></i>
+            Jadwal Kuliah & Presensi
+          </h2>
+          <p class="text-sm text-slate-500 mt-1">Lihat jadwal harian dan catat kehadiran Anda.</p>
+        </div>
+        
+        <!-- Summary Box -->
+        <div class="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+          <div class="flex items-center gap-3">
+             <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+               <i class="ph-fill ph-clock-counter-clockwise text-xl"></i>
+             </div>
+             <div>
+               <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Total Kehadiran</p>
+               <p class="text-lg font-bold text-slate-800 leading-none mt-1" id="totalAttendance">0</p>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 md:gap-8">
+        <!-- Schedule Table -->
+        <div class="xl:col-span-8 space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-6 bg-blue-500 rounded-full"></div>
+            <h3 class="text-lg font-bold text-slate-800">Jadwal Minggu Ini</h3>
+          </div>
+          
+          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            <div class="overflow-x-auto no-scrollbar">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                    <th class="px-4 py-3">Hari & Jam</th>
+                    <th class="px-4 py-3">Mata Kuliah</th>
+                    <th class="px-4 py-3">Ruangan</th>
+                    <th class="px-4 py-3 text-center w-28">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="scheduleBody" class="divide-y divide-slate-100 text-sm">
+                  <!-- Will be filled by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attendance History -->
+        <div class="xl:col-span-4 space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-6 bg-emerald-500 rounded-full"></div>
+            <h3 class="text-lg font-bold text-slate-800">Riwayat Absensi</h3>
+          </div>
+          
+          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-2">
+            <ul id="attendanceList" class="divide-y divide-slate-100 max-h-[500px] overflow-y-auto no-scrollbar">
+              <!-- Will be filled by JavaScript -->
+            </ul>
+          </div>
+        </div>
       </div>
       
-      <h3 class="section-header"><i class="fas fa-table"></i> Jadwal Kuliah Semester Ini</h3>
-      <table class="data-table" id="scheduleTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Ruangan</th>
-            <th>Dosen</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="scheduleBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <h3 class="section-header"><i class="fas fa-history"></i> Riwayat Absensi</h3>
-      <table class="data-table" id="attendanceTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="attendanceBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <div class="footer">
-        <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
-      </div>
     </main>
   </div>
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
-    const user = checkSession();
-    
-    if (user) {
-      // Set current date
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Initialize Layout
+      await initLayout();
+
+      // 2. Check Session
+      const user = checkSession();
+      if (!user) return;
+
+      // 3. Update Page Header
+      updatePageHeader('Jadwal & Absen');
+
+      // 4. Update Header User Info & Date
       const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateEl = document.getElementById('header-date');
+      if (dateEl) dateEl.textContent = now.toLocaleDateString('id-ID', options);
       
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-      `;
-      
-      // Load schedule
+      const nameEl = document.getElementById('header-user-name');
+      const nimEl = document.getElementById('header-user-nim');
+      if (nameEl) nameEl.textContent = user.name;
+      if (nimEl) nimEl.textContent = user.nim;
+
+      // 5. Load Data
+      loadSchedule();
+      loadAttendanceHistory();
+    });
+
+    function loadSchedule() {
       const krs = getKRS();
       const scheduleBody = document.getElementById('scheduleBody');
       
       if (krs.length === 0) {
-        scheduleBody.innerHTML = '<tr><td colspan="9" class="text-center">Belum ada mata kuliah yang diambil</td></tr>';
+        scheduleBody.innerHTML = `
+          <tr>
+            <td colspan="4" class="px-6 py-12 text-center">
+              <div class="flex flex-col items-center justify-center text-slate-400">
+                <i class="ph-fill ph-calendar-x text-4xl mb-2 text-slate-300"></i>
+                <p>Belum ada jadwal. Silakan isi KRS terlebih dahulu.</p>
+              </div>
+            </td>
+          </tr>`;
       } else {
         // Sort by day
         const dayOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
         krs.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
         
-        krs.forEach((course, index) => {
+        scheduleBody.innerHTML = '';
+        krs.forEach((course) => {
           const row = document.createElement('tr');
+          row.className = "hover:bg-slate-50 transition-colors group";
           row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td>${course.day}</td>
-            <td>${course.time}</td>
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td class="text-center">${course.sks}</td>
-            <td>${course.room}</td>
-            <td>${course.lecturer}</td>
-            <td class="text-center">
-              <button class="btn" onclick="attendClass('${course.code}')">
-                <i class="fas fa-check"></i> Absen
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-lg bg-blue-50 flex flex-col items-center justify-center text-blue-700 shrink-0 border border-blue-100">
+                  <span class="text-[10px] font-bold uppercase leading-none">${course.day.substring(0,3)}</span>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-slate-800">${course.time}</p>
+                  <p class="text-[10px] text-slate-500 font-medium">${course.sks} SKS</p>
+                </div>
+              </div>
+            </td>
+            <td class="px-4 py-3">
+              <p class="font-semibold text-slate-800">${course.name}</p>
+              <p class="text-xs text-slate-500 mt-0.5">${course.code} • ${course.lecturer}</p>
+            </td>
+            <td class="px-4 py-3">
+               <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-medium">
+                <i class="ph-fill ph-map-pin"></i> ${course.room}
+              </div>
+            </td>
+            <td class="px-4 py-3 text-center">
+              <button onclick="attendClass('${course.code}')" class="w-full px-3 py-1.5 bg-white border border-slate-200 text-blue-600 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:border-blue-200 transition-colors shadow-sm flex items-center justify-center gap-1.5">
+                <i class="ph-bold ph-hand-pointing"></i> Absen
               </button>
             </td>
           `;
           scheduleBody.appendChild(row);
         });
       }
-      
-      // Load attendance history
-      loadAttendanceHistory();
     }
     
     function attendClass(courseCode) {
       const result = doAbsen(courseCode);
       if (result.success) {
-        alert(result.message);
+        // Optional: Replace alert with toast
         loadAttendanceHistory();
       } else {
         alert(result.message);
@@ -169,26 +203,47 @@
     
     function loadAttendanceHistory() {
       const attendanceLog = getAttendanceLog();
-      const attendanceBody = document.getElementById('attendanceBody');
+      const attendanceList = document.getElementById('attendanceList');
+      const totalAttendanceEl = document.getElementById('totalAttendance');
+      
+      if (totalAttendanceEl) {
+        totalAttendanceEl.textContent = attendanceLog.length;
+      }
       
       if (attendanceLog.length === 0) {
-        attendanceBody.innerHTML = '<tr><td colspan="5" class="text-center">Belum ada riwayat absensi</td></tr>';
+        attendanceList.innerHTML = `
+          <li class="p-8 text-center">
+            <div class="flex flex-col items-center justify-center text-slate-400">
+              <i class="ph-fill ph-clipboard-text text-4xl mb-2 text-slate-300"></i>
+              <p class="text-sm">Belum ada riwayat absensi</p>
+            </div>
+          </li>`;
       } else {
         // Sort by date (newest first)
         const sortedLog = [...attendanceLog].sort((a, b) => new Date(b.date) - new Date(a.date));
         
-        attendanceBody.innerHTML = '';
-        sortedLog.forEach((log, index) => {
+        attendanceList.innerHTML = '';
+        sortedLog.forEach((log) => {
           const course = getCourseByCode(log.courseCode);
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td>${formatDate(log.date)}</td>
-            <td>${log.courseCode}</td>
-            <td>${course ? course.name : '-'}</td>
-            <td class="text-center"><span style="color: #4CAF50;"><i class="fas fa-check-circle"></i> ${log.status}</span></td>
+          const li = document.createElement('li');
+          li.className = "p-3 hover:bg-slate-50 transition-colors rounded-xl mx-1 my-1";
+          li.innerHTML = `
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+                  <i class="ph-fill ph-check-circle text-lg"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-slate-800 leading-tight">${course ? course.name : log.courseCode}</p>
+                  <p class="text-xs text-slate-500 mt-1">${formatDate(log.date)}</p>
+                </div>
+              </div>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 uppercase tracking-wider">
+                ${log.status}
+              </span>
+            </div>
           `;
-          attendanceBody.appendChild(row);
+          attendanceList.appendChild(li);
         });
       }
     }
