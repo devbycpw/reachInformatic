@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Pribadi - Portal Administratif Mahasiswa</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Top Date Bar -->
+  <div class="top-date-bar">
+    <span id="currentDate"></span>
+  </div>
+
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-info">
+      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+    </div>
+    <a href="#" class="logout-btn" onclick="logout(); return false;">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </div>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
+      </ul>
+      
+      <ul class="sidebar-menu" style="margin-top: 15px;">
+        <li><a href="krs.html"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
+        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
+        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
+        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
+      </ul>
+      
+      <ul class="sidebar-menu" style="margin-top: 15px;">
+        <li><a href="profil.html" class="active"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
+        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
+      </ul>
+      
+      <div class="online-users">
+        <i class="fas fa-users"></i> 127 user online
+      </div>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="content-area">
+      <div class="page-header">
+        <i class="fas fa-user" style="color: #4CAF50; font-size: 20px;"></i>
+        <h1 class="page-title">DATA PRIBADI MAHASISWA</h1>
+      </div>
+      
+      <div class="info-box">
+        <p class="info-text">
+          UNTUK KEPERLUAN ADMINISTRASI ANDA, SILAHKAN UPDATE ISIAN DI BAWAH INI. 
+          DATA INI DIPERGUNAKAN UNTUK SYARAT PELAPORAN KE DIREKTORAT JENDERAL PENDIDIKAN TINGGI (DIKTI).
+          <strong>KARENA PENTINGNYA DATA KEPENDUDUKAN MAHASISWA DALAM PELAPORAN PD DIKTI DAN VERIFIKASI KEBSAHAN IJAZAH, 
+          MAKA WAJIB MELAKUKAN PENGISIAN NIK DAN NOMOR KK SECARA BENAR</strong>
+        </p>
+      </div>
+      
+      <form id="profileForm">
+        <table class="form-table">
+          <tr>
+            <td>NIM</td>
+            <td>:</td>
+            <td><input type="text" id="nim" name="nim" readonly></td>
+          </tr>
+          <tr>
+            <td>Nama Lengkap</td>
+            <td>:</td>
+            <td><input type="text" id="name" name="name" required></td>
+          </tr>
+          <tr>
+            <td>Alamat</td>
+            <td>:</td>
+            <td><input type="text" id="address" name="address" required></td>
+          </tr>
+          <tr>
+            <td>No. Telepon / Handphone</td>
+            <td>:</td>
+            <td><input type="tel" id="phone" name="phone" required></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>:</td>
+            <td><input type="email" id="email" name="email" placeholder="email@student.univ.ac.id"></td>
+          </tr>
+          <tr>
+            <td>Nama Bank</td>
+            <td>:</td>
+            <td><input type="text" id="bank" name="bank" required></td>
+          </tr>
+          <tr>
+            <td>Nomor Rekening</td>
+            <td>:</td>
+            <td><input type="text" id="accountNumber" name="accountNumber" required></td>
+          </tr>
+          <tr>
+            <td>Atas Nama Rekening</td>
+            <td>:</td>
+            <td><input type="text" id="accountName" name="accountName" required></td>
+          </tr>
+          <tr>
+            <td>Hubungan Dengan Pemilik Rekening</td>
+            <td>:</td>
+            <td><input type="text" id="accountRelation" name="accountRelation" value="Saya sendiri"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>
+              <button type="submit" class="btn">
+                <i class="fas fa-save"></i> Simpan
+              </button>
+            </td>
+          </tr>
+        </table>
+      </form>
+      
+      <div class="info-box" style="margin-top: 20px; background-color: #e3f2fd; border-color: #2196F3;">
+        <p class="info-text" style="font-size: 10px; color: #666;">
+          <i class="fas fa-info-circle" style="color: #2196F3;"></i> 
+          Demi kelancaran pengiriman email dari Bagian Administrasi Akademik, silahkan menggunakan email student.univ.ac.id yang telah diberikan.<br>
+          Bagian Administrasi Akademik tidak bertanggung jawab, apabila data yang anda berikan salah.
+        </p>
+      </div>
+      
+      <div class="footer">
+        <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>
+    // Check session
+    const user = checkSession();
+    
+    if (user) {
+      // Set current date
+      const now = new Date();
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      document.getElementById('currentDate').textContent = 
+        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      
+      // Update header with user info
+      const headerInfo = document.querySelector('.header-info');
+      headerInfo.innerHTML = `
+        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      `;
+      
+      // Load profile data
+      const profile = getProfile();
+      document.getElementById('nim').value = profile.nim || '';
+      document.getElementById('name').value = profile.name || '';
+      document.getElementById('address').value = profile.address || '';
+      document.getElementById('phone').value = profile.phone || '';
+      document.getElementById('bank').value = profile.bank || '';
+      document.getElementById('accountNumber').value = profile.accountNumber || '';
+      document.getElementById('accountName').value = profile.accountName || '';
+    }
+    
+    // Handle form submission
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const profileData = {
+        nim: document.getElementById('nim').value,
+        name: document.getElementById('name').value,
+        address: document.getElementById('address').value,
+        phone: document.getElementById('phone').value,
+        bank: document.getElementById('bank').value,
+        accountNumber: document.getElementById('accountNumber').value,
+        accountName: document.getElementById('accountName').value
+      };
+      
+      const result = updateProfile(profileData);
+      if (result.success) {
+        alert(result.message);
+        // Update session name if changed
+        const session = getCurrentUser();
+        if (session && session.name !== profileData.name) {
+          session.name = profileData.name;
+          session.loginAt = new Date().toISOString();
+          localStorage.setItem('active_session', JSON.stringify(session));
+        }
+        // Update header
+        const headerInfo = document.querySelector('.header-info');
+        headerInfo.innerHTML = `
+          <div><strong>:: ${profileData.nim} - ${profileData.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+          <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+          <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+        `;
+      } else {
+        alert('Gagal memperbarui profil');
+      }
+    });
+  </script>
+</body>
+</html>

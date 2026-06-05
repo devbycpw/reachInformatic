@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Portal Administratif Mahasiswa</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Top Date Bar -->
+  <div class="top-date-bar">
+    <span id="currentDate"></span>
+  </div>
+
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-info">
+      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+    </div>
+    <a href="#" class="logout-btn" onclick="logout(); return false;">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </div>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li><a href="index.html" class="active"><i class="fas fa-home"></i> HOME</a></li>
+        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
+      </ul>
+      
+      <ul class="sidebar-menu" style="margin-top: 15px;">
+        <li><a href="krs.html"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
+        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
+        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
+        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
+      </ul>
+      
+      <ul class="sidebar-menu" style="margin-top: 15px;">
+        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
+        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
+      </ul>
+      
+      <div class="online-users">
+        <i class="fas fa-users"></i> 127 user online
+      </div>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="content-area">
+      <div class="page-header">
+        <i class="fas fa-home" style="color: #4CAF50; font-size: 20px;"></i>
+        <h1 class="page-title">HOME</h1>
+      </div>
+      
+      <div class="welcome-box">
+        <p class="welcome-text">
+          SELAMAT DATANG DI SISTEM INFORMASI AKADEMIK PORTAL MAHASISWA
+        </p>
+        
+        <div class="stats-container">
+          <div class="stat-card">
+            <h4>JUMLAH MATA KULIAH</h4>
+            <div class="stat-value" id="totalCourses">0</div>
+          </div>
+          <div class="stat-card">
+            <h4>TOTAL SKS</h4>
+            <div class="stat-value" id="totalSKS">0</div>
+          </div>
+          <div class="stat-card">
+            <h4>IPK TERAKHIR</h4>
+            <div class="stat-value" id="gpaValue">0.00</div>
+          </div>
+        </div>
+        
+        <div class="study-timeline">
+          <div class="timeline-title">Batas Akhir Masa Studi<br>Minimal 144 sks</div>
+          <div class="timeline-bar">
+            <div class="timeline-years">
+              <span>2031</span>
+              <span>2030</span>
+              <span>2029</span>
+              <span>2028</span>
+              <span>2027</span>
+              <span>2026</span>
+              <span>2025</span>
+            </div>
+            <div class="timeline-progress">
+              <div class="timeline-current">2025-3 : <span id="currentSKS">8</span> sks</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="info-box">
+          <h4><i class="fas fa-info-circle" style="color: #4CAF50;"></i> Informasi Penting</h4>
+          <p class="info-text">
+            UNTUK KEPERLUAN ADMINISTRASI ANDA, SILAHKAN UPDATE ISIAN DI BAWAH INI. 
+            DATA INI DIPERGUNAKAN UNTUK SYARAT PELAPORAN KE DIREKTORAT JENDERAL PENDIDIKAN TINGGI (DIKTI).
+            <strong>KARENA PENTINGNYA DATA KEPENDUDUKAN MAHASISWA DALAM PELAPORAN PD DIKTI DAN VERIFIKASI KEBSAHAN IJAZAH, 
+            MAKA WAJIB MELAKUKAN PENGISIAN NIK DAN NOMOR KK SECARA BENAR</strong>
+          </p>
+        </div>
+        
+        <div class="nav-links">
+          <a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> Lihat Jadwal Kuliah</a>
+          <a href="krs.html"><i class="fas fa-book"></i> Registrasi Matakuliah</a>
+          <a href="khs.html"><i class="fas fa-graduation-cap"></i> Lihat Hasil Studi</a>
+          <a href="profil.html"><i class="fas fa-user"></i> Update Data Pribadi</a>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>
+    // Check session
+    const user = checkSession();
+    
+    if (user) {
+      // Set current date
+      const now = new Date();
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      document.getElementById('currentDate').textContent = 
+        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      
+      // Update header with user info
+      const headerInfo = document.querySelector('.header-info');
+      const krs = getKRS();
+      headerInfo.innerHTML = `
+        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      `;
+      
+      // Load dashboard stats
+      document.getElementById('totalCourses').textContent = krs.length;
+      document.getElementById('totalSKS').textContent = getTotalSKS();
+      document.getElementById('currentSKS').textContent = getTotalSKS();
+      document.getElementById('gpaValue').textContent = calculateGPA();
+    }
+  </script>
+</body>
+</html>

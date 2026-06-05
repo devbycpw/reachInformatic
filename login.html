@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Portal Administratif Mahasiswa</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-body">
+  <div class="login-box">
+    <h1><i class="fas fa-university" style="color: #4CAF50;"></i> Portal Administratif Mahasiswa</h1>
+    <h2>Silakan Login</h2>
+    
+    <form class="login-form" id="loginForm">
+      <div class="form-group">
+        <label for="nim"><i class="fas fa-id-card"></i> NIM</label>
+        <input type="text" id="nim" name="nim" placeholder="Masukkan NIM" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password"><i class="fas fa-lock"></i> Password</label>
+        <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
+      </div>
+      
+      <button type="submit" class="btn-login">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+    </form>
+    
+    <div class="login-info">
+      <i class="fas fa-info-circle"></i> Demo: NIM: <strong>11223344</strong> | Password: <strong>rahasia123</strong>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>
+    // Check if already logged in
+    checkSession();
+    
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const nim = document.getElementById('nim').value;
+      const password = document.getElementById('password').value;
+      
+      if (login(nim, password)) {
+        window.location.href = 'index.html';
+      } else {
+        alert('NIM atau Password salah!');
+      }
+    });
+  </script>
+</body>
+</html>
