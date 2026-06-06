@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan - Portal Administrasi Mahasiswa</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div class="topbar" id="topbar"></div>
+      <div class="content">
+
+        <h2 class="section-title first">Panduan SIA-SAT</h2>
+        <div class="card card-pad">
+          <div class="card-head"><i class="fas fa-circle-info"></i> Akses SIA-SAT</div>
+          <p style="color:#44403C;font-size:14px;line-height:1.7;">
+            SIA-SAT adalah Sistem Informasi Akademik yang dapat diakses di mana pun melalui perangkat yang
+            terhubung dengan internet dengan alamat <strong>https://siasat.uksw.edu</strong>. Login yang digunakan
+            adalah Nomor Induk Mahasiswa serta password yang diberikan oleh Bagian Admisi Registrasi (BARA) dan
+            dapat diganti oleh mahasiswa bersangkutan. Mahasiswa diharapkan dapat mempertanggungjawabkan login dan
+            password yang ada. BARA tidak bertanggung jawab atas kekeliruan, kehilangan, atau akibat lain yang
+            ditimbulkan apabila mahasiswa tersebut memberikan login dan password kepada pihak lain.
+          </p>
+        </div>
+
+        <h2 class="section-title">Langkah Cepat</h2>
+        <div class="stat-grid">
+          <div class="card card-pad">
+            <div class="card-head"><i class="fas fa-clipboard-list"></i> Registrasi Matakuliah</div>
+            <p style="color:var(--muted);font-size:14px;">Buka menu <strong>Registrasi Matakuliah</strong>, ambil mata kuliah (maksimal 24 SKS), lalu ajukan persetujuan KRS.</p>
+          </div>
+          <div class="card card-pad">
+            <div class="card-head"><i class="fas fa-calendar-days"></i> Jadwal & Absensi</div>
+            <p style="color:var(--muted);font-size:14px;">Lihat jadwal semester berjalan dan lakukan presensi pada menu <strong>Jadwal Kuliah</strong>.</p>
+          </div>
+          <div class="card card-pad">
+            <div class="card-head"><i class="fas fa-graduation-cap"></i> Hasil Studi</div>
+            <p style="color:var(--muted);font-size:14px;">Pantau nilai dan IPK Anda, serta cetak KHS melalui menu <strong>Hasil Studi</strong>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>
+    const user = checkSession();
+    if (user) buildShell({ active: 'panduan', title: 'Panduan Siakad' });
+  </script>
+</body>
+</html>

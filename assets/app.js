@@ -290,5 +290,111 @@ function getCourseByCode(code) {
   return courses.find(c => c.code === code);
 }
 
+function formatLongDate(date) {
+  const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+  const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+// ============================================
+// APP SHELL (sidebar + topbar) — sesuai desain Figma
+// ============================================
+
+const NAV_GROUPS = [
+  {
+    title: 'Informasi Umum',
+    items: [
+      { key: 'home',     label: 'Home',     icon: 'fa-house',          href: 'index.html' },
+      { key: 'panduan',  label: 'Panduan',  icon: 'fa-book-open',      href: 'panduan.html' }
+    ]
+  },
+  {
+    title: 'Menu Akademik',
+    items: [
+      { key: 'krs',       label: 'Registrasi Matakuliah', icon: 'fa-clipboard-list', href: 'krs.html' },
+      { key: 'jadwal',    label: 'Jadwal Kuliah',         icon: 'fa-calendar-days',  href: 'jadwal-absen.html' },
+      { key: 'khs',       label: 'Hasil Studi',           icon: 'fa-graduation-cap', href: 'khs.html' },
+      { key: 'transkrip', label: 'Transkrip Nilai',       icon: 'fa-file-lines',     href: 'khs.html' }
+    ]
+  },
+  {
+    title: 'Pengaturan Akun',
+    items: [
+      { key: 'profil',   label: 'Data Pribadi',   icon: 'fa-user',  href: 'profil.html' },
+      { key: 'password', label: 'Ganti Password', icon: 'fa-key',   href: '#' }
+    ]
+  }
+];
+
+/**
+ * Render the app shell into a page.
+ * Page markup only needs:
+ *   <div class="app">
+ *     <aside class="sidebar" id="sidebar"></aside>
+ *     <div class="main">
+ *       <div class="topbar" id="topbar"></div>
+ *       <div class="content"> ...page content... </div>
+ *     </div>
+ *   </div>
+ * @param {object} opts { active, title, greetingName }
+ */
+function buildShell(opts) {
+  const { active, title } = opts;
+  const user = getCurrentUser();
+  const name = (user && user.name) || 'Mahasiswa';
+
+  // ---- Sidebar ----
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) {
+    let groupsHTML = NAV_GROUPS.map(group => {
+      const items = group.items.map(item => `
+        <a href="${item.href}" class="nav-item${item.key === active ? ' active' : ''}">
+          <i class="fas ${item.icon}"></i> ${item.label}
+        </a>`).join('');
+      return `<div class="nav-group">
+        <div class="nav-group-title">${group.title}</div>
+        ${items}
+      </div>`;
+    }).join('');
+
+    sidebar.innerHTML = `
+      <div class="sidebar-brand">
+        <div class="logo-mark">PA</div>
+        <div class="logo-text">
+          <strong>Portal Mahasiswa</strong>
+          <span>Administrasi Akademik</span>
+        </div>
+      </div>
+      ${groupsHTML}
+      <div class="nav-group" style="margin-top:8px;">
+        <a href="#" class="nav-item logout" onclick="logout(); return false;">
+          <i class="fas fa-arrow-right-from-bracket"></i> Logout
+        </a>
+      </div>
+      <div class="sidebar-footer">Cc: MieSo &middot; &copy; 2026</div>
+    `;
+  }
+
+  // ---- Topbar ----
+  const topbar = document.getElementById('topbar');
+  if (topbar) {
+    topbar.innerHTML = `
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div>
+          <h1>${title}</h1>
+          <div class="greeting">Halo, selamat datang kembali <strong>${name}</strong> 👋</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="date-chip"><i class="far fa-calendar"></i> ${formatLongDate(new Date())}</span>
+      </div>
+    `;
+  }
+}
+
 // Initialize data on script load
 initMockData();

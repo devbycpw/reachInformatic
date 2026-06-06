@@ -3,74 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Portal Administratif Mahasiswa</title>
+  <title>Login - Portal Administrasi Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Connect to Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900">
-<div class="grid min-h-screen grid-cols-1 lg:grid-cols-2">
-  <!-- Left Side: Login Form -->
-  <div class="flex flex-col justify-center px-6 py-12 sm:px-12 lg:px-20 xl:px-24">
-    <div class="mx-auto w-full max-w-sm">
-      <div>
-        <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" class="h-10 w-auto" />
-        
-        <h2 class="mt-10 text-2xl/9 font-bold tracking-tight text-white">Login</h2>
-        <h3>masuk ke portal administrasi akademik</h3>
-        
-      </div>
-
-      <div class="mt-10">
-    <form id="loginForm" action="#" method="POST" class="space-y-6">
-      <div>
-        <label for="nim" class="block text-sm/6 font-medium text-gray-100">NIM</label>
-        <div class="mt-2">
-          <input id="nim" type="text" name="nim" required class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+<body>
+  <div class="login-wrap">
+    <!-- Left: form -->
+    <div class="login-form-side">
+      <div class="login-card">
+        <div class="brand">
+          <div class="logo-mark">PA</div>
+          <strong>Portal Administrasi Mahasiswa</strong>
         </div>
-      </div>
 
-      <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
-          <div class="text-sm">
-            <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
+        <h1>Masuk Ke Portalmu Sekarang</h1>
+        <p class="subtitle">Masuk ke portal administrasi akademik menggunakan NIM dan password Anda.</p>
+
+        <form id="loginForm">
+          <div class="field">
+            <label for="nim">NIM</label>
+            <input id="nim" type="text" name="nim" placeholder="123456789" required>
           </div>
-        </div>
-        <div class="mt-2">
-          <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
-        </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" placeholder="Example123" autocomplete="current-password" required>
+          </div>
+
+          <button type="submit" class="btn btn-block">Login</button>
+          <a href="#" class="forgot">Lupa Password?</a>
+        </form>
+
+        <p class="hint">Demo &mdash; NIM: <strong>11223344</strong> &middot; Password: <strong>rahasia123</strong></p>
       </div>
+    </div>
 
-      <div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Sign in</button>
-      </div>
-    </form>
-
-    <p class="mt-10 text-center text-sm/6 text-gray-400">
-      Not a member?
-      <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Start a 14 day free trial</a>
-    </p>
+    <!-- Right: art / branding -->
+    <div class="login-art-side">
+      <div class="art-logo">PORTAL MAHASISWA</div>
+      <h2>PORTAL ADMINISTRASI MAHASISWA</h2>
+      <p>Kelola registrasi mata kuliah, jadwal, presensi, dan hasil studi Anda dalam satu tempat yang ringkas dan modern.</p>
+    </div>
   </div>
-    <!-- right Side: Login Form -->
-  <div>
-
-  </div>
-</div>
-
 
   <script src="assets/app.js"></script>
   <script>
-    // Check if already logged in
+    // Redirect away if already logged in
     checkSession();
-    
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      
-      const nim = document.getElementById('nim').value;
+      const nim = document.getElementById('nim').value.trim();
       const password = document.getElementById('password').value;
-      
+
       if (login(nim, password)) {
         window.location.href = 'index.html';
       } else {

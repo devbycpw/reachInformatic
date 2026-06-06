@@ -3,170 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hasil Studi - Portal Administratif Mahasiswa</title>
+  <title>Hasil Studi - Portal Administrasi Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
-  </div>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div class="topbar" id="topbar"></div>
+      <div class="content">
 
-  <!-- Header Bar -->
-  <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+        <!-- Ringkasan -->
+        <h2 class="section-title first">Ringkasan Studi</h2>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="chip amber"><i class="fas fa-star"></i></div>
+            <div class="stat-label">IPK Kumulatif</div>
+            <div class="stat-value" id="gpaValue">0.00</div>
+            <div class="stat-sub">skala 4.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="chip green"><i class="fas fa-layer-group"></i></div>
+            <div class="stat-label">Total SKS Lulus</div>
+            <div class="stat-value" id="totalCredits">0</div>
+            <div class="stat-sub">target 144 SKS</div>
+          </div>
+          <div class="stat-card">
+            <div class="chip blue"><i class="fas fa-book"></i></div>
+            <div class="stat-label">Mata Kuliah Lulus</div>
+            <div class="stat-value" id="totalCourses">0</div>
+            <div class="stat-sub">matakuliah</div>
+          </div>
+        </div>
+
+        <!-- Daftar nilai -->
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <h2 class="section-title">Daftar Nilai</h2>
+          <button class="btn btn-sm btn-outline" onclick="window.print()"><i class="fas fa-print"></i> Cetak KHS</button>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>No</th><th>Kode</th><th>Mata Kuliah</th><th>SKS</th><th>Nilai</th><th>Bobot</th><th>Mutu</th></tr>
+              </thead>
+              <tbody id="gradesBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
-      <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
-  </div>
-
-  <!-- Main Container -->
-  <div class="main-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="krs.html"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html" class="active"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users"></i> 127 user online
-      </div>
-    </aside>
-
-    <!-- Content Area -->
-    <main class="content-area">
-      <div class="page-header">
-        <i class="fas fa-graduation-cap" style="color: #4CAF50; font-size: 20px;"></i>
-        <h1 class="page-title">KARTU HASIL STUDI (KHS)</h1>
-      </div>
-      
-      <button class="btn print-btn" onclick="window.print()">
-        <i class="fas fa-print"></i> Cetak KHS
-      </button>
-      <div style="clear: both;"></div>
-      
-      <div class="gpa-box">
-        <h4>INDEKS PRESTASI KUMULATIF (IPK)</h4>
-        <div class="gpa-value" id="gpaValue">0.00</div>
-        <div class="gpa-info">Total SKS Lulus: <span id="totalCredits">0</span> SKS</div>
-      </div>
-      
-      <h3 class="section-header"><i class="fas fa-list-ol"></i> Daftar Nilai</h3>
-      <table class="data-table" id="gradesTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Nilai Huruf</th>
-            <th>Bobot</th>
-            <th>Nilai x Bobot</th>
-          </tr>
-        </thead>
-        <tbody id="gradesBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <div class="footer">
-        <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
-      </div>
-    </main>
   </div>
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
     const user = checkSession();
-    
     if (user) {
-      // Set current date
-      const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-      
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-      `;
-      
-      // Load GPA and stats
+      buildShell({ active: 'khs', title: 'Hasil Studi' });
+
       document.getElementById('gpaValue').textContent = calculateGPA();
       document.getElementById('totalCredits').textContent = getTotalPassedCredits();
-      
-      // Load grades table
+
       const grades = getGrades();
-      const gradesBody = document.getElementById('gradesBody');
-      
+      document.getElementById('totalCourses').textContent = grades.length;
+      const body = document.getElementById('gradesBody');
+
       if (grades.length === 0) {
-        gradesBody.innerHTML = '<tr><td colspan="7" class="text-center">Belum ada data nilai</td></tr>';
+        body.innerHTML = '<tr><td colspan="7" class="text-center" style="color:var(--muted)">Belum ada data nilai</td></tr>';
       } else {
-        let totalWeighted = 0;
-        let totalSks = 0;
-        
-        grades.forEach((grade, index) => {
-          const weightedScore = grade.weight * grade.sks;
-          totalWeighted += weightedScore;
-          totalSks += grade.sks;
-          
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td>${grade.code}</td>
-            <td>${grade.name}</td>
-            <td class="text-center">${grade.sks}</td>
-            <td class="text-center"><strong>${grade.grade}</strong></td>
-            <td class="text-center">${grade.weight}</td>
-            <td class="text-center">${weightedScore.toFixed(1)}</td>
-          `;
-          gradesBody.appendChild(row);
-        });
-        
-        // Add summary row
-        const summaryRow = document.createElement('tr');
-        summaryRow.style.fontWeight = 'bold';
-        summaryRow.style.backgroundColor = '#e8e8e8';
-        summaryRow.innerHTML = `
-          <td colspan="3" class="text-right">TOTAL</td>
-          <td class="text-center">${totalSks}</td>
-          <td colspan="2"></td>
-          <td class="text-center">${totalWeighted.toFixed(1)}</td>
-        `;
-        gradesBody.appendChild(summaryRow);
-        
-        // Add IPK row
-        const ipkRow = document.createElement('tr');
-        ipkRow.style.fontWeight = 'bold';
-        ipkRow.style.backgroundColor = '#d4edda';
-        ipkRow.innerHTML = `
-          <td colspan="6" class="text-right">INDEKS PRESTASI KUMULATIF (IPK)</td>
-          <td class="text-center" style="font-size: 14px; color: #4CAF50;">${calculateGPA()}</td>
-        `;
-        gradesBody.appendChild(ipkRow);
+        let totalWeighted = 0, totalSks = 0;
+        body.innerHTML = grades.map((g, i) => {
+          const mutu = g.weight * g.sks;
+          totalWeighted += mutu; totalSks += g.sks;
+          return `
+            <tr>
+              <td class="text-center">${i + 1}</td>
+              <td>${g.code}</td><td>${g.name}</td>
+              <td class="text-center">${g.sks}</td>
+              <td class="text-center"><strong>${g.grade}</strong></td>
+              <td class="text-center">${g.weight.toFixed(1)}</td>
+              <td class="text-center">${mutu.toFixed(1)}</td>
+            </tr>`;
+        }).join('');
+        body.innerHTML += `
+          <tr style="font-weight:700;background:#FAFAF9;">
+            <td colspan="3" class="text-right">TOTAL</td>
+            <td class="text-center">${totalSks}</td>
+            <td colspan="2"></td>
+            <td class="text-center">${totalWeighted.toFixed(1)}</td>
+          </tr>
+          <tr style="font-weight:700;background:var(--sky-soft);color:var(--blue);">
+            <td colspan="6" class="text-right">INDEKS PRESTASI KUMULATIF (IPK)</td>
+            <td class="text-center">${calculateGPA()}</td>
+          </tr>`;
       }
     }
   </script>
