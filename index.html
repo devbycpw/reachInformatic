@@ -1,246 +1,377 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Portal Administratif Mahasiswa</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          }
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Portal Administratif Mahasiswa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
       }
-    }
-  </script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    body { font-family: 'Inter', sans-serif; }
-    .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
-  </style>
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900"
+  >
+    <!-- Sidebar Component Placeholder -->
+    <div id="sidebar-container"></div>
 
-  <!-- Sidebar Component Placeholder -->
-  <div id="sidebar-container"></div>
+    <!-- Main Layout -->
+    <div
+      class="md:pl-20 transition-all duration-300 min-h-screen flex flex-col pb-16 md:pb-0"
+    >
+      <!-- Header Component Placeholder -->
+      <div id="header-container"></div>
 
-  <!-- Main Layout -->
-  <div class="md:pl-20 transition-all duration-300 min-h-screen flex flex-col pb-16 md:pb-0">
-    <!-- Header Component Placeholder -->
-    <div id="header-container"></div>
-
-    <!-- Content Area -->
-    <main class="flex-1 p-4 md:p-6 max-w-7xl mx-auto w-full">
-      <!-- Welcome Section -->
-      <div class="bg-indigo-600 rounded-2xl p-6 md:p-8 mb-6 md:mb-8 text-white shadow-lg relative overflow-hidden">
-        <div class="relative z-10">
-          <h2 class="text-xl md:text-2xl font-bold mb-2">Selamat Datang, <span id="welcomeName">Mahasiswa</span>! 👋</h2>
-          <p class="text-indigo-100 max-w-2xl text-sm md:text-base">Selamat datang di Sistem Informasi Akademik Portal Mahasiswa. Pantau perkembangan studi Anda dengan mudah.</p>
-        </div>
-        <!-- Decorative bg -->
-        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-3xl"></div>
-      </div>
-
-      <!-- Stats Container -->
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
-        <div class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3 md:gap-4 hover:shadow-md transition-shadow">
-          <div class="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
-            <i class="ph-fill ph-book-open text-xl md:text-2xl"></i>
-          </div>
-          <div>
-            <p class="text-xs md:text-sm text-slate-500 font-medium">Mata Kuliah</p>
-            <h3 class="text-xl md:text-2xl font-bold text-slate-800 leading-tight" id="totalCourses">0</h3>
-          </div>
-        </div>
-        
-        <div class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3 md:gap-4 hover:shadow-md transition-shadow">
-          <div class="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0">
-            <i class="ph-fill ph-stack text-xl md:text-2xl"></i>
-          </div>
-          <div>
-            <p class="text-xs md:text-sm text-slate-500 font-medium">Total SKS</p>
-            <h3 class="text-xl md:text-2xl font-bold text-slate-800 leading-tight" id="totalSKS">0</h3>
-          </div>
-        </div>
-        
-        <div class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3 md:gap-4 hover:shadow-md transition-shadow col-span-2 md:col-span-1">
-          <div class="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
-            <i class="ph-fill ph-chart-line-up text-xl md:text-2xl"></i>
-          </div>
-          <div>
-            <p class="text-xs md:text-sm text-slate-500 font-medium">IPK Terakhir</p>
-            <h3 class="text-xl md:text-2xl font-bold text-slate-800 leading-tight" id="gpaValue">0.00</h3>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-        <!-- Main Info -->
-        <div class="lg:col-span-2 space-y-6 md:space-y-8">
-          <!-- Study Timeline -->
-          <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
-              <h3 class="text-lg font-bold text-slate-800">Progres Studi</h3>
-              <span class="text-xs md:text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full w-fit">Target: 144 SKS</span>
-            </div>
-            
-            <div class="relative pt-8 pb-4">
-              <!-- Progress Bar Track -->
-              <div class="h-3 md:h-4 bg-slate-100 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full transition-all duration-1000 w-0" id="sksProgressBar"></div>
-              </div>
-              
-              <!-- Labels -->
-              <div class="flex justify-between mt-3 md:mt-4 text-[10px] md:text-xs font-medium text-slate-400">
-                <span>0</span>
-                <span>36</span>
-                <span>72</span>
-                <span>108</span>
-                <span>144 SKS</span>
-              </div>
-              
-              <!-- Current Pointer -->
-              <div class="absolute top-0 transform -translate-x-1/2 left-0 transition-all duration-1000" id="sksProgressPointer">
-                <div class="bg-slate-800 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow-lg whitespace-nowrap">
-                  <span id="currentSKS">0</span> SKS
-                </div>
-                <div class="w-2 h-2 bg-slate-800 rotate-45 mx-auto -mt-1"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick Actions -->
-          <div class="grid grid-cols-2 gap-3 md:gap-4">
-            <a href="jadwal-absen.html" class="flex flex-col items-center justify-center p-4 md:p-6 bg-white rounded-2xl border border-slate-100 hover:border-blue-200 hover:shadow-md transition-all group">
-              <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
-                <i class="ph ph-calendar-check text-xl md:text-2xl"></i>
-              </div>
-              <span class="mt-2 md:mt-3 text-xs md:text-sm font-medium text-slate-700">Jadwal Kuliah</span>
-            </a>
-            <a href="krs.html" class="flex flex-col items-center justify-center p-4 md:p-6 bg-white rounded-2xl border border-slate-100 hover:border-purple-200 hover:shadow-md transition-all group">
-              <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-50 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform">
-                <i class="ph ph-books text-xl md:text-2xl"></i>
-              </div>
-              <span class="mt-2 md:mt-3 text-xs md:text-sm font-medium text-slate-700">Isi KRS</span>
-            </a>
-            <a href="khs.html" class="flex flex-col items-center justify-center p-4 md:p-6 bg-white rounded-2xl border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all group">
-              <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform">
-                <i class="ph ph-graduation-cap text-xl md:text-2xl"></i>
-              </div>
-              <span class="mt-2 md:mt-3 text-xs md:text-sm font-medium text-slate-700">Hasil Studi</span>
-            </a>
-            <a href="profil.html" class="flex flex-col items-center justify-center p-4 md:p-6 bg-white rounded-2xl border border-slate-100 hover:border-amber-200 hover:shadow-md transition-all group">
-              <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform">
-                <i class="ph ph-user text-xl md:text-2xl"></i>
-              </div>
-              <span class="mt-2 md:mt-3 text-xs md:text-sm font-medium text-slate-700">Data Pribadi</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Sidebar Info -->
-        <div class="space-y-6">
-          <!-- Information Box -->
-          <div class="bg-amber-50 rounded-2xl p-5 md:p-6 border border-amber-100">
-            <div class="flex items-center gap-3 mb-3 md:mb-4 text-amber-800">
-              <i class="ph-fill ph-warning-circle text-xl md:text-2xl"></i>
-              <h3 class="font-bold text-sm md:text-base">Informasi Penting</h3>
-            </div>
-            <p class="text-xs md:text-sm text-amber-700 leading-relaxed">
-              Untuk keperluan administrasi, silakan lengkapi data pribadi Anda. Data kependudukan wajib diisi secara benar untuk pelaporan PD DIKTI dan verifikasi keabsahan ijazah.
+      <!-- Content Area -->
+      <main class="flex-1 p-4 md:p-6 max-w-7xl mx-auto w-full">
+        <!-- Welcome Section -->
+        <div
+          class="bg-indigo-600 rounded-2xl p-6 md:p-8 mb-6 md:mb-8 text-white shadow-lg relative overflow-hidden"
+        >
+          <div class="relative z-10">
+            <h2 class="text-xl md:text-2xl font-bold mb-2">
+              Selamat Datang, <span id="welcomeName">Mahasiswa</span>! 👋
+            </h2>
+            <p class="text-indigo-100 max-w-2xl text-sm md:text-base">
+              Selamat datang di Sistem Informasi Akademik Portal Mahasiswa.
+              Pantau perkembangan studi Anda dengan mudah.
             </p>
-            <a href="profil.html" class="inline-flex items-center gap-2 mt-3 md:mt-4 text-xs md:text-sm font-semibold text-amber-800 hover:text-amber-600">
-              Update Data <i class="ph-bold ph-arrow-right"></i>
-            </a>
+          </div>
+          <!-- Decorative bg -->
+          <div
+            class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-3xl"
+          ></div>
+        </div>
+
+        <!-- Stats Container -->
+        <div
+          class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8"
+        >
+          <div
+            class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3 md:gap-4 hover:shadow-md transition-shadow"
+          >
+            <div
+              class="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0"
+            >
+              <i class="ph-fill ph-book-open text-xl md:text-2xl"></i>
+            </div>
+            <div>
+              <p class="text-xs md:text-sm text-slate-500 font-medium">
+                Mata Kuliah
+              </p>
+              <h3
+                class="text-xl md:text-2xl font-bold text-slate-800 leading-tight"
+                id="totalCourses"
+              >
+                0
+              </h3>
+            </div>
           </div>
 
-          <!-- Academic Info -->
-          <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6">
-            <h3 class="font-bold text-slate-800 mb-4 text-sm md:text-base">Info Akademik</h3>
-            <ul class="space-y-4">
-              <li class="flex items-start gap-3">
-                <i class="ph-fill ph-check-circle text-emerald-500 mt-0.5 text-lg"></i>
-                <div>
-                  <p class="text-xs md:text-sm font-medium text-slate-700">Status Mahasiswa</p>
-                  <p class="text-[10px] md:text-xs text-slate-500 mt-0.5">Aktif - Semester Ganjil 2025/2026</p>
-                </div>
-              </li>
-              <li class="flex items-start gap-3">
-                <i class="ph-fill ph-info text-blue-500 mt-0.5 text-lg"></i>
-                <div>
-                  <p class="text-xs md:text-sm font-medium text-slate-700">Dosen Pembimbing</p>
-                  <p class="text-[10px] md:text-xs text-slate-500 mt-0.5">Dr. Hendra Saputra, M.Kom.</p>
-                </div>
-              </li>
-            </ul>
+          <div
+            class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3 md:gap-4 hover:shadow-md transition-shadow"
+          >
+            <div
+              class="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0"
+            >
+              <i class="ph-fill ph-stack text-xl md:text-2xl"></i>
+            </div>
+            <div>
+              <p class="text-xs md:text-sm text-slate-500 font-medium">
+                Total SKS
+              </p>
+              <h3
+                class="text-xl md:text-2xl font-bold text-slate-800 leading-tight"
+                id="totalSKS"
+              >
+                0
+              </h3>
+            </div>
+          </div>
+
+          <div
+            class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3 md:gap-4 hover:shadow-md transition-shadow col-span-2 md:col-span-1"
+          >
+            <div
+              class="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0"
+            >
+              <i class="ph-fill ph-chart-line-up text-xl md:text-2xl"></i>
+            </div>
+            <div>
+              <p class="text-xs md:text-sm text-slate-500 font-medium">
+                IPK Terakhir
+              </p>
+              <h3
+                class="text-xl md:text-2xl font-bold text-slate-800 leading-tight"
+                id="gpaValue"
+              >
+                0.00
+              </h3>
+            </div>
           </div>
         </div>
-      </div>
-      
-    </main>
-  </div>
 
-  <script src="assets/app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      // 1. Initialize layout (fetch components)
-      await initLayout();
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+          <!-- Main Info -->
+          <div class="lg:col-span-2 space-y-6 md:space-y-8">
+            <!-- Study Timeline -->
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6"
+            >
+              <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2"
+              >
+                <h3 class="text-lg font-bold text-slate-800">Progres Studi</h3>
+                <span
+                  class="text-xs md:text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full w-fit"
+                  >Target: 144 SKS</span
+                >
+              </div>
 
-      // 2. Check session
-      const user = checkSession();
-      if (!user) return;
+              <div class="relative pt-8 pb-4">
+                <!-- Progress Bar Track -->
+                <div
+                  class="h-3 md:h-4 bg-slate-100 rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full transition-all duration-1000 w-0"
+                    id="sksProgressBar"
+                  ></div>
+                </div>
 
-      // 3. Update Page Title
-      updatePageHeader('Dashboard');
+                <!-- Labels -->
+                <div
+                  class="flex justify-between mt-3 md:mt-4 text-[10px] md:text-xs font-medium text-slate-400"
+                >
+                  <span>0</span>
+                  <span>36</span>
+                  <span>72</span>
+                  <span>108</span>
+                  <span>144 SKS</span>
+                </div>
 
-      // 4. Update Header Date
-      const now = new Date();
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const dateStr = now.toLocaleDateString('id-ID', options);
-      const dateEl = document.getElementById('header-date');
-      if (dateEl) dateEl.textContent = dateStr;
+                <!-- Current Pointer -->
+                <div
+                  class="absolute top-0 transform -translate-x-1/2 left-0 transition-all duration-1000"
+                  id="sksProgressPointer"
+                >
+                  <div
+                    class="bg-slate-800 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow-lg whitespace-nowrap"
+                  >
+                    <span id="currentSKS">0</span> SKS
+                  </div>
+                  <div
+                    class="w-2 h-2 bg-slate-800 rotate-45 mx-auto -mt-1"
+                  ></div>
+                </div>
+              </div>
+            </div>
 
-      // 5. Update Header User Info
-      const nameEl = document.getElementById('header-user-name');
-      const nimEl = document.getElementById('header-user-nim');
-      const welcomeName = document.getElementById('welcomeName');
-      
-      if (nameEl) nameEl.textContent = user.name;
-      if (nimEl) nimEl.textContent = user.nim;
-      if (welcomeName) welcomeName.textContent = user.name.split(' ')[0];
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-2 gap-3 md:gap-4">
+              <a
+                href="jadwal-absen.html"
+                class="flex flex-col items-center justify-center p-4 md:p-6 bg-white rounded-2xl border border-slate-100 hover:border-blue-200 hover:shadow-md transition-all group"
+              >
+                <div
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform"
+                >
+                  <i class="ph ph-calendar-check text-xl md:text-2xl"></i>
+                </div>
+                <span
+                  class="mt-2 md:mt-3 text-xs md:text-sm font-medium text-slate-700"
+                  >Jadwal Kuliah</span
+                >
+              </a>
+              <a
+                href="krs.html"
+                class="flex flex-col items-center justify-center p-4 md:p-6 bg-white rounded-2xl border border-slate-100 hover:border-purple-200 hover:shadow-md transition-all group"
+              >
+                <div
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-50 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform"
+                >
+                  <i class="ph ph-books text-xl md:text-2xl"></i>
+                </div>
+                <span
+                  class="mt-2 md:mt-3 text-xs md:text-sm font-medium text-slate-700"
+                  >Isi KRS</span
+                >
+              </a>
+              <a
+                href="khs.html"
+                class="flex flex-col items-center justify-center p-4 md:p-6 bg-white rounded-2xl border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all group"
+              >
+                <div
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform"
+                >
+                  <i class="ph ph-graduation-cap text-xl md:text-2xl"></i>
+                </div>
+                <span
+                  class="mt-2 md:mt-3 text-xs md:text-sm font-medium text-slate-700"
+                  >Hasil Studi</span
+                >
+              </a>
+              <a
+                href="profil.html"
+                class="flex flex-col items-center justify-center p-4 md:p-6 bg-white rounded-2xl border border-slate-100 hover:border-amber-200 hover:shadow-md transition-all group"
+              >
+                <div
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform"
+                >
+                  <i class="ph ph-user text-xl md:text-2xl"></i>
+                </div>
+                <span
+                  class="mt-2 md:mt-3 text-xs md:text-sm font-medium text-slate-700"
+                  >Data Pribadi</span
+                >
+              </a>
+            </div>
+          </div>
 
-      // 6. Load dashboard stats
-      const grades = getGrades();
-      const totalCourses = grades.length;
-      const totalSKS = getTotalPassedCredits();
-      const gpa = calculateGPA();
+          <!-- Sidebar Info -->
+          <div class="space-y-6">
+            <!-- Information Box -->
+            <div
+              class="bg-amber-50 rounded-2xl p-5 md:p-6 border border-amber-100"
+            >
+              <div class="flex items-center gap-3 mb-3 md:mb-4 text-amber-800">
+                <i class="ph-fill ph-warning-circle text-xl md:text-2xl"></i>
+                <h3 class="font-bold text-sm md:text-base">
+                  Informasi Penting
+                </h3>
+              </div>
+              <p class="text-xs md:text-sm text-amber-700 leading-relaxed">
+                Untuk keperluan administrasi, silakan lengkapi data pribadi
+                Anda. Data kependudukan wajib diisi secara benar untuk pelaporan
+                PD DIKTI dan verifikasi keabsahan ijazah.
+              </p>
+              <a
+                href="profil.html"
+                class="inline-flex items-center gap-2 mt-3 md:mt-4 text-xs md:text-sm font-semibold text-amber-800 hover:text-amber-600"
+              >
+                Update Data <i class="ph-bold ph-arrow-right"></i>
+              </a>
+            </div>
 
-      document.getElementById('totalCourses').textContent = totalCourses;
-      document.getElementById('totalSKS').textContent = totalSKS;
-      document.getElementById('currentSKS').textContent = totalSKS;
-      document.getElementById('gpaValue').textContent = gpa;
+            <!-- Academic Info -->
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6"
+            >
+              <h3 class="font-bold text-slate-800 mb-4 text-sm md:text-base">
+                Info Akademik
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <i
+                    class="ph-fill ph-check-circle text-emerald-500 mt-0.5 text-lg"
+                  ></i>
+                  <div>
+                    <p class="text-xs md:text-sm font-medium text-slate-700">
+                      Status Mahasiswa
+                    </p>
+                    <p class="text-[10px] md:text-xs text-slate-500 mt-0.5">
+                      Aktif - Semester Ganjil 2025/2026
+                    </p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="ph-fill ph-info text-blue-500 mt-0.5 text-lg"></i>
+                  <div>
+                    <p class="text-xs md:text-sm font-medium text-slate-700">
+                      Dosen Pembimbing
+                    </p>
+                    <p class="text-[10px] md:text-xs text-slate-500 mt-0.5">
+                      Dr. Hendra Saputra, M.Kom.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
 
-      // Update progress bar with animation
-      const targetSKS = 144;
-      const progressPercent = Math.min((totalSKS / targetSKS) * 100, 100);
-      
-      // Start at 0
-      const progressBar = document.getElementById('sksProgressBar');
-      const progressPointer = document.getElementById('sksProgressPointer');
-      
-      progressBar.style.width = '0%';
-      progressPointer.style.left = '0%';
+    <script src="assets/app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        // 1. Initialize layout (fetch components)
+        await initLayout();
 
-      // Animate to target after a small delay to trigger CSS transition
-      setTimeout(() => {
-        progressBar.style.width = `${progressPercent}%`;
-        progressPointer.style.left = `${progressPercent}%`;
-      }, 100);
-    });
-  </script>
-</body>
+        // 2. Check session
+        const user = checkSession();
+        if (!user) return;
+
+        // 3. Update Page Title
+        updatePageHeader("Dashboard");
+
+        // 4. Update Header Date
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        const dateStr = now.toLocaleDateString("id-ID", options);
+        const dateEl = document.getElementById("header-date");
+        if (dateEl) dateEl.textContent = dateStr;
+
+        // 5. Update Header User Info
+        const nameEl = document.getElementById("header-user-name");
+        const nimEl = document.getElementById("header-user-nim");
+        const welcomeName = document.getElementById("welcomeName");
+
+        if (nameEl) nameEl.textContent = user.name;
+        if (nimEl) nimEl.textContent = user.nim;
+        if (welcomeName) welcomeName.textContent = user.name.split(" ")[0];
+
+        // 6. Load dashboard stats
+        const grades = getGrades();
+        const totalCourses = grades.length;
+        const totalSKS = getTotalPassedCredits();
+        const gpa = calculateGPA();
+
+        document.getElementById("totalCourses").textContent = totalCourses;
+        document.getElementById("totalSKS").textContent = totalSKS;
+        document.getElementById("currentSKS").textContent = totalSKS;
+        document.getElementById("gpaValue").textContent = gpa;
+
+        // Update progress bar with animation
+        const targetSKS = 144;
+        const progressPercent = Math.min((totalSKS / targetSKS) * 100, 100);
+
+        // Start at 0
+        const progressBar = document.getElementById("sksProgressBar");
+        const progressPointer = document.getElementById("sksProgressPointer");
+
+        progressBar.style.width = "0%";
+        progressPointer.style.left = "0%";
+
+        // Animate to target after a small delay to trigger CSS transition
+        setTimeout(() => {
+          progressBar.style.width = `${progressPercent}%`;
+          progressPointer.style.left = `${progressPercent}%`;
+        }, 100);
+      });
+    </script>
+  </body>
 </html>

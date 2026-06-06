@@ -1,81 +1,250 @@
 <!-- components/sidebar.html -->
-<aside class="fixed inset-y-0 left-0 z-50 hidden md:flex flex-col bg-white border-r border-slate-200 transition-all duration-300 ease-in-out w-20 hover:w-64 group shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
-    <div class="flex items-center px-6 h-16 border-b border-slate-100">
-        <i class="ph-fill ph-graduation-cap text-3xl text-indigo-600 shrink-0"></i>
-        <span class="ml-4 font-bold text-lg text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap overflow-hidden">PortalMhs</span>
+<aside
+  class="fixed inset-y-0 left-0 z-50 hidden md:flex flex-col bg-[#0A74DA] text-white transition-all duration-300 ease-in-out w-20 hover:w-64 shadow-xl group overflow-x-hidden"
+>
+  <div class="flex items-center px-6 h-20 shrink-0 whitespace-nowrap">
+    <i class="ph-fill ph-star text-3xl text-white shrink-0"></i>
+    <span
+      class="ml-3 font-bold text-2xl tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      >PortalKU</span
+    >
+  </div>
+
+  <nav class="flex-1 overflow-y-auto py-4 custom-scrollbar">
+    <!-- Informasi Umum -->
+    <div class="mb-6">
+      <h3
+        class="px-6 text-sm font-bold mb-3 text-white/70 uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap"
+      >
+        Informasi Umum
+      </h3>
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="index.html"
+            data-page="index.html"
+            class="nav-link flex items-center px-6 py-3 text-white hover:bg-[#085db0] transition-colors relative whitespace-nowrap"
+          >
+            <i class="ph ph-house text-xl shrink-0 w-6 text-center"></i>
+            <span
+              class="ml-3 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >Home</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="nav-link flex items-center px-6 py-3 text-white hover:bg-[#085db0] transition-colors relative whitespace-nowrap"
+          >
+            <i class="ph ph-book text-xl shrink-0 w-6 text-center"></i>
+            <span
+              class="ml-3 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >Panduan</span
+            >
+          </a>
+        </li>
+      </ul>
     </div>
-    <nav class="flex-1 overflow-y-auto py-6 custom-scrollbar">
-        <ul class="space-y-1.5 px-3">
-            <li>
-                <a href="index.html" data-page="index.html" class="nav-link flex items-center p-3 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all relative border-l-4 border-transparent overflow-hidden group/item">
-                    <i class="ph ph-house text-2xl shrink-0 transition-transform group-hover/item:scale-110"></i>
-                    <span class="ml-4 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="krs.html" data-page="krs.html" class="nav-link flex items-center p-3 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all relative border-l-4 border-transparent overflow-hidden group/item">
-                    <i class="ph ph-books text-2xl shrink-0 transition-transform group-hover/item:scale-110"></i>
-                    <span class="ml-4 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">KRS</span>
-                </a>
-            </li>
-            <li>
-                <a href="jadwal-absen.html" data-page="jadwal-absen.html" class="nav-link flex items-center p-3 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all relative border-l-4 border-transparent overflow-hidden group/item">
-                    <i class="ph ph-calendar-check text-2xl shrink-0 transition-transform group-hover/item:scale-110"></i>
-                    <span class="ml-4 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Jadwal & Absen</span>
-                </a>
-            </li>
-            <li>
-                <a href="khs.html" data-page="khs.html" class="nav-link flex items-center p-3 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all relative border-l-4 border-transparent overflow-hidden group/item">
-                    <i class="ph ph-file-text text-2xl shrink-0 transition-transform group-hover/item:scale-110"></i>
-                    <span class="ml-4 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">KHS & Transkrip</span>
-                </a>
-            </li>
-            <li>
-                <a href="profil.html" data-page="profil.html" class="nav-link flex items-center p-3 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all relative border-l-4 border-transparent overflow-hidden group/item">
-                    <i class="ph ph-user text-2xl shrink-0 transition-transform group-hover/item:scale-110"></i>
-                    <span class="ml-4 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Profil</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <div class="p-4 border-t border-slate-100">
-        <a href="#" onclick="logout(); return false;" class="flex items-center p-3 rounded-xl text-slate-500 hover:bg-red-50 hover:text-red-600 transition-all overflow-hidden group/item">
-            <i class="ph ph-sign-out text-2xl shrink-0 transition-transform group-hover/item:scale-110"></i>
-            <span class="ml-4 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Logout</span>
-        </a>
+
+    <!-- Menu Akademik -->
+    <div class="mb-6">
+      <h3
+        class="px-6 text-sm font-bold mb-3 text-white/70 uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap"
+      >
+        Menu Akademik
+      </h3>
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="krs.html"
+            data-page="krs.html"
+            class="nav-link flex items-center px-6 py-3 text-white hover:bg-[#085db0] transition-colors relative whitespace-nowrap"
+          >
+            <i class="ph ph-file-text text-xl shrink-0 w-6 text-center"></i>
+            <span
+              class="ml-3 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >Registrasi Matakuliah</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            href="jadwal-absen.html"
+            data-page="jadwal-absen.html"
+            class="nav-link flex items-center px-6 py-3 text-white hover:bg-[#085db0] transition-colors relative whitespace-nowrap"
+          >
+            <i
+              class="ph ph-calendar-blank text-xl shrink-0 w-6 text-center"
+            ></i>
+            <span
+              class="ml-3 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >Jadwal Kuliah</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            href="khs.html"
+            data-page="khs.html"
+            class="nav-link flex items-center px-6 py-3 text-white hover:bg-[#085db0] transition-colors relative whitespace-nowrap"
+          >
+            <i
+              class="ph ph-graduation-cap text-xl shrink-0 w-6 text-center"
+            ></i>
+            <span
+              class="ml-3 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >Hasil Studi</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="nav-link flex items-center px-6 py-3 text-white hover:bg-[#085db0] transition-colors relative whitespace-nowrap"
+          >
+            <i class="ph ph-file-doc text-xl shrink-0 w-6 text-center"></i>
+            <span
+              class="ml-3 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >Transkrip Nilai</span
+            >
+          </a>
+        </li>
+      </ul>
     </div>
+
+    <!-- Pengaturan Akun -->
+    <div class="mb-6">
+      <h3
+        class="px-6 text-sm font-bold mb-3 text-white/70 uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap"
+      >
+        Pengaturan Akun
+      </h3>
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="profil.html"
+            data-page="profil.html"
+            class="nav-link flex items-center px-6 py-3 text-white hover:bg-[#085db0] transition-colors relative whitespace-nowrap"
+          >
+            <i class="ph ph-user text-xl shrink-0 w-6 text-center"></i>
+            <span
+              class="ml-3 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >Data Pribadi</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="nav-link flex items-center px-6 py-3 text-white hover:bg-[#085db0] transition-colors relative whitespace-nowrap"
+          >
+            <i class="ph ph-key text-xl shrink-0 w-6 text-center"></i>
+            <span
+              class="ml-3 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >Ganti Password</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              logout();
+              return false;
+            "
+            class="flex items-center px-6 py-3 text-red-500 font-bold hover:bg-[#085db0] transition-colors relative whitespace-nowrap"
+          >
+            <i class="ph ph-sign-out text-xl shrink-0 w-6 text-center"></i>
+            <span
+              class="ml-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >Logout</span
+            >
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div
+    class="p-6 text-sm text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap"
+  >
+    Cc:MieSo
+  </div>
 </aside>
 
-<!-- Mobile Bottom Navigation -->
-<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 pb-safe shadow-[0_-4px_24px_rgba(0,0,0,0.06)]">
-    <div class="flex justify-around items-center h-16 px-2">
-        <a href="index.html" data-page="index.html" class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-indigo-600 transition-colors">
-            <i class="ph ph-house text-[26px] mb-1"></i>
-            <span class="text-[10px] font-medium leading-none">Home</span>
-        </a>
-        <a href="krs.html" data-page="krs.html" class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-indigo-600 transition-colors">
-            <i class="ph ph-books text-[26px] mb-1"></i>
-            <span class="text-[10px] font-medium leading-none">KRS</span>
-        </a>
-        <a href="jadwal-absen.html" data-page="jadwal-absen.html" class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-indigo-600 transition-colors">
-            <i class="ph ph-calendar-check text-[26px] mb-1"></i>
-            <span class="text-[10px] font-medium leading-none">Jadwal</span>
-        </a>
-        <a href="khs.html" data-page="khs.html" class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-indigo-600 transition-colors">
-            <i class="ph ph-file-text text-[26px] mb-1"></i>
-            <span class="text-[10px] font-medium leading-none">KHS</span>
-        </a>
-        <a href="profil.html" data-page="profil.html" class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-indigo-600 transition-colors">
-            <i class="ph ph-user text-[26px] mb-1"></i>
-            <span class="text-[10px] font-medium leading-none">Profil</span>
-        </a>
-    </div>
+<!-- Mobile Bottom Navigation (Preserved but styled to match) -->
+<nav
+  class="md:hidden fixed bottom-0 left-0 w-full bg-[#0A74DA] text-white z-50 pb-safe shadow-[0_-4px_24px_rgba(0,0,0,0.15)]"
+>
+  <div class="flex justify-around items-center h-16 px-2">
+    <a
+      href="index.html"
+      data-page="index.html"
+      class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-white/70 hover:text-white transition-colors"
+    >
+      <i class="ph ph-house text-[26px] mb-1"></i>
+      <span class="text-[10px] font-medium leading-none">Home</span>
+    </a>
+    <a
+      href="krs.html"
+      data-page="krs.html"
+      class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-white/70 hover:text-white transition-colors"
+    >
+      <i class="ph ph-file-text text-[26px] mb-1"></i>
+      <span class="text-[10px] font-medium leading-none">KRS</span>
+    </a>
+    <a
+      href="jadwal-absen.html"
+      data-page="jadwal-absen.html"
+      class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-white/70 hover:text-white transition-colors"
+    >
+      <i class="ph ph-calendar-blank text-[26px] mb-1"></i>
+      <span class="text-[10px] font-medium leading-none">Jadwal</span>
+    </a>
+    <a
+      href="khs.html"
+      data-page="khs.html"
+      class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-white/70 hover:text-white transition-colors"
+    >
+      <i class="ph ph-graduation-cap text-[26px] mb-1"></i>
+      <span class="text-[10px] font-medium leading-none">KHS</span>
+    </a>
+    <a
+      href="profil.html"
+      data-page="profil.html"
+      class="nav-link-mobile relative flex flex-col items-center justify-center w-full h-full text-white/70 hover:text-white transition-colors"
+    >
+      <i class="ph ph-user text-[26px] mb-1"></i>
+      <span class="text-[10px] font-medium leading-none">Profil</span>
+    </a>
+  </div>
 </nav>
 
 <style>
-/* Custom Scrollbar for sidebar */
-.custom-scrollbar::-webkit-scrollbar { width: 4px; }
-.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-.custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-.custom-scrollbar:hover::-webkit-scrollbar-thumb { background: #94a3b8; }
+  /* Custom Scrollbar for sidebar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+  }
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Active Menu State */
+  .nav-link.active-menu {
+    background-color: #1a1a1a; /* Dark almost black color from UI */
+    border-radius: 0.5rem;
+    margin: 0 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .nav-link.active-menu .ph {
+    font-weight: bold;
+  }
 </style>

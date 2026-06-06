@@ -4,33 +4,77 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Portal Administratif Mahasiswa</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
 </head>
-<body class="login-body">
-  <div class="login-box">
-    <h1><i class="fas fa-university" style="color: #4CAF50;"></i> Portal Administratif Mahasiswa</h1>
-    <h2>Silakan Login</h2>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+  <div class="w-full h-screen flex flex-col md:flex-row bg-white overflow-hidden shadow-2xl">
     
-    <form class="login-form" id="loginForm">
-      <div class="form-group">
-        <label for="nim"><i class="fas fa-id-card"></i> NIM</label>
-        <input type="text" id="nim" name="nim" placeholder="Masukkan NIM" required>
+    <!-- Left Column (Login Form) -->
+    <div class="w-full md:w-1/2 flex flex-col justify-center px-8 sm:px-16 md:px-24 py-12 relative z-10">
+      <div class="max-w-md w-full mx-auto">
+        <div class="text-center mb-10">
+          <h1 class="text-3xl font-bold text-gray-900 mb-2">LOGIN</h1>
+          <p class="text-gray-500 font-medium">Masuk Ke Portalmu Sekarang</p>
+        </div>
+        
+        <form id="loginForm" class="space-y-6">
+          <div>
+            <label for="nim" class="block text-sm font-semibold text-gray-900 mb-2">NIM</label>
+            <input type="text" id="nim" name="nim" placeholder="123456789" required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all duration-200">
+          </div>
+          
+          <div>
+            <label for="password" class="block text-sm font-semibold text-gray-900 mb-2">Password</label>
+            <input type="password" id="password" name="password" placeholder="Example123" required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all duration-200">
+          </div>
+          
+          <button type="submit" class="w-full flex justify-center items-center gap-2 bg-[#1C1C1C] hover:bg-black text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 shadow-lg mt-4">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+          
+          <div class="text-right mt-4">
+            <a href="#" class="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors">Lupa Password?</a>
+          </div>
+        </form>
+
+        <div class="mt-8 p-4 bg-blue-50 text-blue-800 rounded-lg text-sm flex items-center gap-3 border border-blue-100">
+          <i class="fas fa-info-circle text-blue-500"></i> 
+          <span>Demo: NIM: <strong>11223344</strong> | Password: <strong>rahasia123</strong></span>
+        </div>
       </div>
-      
-      <div class="form-group">
-        <label for="password"><i class="fas fa-lock"></i> Password</label>
-        <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
-      </div>
-      
-      <button type="submit" class="btn-login">
-        <i class="fas fa-sign-in-alt"></i> Login
-      </button>
-    </form>
-    
-    <div class="login-info">
-      <i class="fas fa-info-circle"></i> Demo: NIM: <strong>11223344</strong> | Password: <strong>rahasia123</strong>
     </div>
+
+    <!-- Right Column (Image and Branding) -->
+    <div class="w-full md:w-1/2 relative hidden md:block">
+      <!-- Background Image -->
+      <img src="assets/unsw_building.png" alt="University Building" class="absolute inset-0 w-full h-full object-cover rounded-l-3xl shadow-xl z-0 transform transition-transform duration-[10s] hover:scale-105">
+      
+      <!-- Gradient Overlay for Better Text Contrast -->
+      <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-800/40 to-transparent z-10 rounded-l-3xl"></div>
+
+      <!-- Top Right Logo -->
+      <div class="absolute top-8 right-8 z-20 flex items-center gap-2 text-white bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+        <i class="fas fa-star"></i>
+        <span class="font-bold tracking-wide">PortalKU</span>
+      </div>
+
+      <!-- Bottom Left Text -->
+      <div class="absolute bottom-12 left-12 z-20">
+        <h2 class="text-5xl font-bold text-white leading-tight drop-shadow-md">
+          PORTAL<br>
+          ADMINISTRASI<br>
+          MAHASISWA
+        </h2>
+      </div>
+    </div>
+    
   </div>
 
   <script src="assets/app.js"></script>

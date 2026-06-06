@@ -347,14 +347,17 @@ function setActiveMenu() {
   const desktopLinks = document.querySelectorAll('.nav-link');
   desktopLinks.forEach(link => {
     if (link.getAttribute('data-page') === currentPath) {
-      link.classList.add('bg-indigo-50', 'text-indigo-600', 'border-indigo-600');
-      link.classList.remove('text-slate-500', 'border-transparent');
+      link.classList.add('active-menu');
+      link.classList.remove('hover:bg-[#085db0]');
       // Update icon classes if needed
       const icon = link.querySelector('i');
       if (icon) {
         icon.classList.remove('ph');
         icon.classList.add('ph-fill');
       }
+    } else {
+      link.classList.remove('active-menu');
+      link.classList.add('hover:bg-[#085db0]');
     }
   });
 
@@ -362,13 +365,16 @@ function setActiveMenu() {
   const mobileLinks = document.querySelectorAll('.nav-link-mobile');
   mobileLinks.forEach(link => {
     if (link.getAttribute('data-page') === currentPath) {
-      link.classList.add('text-indigo-600');
-      link.classList.remove('text-slate-400');
+      link.classList.add('text-white', 'font-bold');
+      link.classList.remove('text-white/70');
       const icon = link.querySelector('i');
       if (icon) {
         icon.classList.remove('ph');
         icon.classList.add('ph-fill');
       }
+    } else {
+      link.classList.remove('text-white', 'font-bold');
+      link.classList.add('text-white/70');
     }
   });
 }
