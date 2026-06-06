@@ -16,7 +16,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   color: #333;
   line-height: 1.4;
 }
@@ -92,57 +92,73 @@ a:hover {
    ============================================ */
 
 .sidebar {
-  width: 200px;
-  background-color: #f5f5dc;
-  border-right: 1px solid #ccc;
-  padding: 10px 0;
+  width: 290px;
+  height: 100%;
+  background-color: #0077E6;
+  padding: 10px 10px;
+  
+}
+
+.sidebar-menu li a i {
+    margin-right: 15px; /* <--- Ubah angka ini untuk mengatur jarak (misal: 12px, 20px) */
+}
+
+.sidebar img {
+  display: block;
+  margin: 10px auto 15px auto;
+  width: 160px;
+  height: 60px;
+  border-radius: 50%;
 }
 
 .sidebar-menu {
   list-style: none;
 }
 
-.sidebar-menu li {
-  border-bottom: 1px dashed #999;
-  padding: 0;
-}
 
 .sidebar-menu li:last-child {
   border-bottom: none;
 }
 
+.sidebar h2 {
+  font-size: 18px;
+  color: #fff;
+  padding: 0px 15px;
+  margin-bottom: 15px;
+}
+
 .sidebar-menu a {
   display: block;
-  padding: 8px 15px;
-  color: #0000ff;
-  font-size: 11px;
+  padding: 12px 25px;
+  margin: 10px 0;
+  padding-left: 25px;
+  color: #ffffff;
+  font-size: 14px;
   text-decoration: none;
 }
 
 .sidebar-menu a:hover {
-  background-color: #e8e8d0;
-  text-decoration: underline;
+  background-color: #00102f;
+  color: #ffffff;
+  border-radius: 6px;
 }
 
 .sidebar-menu a.active {
-  background-color: #ddd;
-  color: #000;
+  background-color: #00102f;
+  color: #ffffff;
+  border-radius: 6px;
   font-weight: bold;
 }
 
-.sidebar-menu a::before {
-  content: "> ";
-  color: #666;
-}
 
 .sidebar-section {
-  margin-bottom: 15px;
+  margin-bottom: 15
 }
 
 .online-users {
   padding: 10px 15px;
   font-size: 11px;
-  color: #333;
+  color: #ffffff;
   font-weight: bold;
 }
 
