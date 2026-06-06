@@ -6,32 +6,59 @@
   <title>Login - Portal Administratif Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Connect to Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="login-body">
-  <div class="login-box">
-    <h1><i class="fas fa-university" style="color: #4CAF50;"></i> Portal Administratif Mahasiswa</h1>
-    <h2>Silakan Login</h2>
-    
-    <form class="login-form" id="loginForm">
-      <div class="form-group">
-        <label for="nim"><i class="fas fa-id-card"></i> NIM</label>
-        <input type="text" id="nim" name="nim" placeholder="Masukkan NIM" required>
+<body class="bg-gray-900">
+<div class="grid min-h-screen grid-cols-1 lg:grid-cols-2">
+  <!-- Left Side: Login Form -->
+  <div class="flex flex-col justify-center px-6 py-12 sm:px-12 lg:px-20 xl:px-24">
+    <div class="mx-auto w-full max-w-sm">
+      <div>
+        <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" class="h-10 w-auto" />
+        
+        <h2 class="mt-10 text-2xl/9 font-bold tracking-tight text-white">Login</h2>
+        <h3>masuk ke portal administrasi akademik</h3>
+        
       </div>
-      
-      <div class="form-group">
-        <label for="password"><i class="fas fa-lock"></i> Password</label>
-        <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
+
+      <div class="mt-10">
+    <form id="loginForm" action="#" method="POST" class="space-y-6">
+      <div>
+        <label for="nim" class="block text-sm/6 font-medium text-gray-100">NIM</label>
+        <div class="mt-2">
+          <input id="nim" type="text" name="nim" required class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+        </div>
       </div>
-      
-      <button type="submit" class="btn-login">
-        <i class="fas fa-sign-in-alt"></i> Login
-      </button>
+
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
+          <div class="text-sm">
+            <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
+          </div>
+        </div>
+        <div class="mt-2">
+          <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Sign in</button>
+      </div>
     </form>
-    
-    <div class="login-info">
-      <i class="fas fa-info-circle"></i> Demo: NIM: <strong>11223344</strong> | Password: <strong>rahasia123</strong>
-    </div>
+
+    <p class="mt-10 text-center text-sm/6 text-gray-400">
+      Not a member?
+      <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Start a 14 day free trial</a>
+    </p>
   </div>
+    <!-- right Side: Login Form -->
+  <div>
+
+  </div>
+</div>
+
 
   <script src="assets/app.js"></script>
   <script>
