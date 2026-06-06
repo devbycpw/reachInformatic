@@ -42,9 +42,28 @@ const DEFAULT_PROFILE = {
 };
 
 const DEFAULT_GRADES = [
-  { code: "MK001", name: "Algoritma & Pemrograman", sks: 3, grade: "A", weight: 4.0 },
-  { code: "MK003", name: "Kalkulus", sks: 2, grade: "B+", weight: 3.5 },
-  { code: "MK005", name: "Jaringan Komputer", sks: 3, grade: "B", weight: 3.0 }
+  { code: "MPK001", name: "Pendidikan Agama", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MPK002", name: "Pendidikan Pancasila", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MPK003", name: "Bahasa Indonesia", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MPK004", name: "Bahasa Inggris", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MKK001", name: "Logika Informatika", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MKK002", name: "Matematika Diskrit", sks: 3, grade: "A", weight: 4.0 },
+  { code: "MKK003", name: "Kalkulus 1", sks: 3, grade: "A", weight: 4.0 },
+  { code: "MKK004", name: "Algoritma & Pemrograman", sks: 3, grade: "A", weight: 4.0 },
+  { code: "MKK005", name: "Arsitektur Komputer", sks: 3, grade: "B", weight: 3.0 },
+  { code: "MKK006", name: "Sistem Operasi", sks: 3, grade: "A", weight: 4.0 },
+  { code: "MKK007", name: "Basis Data 1", sks: 3, grade: "A", weight: 4.0 },
+  { code: "MKK008", name: "Pemrograman Berorientasi Objek", sks: 3, grade: "A", weight: 4.0 },
+  { code: "MKK009", name: "Struktur Data", sks: 3, grade: "A", weight: 4.0 },
+  { code: "MKB001", name: "Rekayasa Perangkat Lunak", sks: 3, grade: "A", weight: 4.0 },
+  { code: "MKB002", name: "Jaringan Komputer", sks: 3, grade: "A", weight: 4.0 },
+  { code: "MBB001", name: "Interaksi Manusia dan Komputer", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MBB002", name: "Etika Profesi", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MPK005", name: "Kewarganegaraan", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MBB003", name: "Kepemimpinan", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MKK010", name: "Aljabar Linear", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MKK011", name: "Statistika", sks: 2, grade: "A", weight: 4.0 },
+  { code: "MKB003", name: "Metodologi Penelitian", sks: 2, grade: "A", weight: 4.0 }
 ];
 
 // ============================================
@@ -258,7 +277,7 @@ function getGrades() {
 
 function calculateGPA() {
   const grades = getGrades();
-  if (grades.length === 0) return 0;
+  if (grades.length === 0) return "0.00";
   
   let totalWeightedPoints = 0;
   let totalCredits = 0;
@@ -268,7 +287,7 @@ function calculateGPA() {
     totalCredits += grade.sks;
   }
   
-  return totalCredits > 0 ? (totalWeightedPoints / totalCredits).toFixed(2) : 0;
+  return (totalWeightedPoints / totalCredits).toFixed(2);
 }
 
 function getTotalPassedCredits() {

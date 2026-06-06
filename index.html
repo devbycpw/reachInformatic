@@ -214,11 +214,12 @@
       if (welcomeName) welcomeName.textContent = user.name.split(' ')[0];
 
       // 6. Load dashboard stats
-      const krs = getKRS();
-      const totalSKS = 54; // Diubah ke 54 untuk demonstrasi visual
+      const grades = getGrades();
+      const totalCourses = grades.length;
+      const totalSKS = getTotalPassedCredits();
       const gpa = calculateGPA();
 
-      document.getElementById('totalCourses').textContent = krs.length;
+      document.getElementById('totalCourses').textContent = totalCourses;
       document.getElementById('totalSKS').textContent = totalSKS;
       document.getElementById('currentSKS').textContent = totalSKS;
       document.getElementById('gpaValue').textContent = gpa;
