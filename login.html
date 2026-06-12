@@ -29,30 +29,45 @@
 
             <form id="loginForm">
 
-                <div class="form-group">
-                    <label for="nim">NIM</label>
-                    <input
-                        type="text"
-                        id="nim"
-                        name="nim"
-                        placeholder="Masukkan NIM"
-                        required>
+                <div id="formInputs">
+                    <div class="form-group">
+                        <label for="nim">NIM</label>
+                        <input
+                            type="text"
+                            id="nim"
+                            name="nim"
+                            placeholder="Masukkan NIM"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Masukkan Password"
+                            required>
+                    </div>
+
+                    <div id="loginAlert" class="login-alert" style="display: none;"></div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span id="loginBtnText">Login</span>
+                    </button>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Masukkan Password"
-                        required>
+                <!-- Animasi Cool Loading -->
+                <div id="coolLoading" class="cool-loading" style="display: none;">
+                    <div class="spinner-container" id="spinnerContainer">
+                        <div class="cool-spinner"></div>
+                    </div>
+                    <div class="success-container" id="successContainer" style="display: none;">
+                        <div class="success-checkmark"><i class="fas fa-check"></i></div>
+                    </div>
+                    <p id="coolLoadingText">Memverifikasi Data...</p>
                 </div>
-
-                <button type="submit" class="login-btn">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    Login
-                </button>
 
             </form>
 
@@ -80,11 +95,47 @@
       const nim = document.getElementById('nim').value;
       const password = document.getElementById('password').value;
       
-      if (login(nim, password)) {
-        window.location.href = 'index.html';
-      } else {
-        alert('NIM atau Password salah! (Demo: NIM: 11223344 | Password: rahasia123)');
-      }
+      const formInputs = document.getElementById('formInputs');
+      const coolLoading = document.getElementById('coolLoading');
+      const spinnerContainer = document.getElementById('spinnerContainer');
+      const successContainer = document.getElementById('successContainer');
+      const coolLoadingText = document.getElementById('coolLoadingText');
+      const alertBox = document.getElementById('loginAlert');
+      
+      // Reset alert
+      alertBox.style.display = 'none';
+      alertBox.className = 'login-alert';
+      
+      // Sembunyikan field, tampilkan animasi loading
+      formInputs.style.display = 'none';
+      coolLoading.style.display = 'flex';
+      spinnerContainer.style.display = 'flex';
+      successContainer.style.display = 'none';
+      coolLoadingText.textContent = 'Memverifikasi Data...';
+      coolLoadingText.style.color = 'var(--color-dark)';
+      
+      setTimeout(() => {
+        if (login(nim, password)) {
+          // Animasi sukses
+          spinnerContainer.style.display = 'none';
+          successContainer.style.display = 'flex';
+          coolLoadingText.textContent = 'Login Berhasil!';
+          coolLoadingText.style.color = '#10B981';
+          
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1000);
+        } else {
+          // Kembali ke field jika gagal
+          coolLoading.style.display = 'none';
+          formInputs.style.display = 'block';
+          formInputs.style.animation = 'fadeIn 0.4s ease forwards';
+          
+          alertBox.style.display = 'flex';
+          alertBox.className = 'login-alert error';
+          alertBox.innerHTML = '<i class="fas fa-exclamation-circle"></i> NIM atau Password salah! (Demo: NIM: 11223344 | Password: rahasia123)';
+        }
+      }, 1500); // 1.5 detik loading
     });
 </script>
 

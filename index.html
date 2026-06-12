@@ -11,19 +11,22 @@
 
   <!-- Content Area -->
   <main class="content-area">
-    <div class="welcome-box">
+
+    <div class="welcome-box animate-on-scroll">
       <div class="welcome-text">Selamat Datang Kembali, <span id="welcomeName">Mahasiswa</span>!</div>
       <p>Ini adalah portal administratif akademik Anda. Periksa jadwal kuliah, nilai semester, dan status KRS secara berkala.</p>
     </div>
 
-    <h2 class="dashboard-title">DASHBOARD</h2>
+    <h2 class="dashboard-title animate-on-scroll delay-100">DASHBOARD</h2>
+
+
     
     <div class="dashboard-grid">
       
       <div class="grid-left-side">
         
         <div class="stats-container">
-          <div class="stat-card card-blue">
+          <div class="stat-card card-blue animate-on-scroll delay-100">
             <div class="stat-icon"><i class="fas fa-book-open"></i></div>
             <div class="stat-info-text">
               <h4>JUMLAH MATA KULIAH</h4>
@@ -31,7 +34,7 @@
             </div>
           </div>
           
-          <div class="stat-card card-green">
+          <div class="stat-card card-green animate-on-scroll delay-200">
             <div class="stat-icon"><i class="fas fa-clipboard-check"></i></div>
             <div class="stat-info-text">
               <h4>TOTAL SKS</h4>
@@ -39,16 +42,19 @@
             </div>
           </div>
           
-          <div class="stat-card card-orange">
+          <div class="stat-card card-orange animate-on-scroll delay-300">
             <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
             <div class="stat-info-text">
               <h4>IPK TERAKHIR</h4>
-              <div class="stat-value" id="gpaValue">0.00</div>
+              <div class="stat-value" style="display: flex; align-items: center; gap: 10px;">
+                <span id="gpaValue">0.00</span>
+                <span id="gpaTrend" style="font-size: 0.75rem; padding: 4px 8px; border-radius: 20px; font-weight: 700; display: flex; align-items: center; gap: 4px;"></span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="panel-card">
+        <div class="panel-card animate-on-scroll delay-200">
           <div class="panel-header">
             <i class="fas fa-tasks" style="color: var(--color-blue-primary);"></i>
             <h3>Progress Indeks Prestasi (IP) Per Semester</h3>
@@ -60,7 +66,7 @@
           </div>
         </div>
         
-        <div class="info-box-siakad">
+        <div class="info-box-siakad animate-on-scroll delay-300">
           <div style="font-size: 1.5rem; color: #EA580C; margin-right: 12px;"><i class="fas fa-exclamation-triangle"></i></div>
           <div>
             <h4>PENGUMUMAN / INFORMASI PENTING</h4>
@@ -75,7 +81,7 @@
 
       <div class="side-banner-column">
         
-        <div class="slider-container">
+        <div class="slider-container animate-on-scroll delay-100">
           <div class="slider-wrapper" id="sliderWrapper">
             
             <a href="https://beasiswa.kampus.ac.id" target="_blank" class="slide-item">
@@ -111,7 +117,7 @@
           </div>
         </div>
         
-        <div class="quick-nav-box">
+        <div class="quick-nav-box animate-on-scroll delay-200">
           <h4>Akses Cepat</h4>
           <div class="quick-links-grid">
             <a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> Jadwal Kuliah</a>
@@ -165,15 +171,18 @@
       document.getElementById('gpaValue').textContent = calculateGPA();
     }
 
-    // Inisialisasi Chart Progress Semester
+    // Inisialisasi Chart Progress Semester & Kalkulasi Trend
+    const semesterLabels = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6', 'Sem 7', 'Sem 8 (Akhir)'];
+    const semesterData = [3.40, 3.55, 3.62, 3.50, 3.75, 3.80, 3.65, 3.70];
+    
     const ctx = document.getElementById('progressChart').getContext('2d');
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Sem 1', 'Sem 2', 'Sem 3 (Kini)'],
+        labels: semesterLabels,
         datasets: [{
           label: 'IP Semester',
-          data: [3.40, 3.55, 3.62],
+          data: semesterData,
           borderColor: '#0077E6',
           backgroundColor: 'rgba(0, 119, 230, 0.08)',
           borderWidth: 3,
@@ -189,6 +198,27 @@
         }
       }
     });
+
+    // Kalkulasi Trend IPK
+    const currentIP = semesterData[semesterData.length - 1];
+    const prevIP = semesterData[semesterData.length - 2];
+    const trendEl = document.getElementById('gpaTrend');
+    
+    if (trendEl) {
+      if (currentIP > prevIP) {
+        trendEl.innerHTML = '<i class="fas fa-arrow-up"></i> Naik';
+        trendEl.style.backgroundColor = '#DCFCE7';
+        trendEl.style.color = '#166534';
+      } else if (currentIP < prevIP) {
+        trendEl.innerHTML = '<i class="fas fa-arrow-down"></i> Turun';
+        trendEl.style.backgroundColor = '#FEE2E2';
+        trendEl.style.color = '#991B1B';
+      } else {
+        trendEl.innerHTML = '<i class="fas fa-minus"></i> Tetap';
+        trendEl.style.backgroundColor = '#F1F5F9';
+        trendEl.style.color = '#475569';
+      }
+    }
   </script>
 </body>
 </html>

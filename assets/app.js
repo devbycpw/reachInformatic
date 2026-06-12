@@ -169,8 +169,7 @@ function initAppLayout() {
   let sidebarHTML = `
     <div class="sidebar-header">
       <div class="sidebar-logo">
-        <span class="logo-icon">★</span> 
-        <span class="logo-text">PortalKU</span>
+        <img src="img/Logo-01.png" alt="Logo" style="width: auto; height: 80px; margin-right: 10px;">
       </div>
     </div>
     <nav class="sidebar-menu">
@@ -228,19 +227,28 @@ function initAppLayout() {
 
   topbar.innerHTML = `
     <div class="topbar-left">
-      <i class="fas fa-calendar-alt"></i>
-      <span>${formattedDate}</span>
+      <button class="mobile-menu-btn" onclick="toggleMobileSidebar()" aria-label="Toggle Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="topbar-date">
+        <i class="fas fa-calendar-alt"></i>
+        <span>${formattedDate}</span>
+      </div>
     </div>
     <div class="topbar-right">
       <div class="user-academic-badge">
         <span class="user-name">${user.name}</span>
-        <span class="user-meta">NIM <strong>${user.nim}</strong> | FTI - Teknik Informatika | Sem 3 (2025-2026)</span>
+        <span class="user-meta">NIM <strong>${user.nim}</strong> | FTI - Teknik Informatika | Sem 8 (Akhir)</span>
       </div>
-      <button class="topbar-logout-btn" onclick="logout()">
-        <i class="fas fa-sign-out-alt"></i> Logout
-      </button>
     </div>
   `;
+
+  // Create Sidebar Overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'sidebar-overlay';
+  overlay.id = 'sidebar-overlay';
+  overlay.onclick = toggleMobileSidebar;
+  body.appendChild(overlay);
 
   // 7. Create Footer
   const footer = document.createElement('footer');
@@ -250,6 +258,19 @@ function initAppLayout() {
   `;
   mainContentWrapper.appendChild(footer); // Insert footer after content area
 }
+
+// ============================================
+// UI & LAYOUT UTILITIES
+// ============================================
+
+window.toggleMobileSidebar = function() {
+  const sidebar = document.getElementById('sidebar-app');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (sidebar && overlay) {
+    sidebar.classList.toggle('mobile-active');
+    overlay.classList.toggle('mobile-active');
+  }
+};
 
 // ============================================
 // AUTHENTICATION FUNCTIONS
@@ -484,9 +505,50 @@ function getCourseByCode(code) {
 // Initialize data and run layout on script load
 initMockData();
 
-// Automatically run layout on DOMContentLoaded
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initAppLayout);
-} else {
-  initAppLayout();
+// ============================================
+// GLOBAL ANIMATIONS
+// ============================================
+
+function initGlobalAnimations() {
+  const selectors = [
+    '.welcome-box', '.dashboard-title', '.stat-card', '.panel-card', 
+    '.info-box-siakad', '.slider-container', '.quick-nav-box', 
+    '.table-card', '.alert', '.form-group', '.login-card', '.content-area > h2', '.content-area > h3'
+  ];
+  
+  let elements = document.querySelectorAll(selectors.join(', '));
+  
+  let delayIndex = 0;
+  elements.forEach((el) => {
+    if (!el.classList.contains('animate-on-scroll')) {
+      el.classList.add('animate-on-scroll');
+      let delay = (delayIndex % 5) * 100 + 100;
+      el.classList.add(`delay-${delay}`);
+      delayIndex++;
+    }
+  });
+
+  const animElements = document.querySelectorAll('.animate-on-scroll');
+  
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+  
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in-up');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  animElements.forEach(el => observer.observe(el));
 }
+
+// Run layout and animations synchronously to prevent FOUC
+// since this script is loaded at the end of the body
+initAppLayout();
+initGlobalAnimations();
