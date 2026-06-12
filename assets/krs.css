@@ -1,0 +1,131 @@
+/* --- COMPONENT HEAD HEADER KRS --- */
+.krs-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Kotak info status modern */
+.krs-status-badge-box {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  padding: 12px 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.status-label {
+  font-size: 0.75rem;
+  color: #64748B;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.status-value-text {
+  font-size: 0.95rem;
+  color: var(--color-dark);
+}
+
+.status-divider {
+  width: 1px;
+  height: 32px;
+  background-color: var(--color-gray-light);
+}
+
+/* Badge Status Bertipe Pil (Pill) */
+.status-badge-modern {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-badge-modern.draft {
+  background-color: #FEF3C7; /* Amber/Kuning muda */
+  color: #D97706;
+}
+
+.status-badge-modern.status-approved {
+  background-color: #DCFCE7; /* Hijau muda */
+  color: #15803D;
+}
+
+/* --- TOMBOL AKSI INDIVIDUAL TABEL --- */
+.font-semibold {
+  font-weight: 600;
+}
+
+/* Tombol Ambil (Hijau cerah) */
+.btn-action-add {
+  background-color: #10B981;
+  color: var(--color-white);
+  border: none;
+  padding: 6px 12px;
+  font-family: var(--font-family);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-action-add:hover {
+  background-color: #059669;
+}
+
+/* Tombol Batal/Drop (Merah soft) */
+.btn-action-drop {
+  background-color: #FEE2E2;
+  color: #EF4444;
+  border: 1px solid #FCA5A5;
+  padding: 6px 12px;
+  font-family: var(--font-family);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-action-drop:hover {
+  background-color: #EF4444;
+  color: var(--color-white);
+}
+
+/* --- BOTTOM ACTION FOR SUBMIT KRS --- */
+.krs-action-container {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Tombol Ajukan (Blue Primary) */
+.btn-submit-krs {
+  background-color: var(--color-blue-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 12px 24px;
+  font-family: var(--font-family);
+  font-size: 0.875rem; /* Headline M */
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 119, 230, 0.2);
+  transition: all 0.2s;
+}
+
+.btn-submit-krs:hover {
+  background-color: #005FBC;
+  transform: translateY(-1px);
+}

@@ -3,127 +3,223 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrasi Matakuliah - Portal Administrasi Mahasiswa</title>
+  <title>Registrasi Matakuliah - Portal Administratif Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/krs.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar" id="sidebar"></aside>
-    <div class="main">
-      <div class="topbar" id="topbar"></div>
-      <div class="content">
+  <!-- Top Date Bar -->
+  <div class="top-date-bar">
+    <span id="currentDate"></span>
+  </div>
 
-        <!-- Overview -->
-        <h2 class="section-title first">Overview</h2>
-        <div class="stat-grid cols-2">
-          <div class="stat-card">
-            <div class="chip blue"><i class="fas fa-clipboard-list"></i></div>
-            <div class="stat-label">Total SKS Diambil</div>
-            <div class="stat-value"><span id="totalSKS">0</span> <span style="font-size:18px;color:var(--muted-soft);">/ 24</span></div>
-          </div>
-          <div class="stat-card">
-            <div class="chip amber"><i class="fas fa-circle-check"></i></div>
-            <div class="stat-label">Status KRS</div>
-            <div style="margin-top:14px;"><span id="krsStatus" class="badge draft">Draft</span></div>
-          </div>
-        </div>
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-info">
+      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+    </div>
+    <a href="#" class="logout-btn" onclick="logout(); return false;">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </div>
 
-        <!-- Mata kuliah diambil -->
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <h2 class="section-title">Mata Kuliah Diambil</h2>
-          <button class="btn btn-sm" onclick="approveKRSHandler()"><i class="fas fa-check-double"></i> Ajukan Persetujuan KRS</button>
-        </div>
-        <div class="card">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>No</th><th>Kode</th><th>Mata Kuliah</th><th>SKS</th><th>Hari</th><th>Jam</th><th>Ruang</th><th>Dosen</th><th>Aksi</th></tr>
-              </thead>
-              <tbody id="myKRSBody"></tbody>
-            </table>
-          </div>
-        </div>
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar-app"></aside>
 
-        <!-- Mata kuliah tersedia -->
-        <h2 class="section-title">Mata Kuliah Tersedia</h2>
-        <div class="card">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>No</th><th>Kode</th><th>Mata Kuliah</th><th>SKS</th><th>Hari</th><th>Jam</th><th>Ruang</th><th>Dosen</th><th>Aksi</th></tr>
-              </thead>
-              <tbody id="availableBody"></tbody>
-            </table>
-          </div>
-        </div>
-
+<main class="content-area">
+  <div class="krs-header-wrapper">
+    <h2 class="dashboard-title">Kartu Rencana Studi (KRS)</h2>
+    
+    <div class="krs-status-badge-box">
+      <div class="status-item">
+        <span class="status-label">Beban SKS</span>
+        <span class="status-value-text"><strong id="totalSKS">0</strong> / 24 SKS</span>
+      </div>
+      <div class="status-divider"></div>
+      <div class="status-item">
+        <span class="status-label">Status Verifikasi</span>
+        <span id="krsStatus" class="status-badge-modern draft">Draft</span>
       </div>
     </div>
   </div>
 
+  <div class="table-card">
+    <h3 class="table-card-title"><i class="fas fa-folder-check" style="color: var(--color-blue-primary);"></i> Mata Kuliah yang Sudah Diambil</h3>
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th width="5%">No</th>
+            <th width="12%">Kode MK</th>
+            <th>Nama Mata Kuliah</th>
+            <th width="8%" class="text-center">SKS</th>
+            <th>Jadwal Pelaksanaan</th>
+            <th>Ruang & Dosen</th>
+            <th width="12%" class="text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="myKRSBody">
+          </tbody>
+      </table>
+    </div>
+    
+    <div class="krs-action-container">
+      <button class="btn-submit-krs" onclick="approveKRSHandler()">
+        <i class="fas fa-paper-plane"></i> Ajukan Persetujuan KRS
+      </button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <h3 class="table-card-title"><i class="fas fa-plus-circle" style="color: #10B981;"></i> Daftar Mata Kuliah Tersedia</h3>
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th width="5%">No</th>
+            <th width="12%">Kode MK</th>
+            <th>Nama Mata Kuliah</th>
+            <th width="8%" class="text-center">SKS</th>
+            <th>Jadwal Pelaksanaan</th>
+            <th>Ruang & Dosen</th>
+            <th width="12%" class="text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="availableBody">
+          </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+  </div>
+
   <script src="assets/app.js"></script>
   <script>
+    // Check session
     const user = checkSession();
+    renderReusableSidebar('krs.html');
     if (user) {
-      buildShell({ active: 'krs', title: 'Registrasi Mata Kuliah' });
+      // Set current date
+      const now = new Date();
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      document.getElementById('currentDate').textContent = 
+        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      
+      // Update header with user info
+      const headerInfo = document.querySelector('.header-info');
+      headerInfo.innerHTML = `
+        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      `;
+      
       loadKRSData();
     }
-
+    
     function loadKRSData() {
+      // Update stats
       document.getElementById('totalSKS').textContent = getTotalSKS();
-
+      
       const status = getKRSStatus();
       const statusEl = document.getElementById('krsStatus');
       statusEl.textContent = status;
-      statusEl.className = 'badge ' + (status === 'Disetujui' ? 'approved' : 'draft');
-
+      statusEl.className = status === 'Disetujui' ? 'status-approved' : 'status-draft';
+      
+      // Load my KRS
       const myKRS = getKRS();
       const myKRSBody = document.getElementById('myKRSBody');
+      
       if (myKRS.length === 0) {
-        myKRSBody.innerHTML = '<tr><td colspan="9" class="text-center" style="color:var(--muted)">Belum ada mata kuliah yang diambil</td></tr>';
+        myKRSBody.innerHTML = '<tr><td colspan="9" class="text-center">Belum ada mata kuliah yang diambil</td></tr>';
       } else {
-        myKRSBody.innerHTML = myKRS.map((c, i) => `
-          <tr>
-            <td class="text-center">${i + 1}</td>
-            <td>${c.code}</td><td>${c.name}</td>
-            <td class="text-center">${c.sks}</td>
-            <td>${c.day}</td><td>${c.time}</td><td>${c.room}</td><td>${c.lecturer}</td>
-            <td class="text-center"><button class="btn btn-sm btn-danger" onclick="dropCourseHandler('${c.code}')"><i class="fas fa-xmark"></i> Batal</button></td>
-          </tr>`).join('');
+        myKRSBody.innerHTML = '';
+        myKRS.forEach((course, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="text-center">${index + 1}</td>
+          <td><strong>${course.code}</strong></td>
+          <td>${course.name}</td>
+          <td class="text-center font-semibold">${course.sks}</td>
+          <td><strong>${course.day}</strong><br><small style="color: #64748B;">${course.time}</small></td>
+          <td><i class="fas fa-door-open"></i> ${course.room}<br><small style="color: #64748B;"><i class="fas fa-user-tie"></i> ${course.lecturer}</small></td>
+          <td class="text-center">
+            <button class="btn-action-drop" onclick="dropCourseHandler('${course.code}')">
+              <i class="fas fa-trash-alt"></i> Batal
+            </button>
+          </td>
+        `;
+        myKRSBody.appendChild(row);
+      });
       }
-
-      const myCodes = JSON.parse(localStorage.getItem('my_krs') || '[]');
-      const available = getAvailableCourses().filter(c => !myCodes.includes(c.code));
+      
+      // Load available courses
+      const availableCourses = getAvailableCourses();
+      const myKRSCodes = JSON.parse(localStorage.getItem('my_krs') || '[]');
       const availableBody = document.getElementById('availableBody');
-      if (available.length === 0) {
-        availableBody.innerHTML = '<tr><td colspan="9" class="text-center" style="color:var(--muted)">Tidak ada mata kuliah tersedia</td></tr>';
+      
+      availableBody.innerHTML = '';
+      let availableCount = 0;
+      availableCourses.forEach((course) => {
+  if (!myKRSCodes.includes(course.code)) {
+    availableCount++;
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="text-center">${availableCount}</td>
+      <td><strong>${course.code}</strong></td>
+      <td>${course.name}</td>
+      <td class="text-center font-semibold">${course.sks}</td>
+      <td><strong>${course.day}</strong><br><small style="color: #64748B;">${course.time}</small></td>
+      <td><i class="fas fa-door-open"></i> ${course.room}<br><small style="color: #64748B;"><i class="fas fa-user-tie"></i> ${course.lecturer}</small></td>
+      <td class="text-center">
+        <button class="btn-action-add" onclick="addCourseHandler('${course.code}')">
+          <i class="fas fa-plus"></i> Ambil
+        </button>
+      </td>
+    `;
+    availableBody.appendChild(row);
+  }
+});
+      
+      if (availableCount === 0) {
+        availableBody.innerHTML = '<tr><td colspan="9" class="text-center">Tidak ada mata kuliah tersedia</td></tr>';
+      }
+    }
+    
+    function addCourseHandler(courseCode) {
+      const result = addCourse(courseCode);
+      if (result.success) {
+        alert(result.message);
+        loadKRSData();
       } else {
-        availableBody.innerHTML = available.map((c, i) => `
-          <tr>
-            <td class="text-center">${i + 1}</td>
-            <td>${c.code}</td><td>${c.name}</td>
-            <td class="text-center">${c.sks}</td>
-            <td>${c.day}</td><td>${c.time}</td><td>${c.room}</td><td>${c.lecturer}</td>
-            <td class="text-center"><button class="btn btn-sm btn-ghost" onclick="addCourseHandler('${c.code}')"><i class="fas fa-plus"></i> Ambil</button></td>
-          </tr>`).join('');
+        alert(result.message);
       }
     }
-
-    function addCourseHandler(code) {
-      const r = addCourse(code);
-      alert(r.message);
-      if (r.success) loadKRSData();
-    }
-    function dropCourseHandler(code) {
+    
+    function dropCourseHandler(courseCode) {
       if (confirm('Yakin ingin membatalkan mata kuliah ini?')) {
-        const r = dropCourse(code);
-        alert(r.message);
-        if (r.success) loadKRSData();
+        const result = dropCourse(courseCode);
+        if (result.success) {
+          alert(result.message);
+          loadKRSData();
+        } else {
+          alert(result.message);
+        }
       }
     }
+    
     function approveKRSHandler() {
-      if (getKRS().length === 0) { alert('Anda belum mengambil mata kuliah apapun!'); return; }
+      const myKRS = getKRS();
+      if (myKRS.length === 0) {
+        alert('Anda belum mengambil mata kuliah apapun!');
+        return;
+      }
+      
       if (confirm('Ajukan KRS untuk persetujuan?')) {
         approveKRS();
         alert('KRS berhasil diajukan untuk persetujuan!');

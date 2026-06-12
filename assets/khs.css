@@ -1,0 +1,146 @@
+/* --- COMPONENT TOP ACTION BAR KHS --- */
+.khs-top-action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Tombol Cetak KHS */
+.btn-print-khs {
+  background-color: var(--color-white);
+  color: var(--color-blue-primary);
+  border: 1px solid var(--color-blue-primary);
+  padding: 10px 20px;
+  font-family: var(--font-family);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-print-khs:hover {
+  background-color: #E0F2FE; /* Soft blue focus tint */
+  transform: translateY(-1px);
+}
+
+/* --- GRID ADJUSTMENT HALAMAN KHS --- */
+.khs-grid-modifier {
+  grid-template-columns: 2fr 0.9fr !important;
+  align-items: start;
+}
+
+/* Badge Kecil Huruf Nilai di Dalam Tabel (A, B+, dll) */
+.grade-letter-badge {
+  background-color: #F1F5F9;
+  color: var(--color-dark);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* Baris Kalkulasi Total Bawah Tabel */
+.table-row-summary td {
+  background-color: #F8FAFC !important;
+  font-weight: 600;
+  color: #475569;
+  border-top: 2px solid var(--color-gray-light);
+}
+
+.table-row-gpa-summary td {
+  background-color: #F0FDF4 !important; /* Soft green success line */
+  font-weight: 700;
+  color: #166534;
+}
+
+.summary-gpa-highlight {
+  font-size: 1rem;
+  color: #15803D !important;
+}
+
+/* --- MODERN CARD WIDGET IPK (SISI KANAN) --- */
+.layout-gpa-widget {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.gpa-badge-container {
+  padding: 32px 24px;
+  text-align: center;
+  background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gpa-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  background-color: #EFF6FF;
+  color: var(--color-blue-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.gpa-badge-container h4 {
+  font-size: 0.875rem;
+  color: #64748B;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.gpa-value-modern {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-blue-primary);
+  line-height: 1;
+}
+
+.gpa-widget-footer {
+  background-color: #F1F5F9;
+  border-top: 1px solid var(--color-gray-light);
+  padding: 16px 24px;
+}
+
+.gpa-footer-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gpa-footer-label {
+  font-size: 0.875rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.gpa-footer-value {
+  font-size: 0.875rem;
+  color: var(--color-dark);
+  font-weight: 700;
+}
+
+/* --- PRINT RULES BREAK: Agar Saat Dicetak Sidebar Tidak Ikut Kebawa --- */
+@media print {
+  .sidebar { display: none !important; }
+  .content-area { margin-left: 0 !important; padding: 0 !important; }
+  .btn-print-khs { display: none !important; }
+  .khs-grid-modifier { grid-template-columns: 1fr !important; }
+  .layout-gpa-widget { display: none !important; }
+}

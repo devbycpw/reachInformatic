@@ -3,95 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jadwal Kuliah - Portal Administrasi Mahasiswa</title>
+  <title>Jadwal Kuliah - Portal Administratif Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/schedule.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar" id="sidebar"></aside>
-    <div class="main">
-      <div class="topbar" id="topbar"></div>
-      <div class="content">
+  <!-- Top Date Bar -->
+  <div class="top-date-bar">
+    <span id="currentDate"></span>
+  </div>
 
-        <h2 class="section-title first">Jadwal Kuliah Semester Ini</h2>
-        <div class="card">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>No</th><th>Hari</th><th>Jam</th><th>Kode</th><th>Mata Kuliah</th><th>SKS</th><th>Ruang</th><th>Dosen</th><th>Aksi</th></tr>
-              </thead>
-              <tbody id="scheduleBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <h2 class="section-title">Riwayat Absensi</h2>
-        <div class="card">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>No</th><th>Tanggal</th><th>Kode</th><th>Mata Kuliah</th><th>Status</th></tr>
-              </thead>
-              <tbody id="attendanceBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-      </div>
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-info">
+      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
     </div>
+    <a href="#" class="logout-btn" onclick="logout(); return false;">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </div>
+
+  <!-- Main Container -->
+  <aside class="sidebar" id="sidebar-app"></aside>
+
+  <main class="content-area">
+    <h2 class="dashboard-title">Jadwal & Absensi</h2>
+
+    <div class="dashboard-grid-layout page-schedule-grid">
+      
+      <div class="grid-left-side">
+        <div class="table-card">
+          <h3 class="table-card-title"><i class="fas fa-calendar-alt"></i> Jadwal Kuliah Semester Ini</h3>
+          <div class="table-responsive">
+            <table class="data-table" id="scheduleTable">
+              <thead>
+                <tr>
+                  <th width="5%">No</th>
+                  <th width="15%">Hari / Jam</th>
+                  <th>Mata Kuliah</th>
+                  <th width="10%">SKS</th>
+                  <th>Ruang & Dosen</th>
+                  <th width="15%">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleBody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card layout-attendance-card">
+        <h3 class="table-card-title"><i class="fas fa-history"></i> Riwayat Presensi</h3>
+        <div class="table-responsive">
+          <table class="data-table" id="attendanceTable">
+            <thead>
+              <tr>
+                <th>Mata Kuliah</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceBody">
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
   </div>
 
   <script src="assets/app.js"></script>
   <script>
+    // Check session
     const user = checkSession();
+    renderReusableSidebar('krs.html');
     if (user) {
-      buildShell({ active: 'jadwal', title: 'Jadwal Kuliah' });
-
+      // Set current date
+      const now = new Date();
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      document.getElementById('currentDate').textContent = 
+        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      
+      // Update header with user info
+      const headerInfo = document.querySelector('.header-info');
+      headerInfo.innerHTML = `
+        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      `;
+      
+      // Load schedule
       const krs = getKRS();
       const scheduleBody = document.getElementById('scheduleBody');
+      
       if (krs.length === 0) {
-        scheduleBody.innerHTML = '<tr><td colspan="9" class="text-center" style="color:var(--muted)">Belum ada mata kuliah yang diambil</td></tr>';
+        scheduleBody.innerHTML = '<tr><td colspan="9" class="text-center">Belum ada mata kuliah yang diambil</td></tr>';
       } else {
+        // Sort by day
         const dayOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
         krs.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
-        scheduleBody.innerHTML = krs.map((c, i) => `
-          <tr>
-            <td class="text-center">${i + 1}</td>
-            <td>${c.day}</td><td>${c.time}</td><td>${c.code}</td><td>${c.name}</td>
-            <td class="text-center">${c.sks}</td><td>${c.room}</td><td>${c.lecturer}</td>
-            <td class="text-center"><button class="btn btn-sm btn-ghost" onclick="attendClass('${c.code}')"><i class="fas fa-check"></i> Absen</button></td>
-          </tr>`).join('');
+        
+        krs.forEach((course, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td class="text-center">${index + 1}</td>
+            <td><strong>${course.day}</strong><br><small style="color:#64748B;">${course.time}</small></td>
+            <td><strong>${course.code}</strong><br>${course.name}</td>
+            <td class="text-center">${course.sks} SKS</td>
+            <td><i class="fas fa-door-open"></i> ${course.room}<br><small style="color:#64748B;"><i class="fas fa-user-tie"></i> ${course.lecturer}</small></td>
+            <td class="text-center">
+              <button class="btn-absen" onclick="attendClass('${course.code}')">
+                <i class="fas fa-check"></i> Absen
+              </button>
+            </td>
+          `;
+          scheduleBody.appendChild(row);
+        });
       }
-
+      
+      // Load attendance history
       loadAttendanceHistory();
     }
-
-    function attendClass(code) {
-      const r = doAbsen(code);
-      alert(r.message);
-      if (r.success) loadAttendanceHistory();
-    }
-
-    function loadAttendanceHistory() {
-      const logs = getAttendanceLog();
-      const body = document.getElementById('attendanceBody');
-      if (logs.length === 0) {
-        body.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--muted)">Belum ada riwayat absensi</td></tr>';
-        return;
+    
+    function attendClass(courseCode) {
+      const result = doAbsen(courseCode);
+      if (result.success) {
+        alert(result.message);
+        loadAttendanceHistory();
+      } else {
+        alert(result.message);
       }
-      const sorted = [...logs].sort((a, b) => new Date(b.date) - new Date(a.date));
-      body.innerHTML = sorted.map((log, i) => {
+    }
+    
+    function loadAttendanceHistory() {
+      const attendanceLog = getAttendanceLog();
+      const attendanceBody = document.getElementById('attendanceBody');
+      
+      if (attendanceLog.length === 0) {
+        attendanceBody.innerHTML = '<tr><td colspan="5" class="text-center">Belum ada riwayat absensi</td></tr>';
+      } else {
+        // Sort by date (newest first)
+        const sortedLog = [...attendanceLog].sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        attendanceBody.innerHTML = '';
+        sortedLog.forEach((log) => {
         const course = getCourseByCode(log.courseCode);
-        return `
-          <tr>
-            <td class="text-center">${i + 1}</td>
-            <td>${formatDate(log.date)}</td>
-            <td>${log.courseCode}</td>
-            <td>${course ? course.name : '-'}</td>
-            <td class="text-center"><span class="badge success"><i class="fas fa-circle-check"></i> ${log.status}</span></td>
-          </tr>`;
-      }).join('');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${log.courseCode}</strong><br><small style="color:#64748B;">${course ? course.name : '-'}</small></td>
+          <td><small>${formatDate(log.date)}</small></td>
+          <td class="text-center"><span class="badge-status success"><i class="fas fa-check-circle"></i> ${log.status}</span></td>
+        `;
+        attendanceBody.appendChild(row);
+      });
+      }
     }
   </script>
 </body>
