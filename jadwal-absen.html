@@ -27,74 +27,7 @@
   </div>
 
   <!-- Main Container -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">
-        <span class="logo-icon">★</span> 
-        <span class="logo-text">PortalKU</span>
-      </div>
-    </div>
-
-    <nav class="sidebar-menu">
-      <div class="menu-group">
-        <p class="menu-title">Informasi Umum</p>
-        <ul>
-          <li class="menu-item" onclick="window.location.href='index.html'">
-            <span class="menu-icon">🏠</span>
-            <span class="menu-label">Home</span>
-          </li>
-          <li class="menu-item" onclick="window.location.href='panduan.html'">
-            <span class="menu-icon">📖</span>
-            <span class="menu-label">Panduan</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="menu-group">
-        <p class="menu-title">Menu Akademik</p>
-        <ul>
-          <li class="menu-item" onclick="window.location.href='krs.html'">
-            <span class="menu-icon">📝</span>
-            <span class="menu-label">Registrasi Matakuliah</span>
-          </li>
-          <li class="menu-item active" onclick="window.location.href='jadwal-absen.html'">
-            <span class="menu-icon">📅</span>
-            <span class="menu-label">Jadwal Kuliah</span>
-          </li>
-          <li class="menu-item" onclick="window.location.href='khs.html'">
-            <span class="menu-icon">🎓</span>
-            <span class="menu-label">Hasil Studi</span>
-          </li>
-          <li class="menu-item">
-            <span class="menu-icon">📄</span>
-            <span class="menu-label">Transkrip Nilai</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="menu-group">
-        <p class="menu-title">Pengaturan Akun</p>
-        <ul>
-          <li class="menu-item" onclick="window.location.href='profil.html'">
-            <span class="menu-icon">👤</span>
-            <span class="menu-label">Data Pribadi</span>
-          </li>
-          <li class="menu-item" onclick="window.location.href='ganti-password.html'">
-            <span class="menu-icon">🔑</span>
-            <span class="menu-label">Ganti Password</span>
-          </li>
-          <li class="menu-item logout" onclick="logout()">
-            <span class="menu-icon">⮞</span>
-            <span class="menu-label">Logout</span>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="sidebar-footer">
-      <p class="caption">Cc:MieSo</p>
-    </div>
-  </aside>
+  <aside class="sidebar" id="sidebar-app"></aside>
 
   <main class="content-area">
     <h2 class="dashboard-title">Jadwal & Absensi</h2>
@@ -148,7 +81,7 @@
   <script>
     // Check session
     const user = checkSession();
-    
+    renderReusableSidebar('krs.html');
     if (user) {
       // Set current date
       const now = new Date();

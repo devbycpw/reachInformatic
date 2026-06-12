@@ -6,6 +6,95 @@
 // ============================================
 // MOCK DATA INITIALIZATION
 // ============================================
+// Konfigurasi data menu: Struktur milikmu + Icon milik temanmu
+const SIDEBAR_MENU_DATA = [
+  {
+    groupTitle: "Informasi Umum",
+    menus: [
+      { label: "Home", icon: "fas fa-home fa-xl", path: "index.html" },
+      { label: "Panduan", icon: "fas fa-book fa-xl", path: "panduan.html" }
+    ]
+  },
+  {
+    groupTitle: "Menu Akademik",
+    menus: [
+      { label: "Registrasi Matakuliah", icon: "fas fa-clipboard-list fa-xl", path: "krs.html" },
+      { label: "Jadwal Kuliah", icon: "fas fa-calendar-alt fa-xl", path: "jadwal-absen.html" },
+      { label: "Hasil Studi", icon: "fas fa-graduation-cap fa-xl", path: "khs.html" },
+      { label: "Transkrip Nilai", icon: "fas fa-file-alt fa-xl", path: "transkrip.html" }
+    ]
+  },
+  {
+    groupTitle: "Pengaturan Akun",
+    menus: [
+      { label: "Data Pribadi", icon: "fas fa-user fa-xl", path: "profil.html" },
+      { label: "Ganti Password", icon: "fas fa-key fa-xl", path: "ganti-password.html" }
+    ]
+  }
+];
+
+// Fungsi penyusun komponen Sidebar
+function renderReusableSidebar() {
+  const sidebarContainer = document.getElementById('sidebar-app');
+  if (!sidebarContainer) return;
+
+  // OTOMATISASI: Mengambil nama file HTML yang sedang aktif di browser saat ini
+  // Contoh: jika URL-nya localhost/krs.html, currentPage akan bernilai 'krs.html'
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+  let sidebarHTML = `
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-icon">★</span> 
+        <span class="logo-text">PortalKU</span>
+      </div>
+    </div>
+    <nav class="sidebar-menu">
+  `;
+
+  SIDEBAR_MENU_DATA.forEach(group => {
+    sidebarHTML += `
+      <div class="menu-group">
+        <p class="menu-title">${group.groupTitle}</p>
+        <ul>
+    `;
+    
+    group.menus.forEach(menu => {
+      // Validasi kecocokan nama file untuk menentukan class active
+      const isActive = currentPage === menu.path ? 'active' : '';
+      
+      sidebarHTML += `
+        <li class="menu-item ${isActive}" onclick="window.location.href='${menu.path}'">
+          <span class="menu-icon"><i class="${menu.icon}"></i></span>
+          <span class="menu-label">${menu.label}</span>
+        </li>
+      `;
+    });
+    
+    sidebarHTML += `
+        </ul>
+      </div>
+    `;
+  });
+
+  // Bagian Logout & Online Users
+  sidebarHTML += `
+      <div class="menu-group">
+        <ul>
+          <li class="menu-item logout" onclick="logout()">
+            <span class="menu-icon"><i class="fas fa-sign-out-alt fa-xl"></i></span>
+            <span class="menu-label">Logout</span>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="online-users">
+      <i class="fas fa-users fa-xl"></i> 127 user online
+    </div>
+  `;
+
+  sidebarContainer.innerHTML = sidebarHTML;
+}
 
 const DEFAULT_USERS = [
   {

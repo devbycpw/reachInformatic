@@ -19,33 +19,7 @@
   <!-- Main Container -->
   <div class="main-container">
     <!-- Sidebar -->
-    <aside class="sidebar">
-      <img src="img/Logo-01.png" alt="LogoUniversitas" class="logo">
-      <h2>Informasi Umum</h2>
-      <ul class="sidebar-menu">
-        <li><a href="index.html" class="active"><i class="fas fa-home fa-xl"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book fa-xl"></i> PANDUAN</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-      <h2>Menu Akademik</h2>
-
-        <li><a href="krs.html"><i class="fas fa-clipboard-list fa-xl"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt fa-xl"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html"><i class="fas fa-graduation-cap fa-xl"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt fa-xl"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" style="margin-top: 15px;">
-      <h2>Pengaturan Akun</h2>
-        <li><a href="profil.html"><i class="fas fa-user fa-xl"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key fa-xl "></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users fa-xl"></i> 127 user online
-      </div>
-    </aside>
+    <aside class="sidebar" id="sidebar-app"></aside>
 
     <!-- Content Area -->
     <main class="content-area">
@@ -164,7 +138,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="assets/app.js"></script>
   <script>
-
+    renderReusableSidebar('krs.html');
     // LOGIKA AUTOMATIC SLIDER BANNER
 let currentIndex = 0;
 const slides = document.querySelectorAll('.slide-item');
