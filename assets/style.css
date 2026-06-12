@@ -370,6 +370,12 @@ a:hover {
   font-weight: 700;
 }
 
+.panel-header i,
+.table-card-title i,
+.quick-nav-box h4 i {
+  color: var(--color-blue-primary) !important;
+}
+
 .panel-body {
   padding: 24px;
 }
@@ -452,14 +458,14 @@ a:hover {
 }
 
 .alert-warning, .info-box-siakad {
-  background-color: #FFF7ED;
-  border-left: 4px solid #EA580C;
-  color: #9A3412;
+  background-color: #FEE2E2;
+  border-left: 4px solid #DC2626;
+  color: #991B1B;
 }
 
 .alert-warning h4, .info-box-siakad h4 {
   font-weight: 700;
-  color: #EA580C;
+  color: #DC2626;
   margin-bottom: 4px;
 }
 
