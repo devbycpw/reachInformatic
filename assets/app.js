@@ -1,53 +1,49 @@
-/**
- * Student Administrative Portal - Main Logic
- * All data stored in localStorage
- */
 
-// ============================================
-// MOCK DATA INITIALIZATION
-// ============================================
-// Konfigurasi data menu: Struktur milikmu + Icon milik temanmu
+
 const SIDEBAR_MENU_DATA = [
   {
     groupTitle: "Informasi Umum",
     menus: [
-      { label: "Home", icon: "fas fa-home fa-xl", path: "index.html" },
-      { label: "Panduan", icon: "fas fa-book fa-xl", path: "panduan.html" }
+      { label: "Home", icon: "ph ph-house", path: "index.html" },
+      { label: "Panduan", icon: "ph ph-book-open", path: "panduan.html" }
     ]
   },
   {
     groupTitle: "Menu Akademik",
     menus: [
-      { label: "Registrasi Matakuliah", icon: "fas fa-clipboard-list fa-xl", path: "krs.html" },
-      { label: "Jadwal Kuliah", icon: "fas fa-calendar-alt fa-xl", path: "jadwal-absen.html" },
-      { label: "Hasil Studi", icon: "fas fa-graduation-cap fa-xl", path: "khs.html" },
-      { label: "Transkrip Nilai", icon: "fas fa-file-alt fa-xl", path: "transkrip.html" }
+      { label: "Registrasi Matakuliah", icon: "ph ph-clipboard-text", path: "krs.html" },
+      { label: "Jadwal Kuliah", icon: "ph ph-calendar-dots", path: "jadwal-absen.html" },
+      { label: "Hasil Studi", icon: "ph ph-graduation-cap", path: "khs.html" },
+      { label: "Transkrip Nilai", icon: "ph ph-file-text", path: "transkrip.html" }
     ]
   },
   {
     groupTitle: "Pengaturan Akun",
     menus: [
-      { label: "Data Pribadi", icon: "fas fa-user fa-xl", path: "profil.html" },
-      { label: "Ganti Password", icon: "fas fa-key fa-xl", path: "ganti-password.html" }
+      { label: "Data Pribadi", icon: "ph ph-user", path: "profil.html" },
+      { label: "Ganti Password", icon: "ph ph-key", path: "ganti-password.html" }
     ]
   }
 ];
 
-// Fungsi penyusun komponen Sidebar
+function toggleSidebar(forceClose) {
+  const sidebar = document.getElementById('sidebar-app');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (!sidebar) return;
+  const willOpen = forceClose === true ? false : !sidebar.classList.contains('open');
+  sidebar.classList.toggle('open', willOpen);
+  if (overlay) overlay.classList.toggle('show', willOpen);
+}
+
 function renderReusableSidebar() {
   const sidebarContainer = document.getElementById('sidebar-app');
   if (!sidebarContainer) return;
 
-  // OTOMATISASI: Mengambil nama file HTML yang sedang aktif di browser saat ini
-  // Contoh: jika URL-nya localhost/krs.html, currentPage akan bernilai 'krs.html'
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
   let sidebarHTML = `
     <div class="sidebar-header">
-      <div class="sidebar-logo">
-        <span class="logo-icon">★</span> 
-        <span class="logo-text">PortalKU</span>
-      </div>
+      <img src="img/logo_1.png" alt="PortalKU" class="sidebar-logo-img">
     </div>
     <nav class="sidebar-menu">
   `;
@@ -58,11 +54,10 @@ function renderReusableSidebar() {
         <p class="menu-title">${group.groupTitle}</p>
         <ul>
     `;
-    
+
     group.menus.forEach(menu => {
-      // Validasi kecocokan nama file untuk menentukan class active
       const isActive = currentPage === menu.path ? 'active' : '';
-      
+
       sidebarHTML += `
         <li class="menu-item ${isActive}" onclick="window.location.href='${menu.path}'">
           <span class="menu-icon"><i class="${menu.icon}"></i></span>
@@ -70,30 +65,47 @@ function renderReusableSidebar() {
         </li>
       `;
     });
-    
+
     sidebarHTML += `
         </ul>
       </div>
     `;
   });
 
-  // Bagian Logout & Online Users
   sidebarHTML += `
       <div class="menu-group">
         <ul>
           <li class="menu-item logout" onclick="logout()">
-            <span class="menu-icon"><i class="fas fa-sign-out-alt fa-xl"></i></span>
+            <span class="menu-icon"><i class="ph ph-sign-out"></i></span>
             <span class="menu-label">Logout</span>
           </li>
         </ul>
       </div>
     </nav>
     <div class="online-users">
-      <i class="fas fa-users fa-xl"></i> 127 user online
+      <i class="ph ph-users"></i> 127 user online
     </div>
   `;
 
   sidebarContainer.innerHTML = sidebarHTML;
+
+  // Inject mobile hamburger + overlay once — only on pages using the shared
+  // shell stylesheet (style.css), which provides .nav-toggle styling.
+  const usesSharedShell = !!document.querySelector('link[href*="style.css"]');
+  if (usesSharedShell && !document.querySelector('.nav-toggle')) {
+    const btn = document.createElement('button');
+    btn.className = 'nav-toggle';
+    btn.setAttribute('aria-label', 'Buka menu navigasi');
+    btn.innerHTML = '<i class="ph ph-list"></i>';
+    btn.onclick = () => toggleSidebar();
+    document.body.appendChild(btn);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'sidebar-overlay';
+    overlay.id = 'sidebar-overlay';
+    overlay.onclick = () => toggleSidebar(true);
+    document.body.appendChild(overlay);
+  }
 }
 
 const DEFAULT_USERS = [
@@ -136,9 +148,43 @@ const DEFAULT_GRADES = [
   { code: "MK005", name: "Jaringan Komputer", sks: 3, grade: "B", weight: 3.0 }
 ];
 
-// ============================================
-// INITIALIZATION FUNCTIONS
-// ============================================
+// Full academic transcript grouped by semester
+const DEFAULT_TRANSCRIPT = [
+  {
+    semester: "Semester 1",
+    period: "Ganjil 2024/2025",
+    courses: [
+      { code: "MKU101", name: "Pendidikan Pancasila", sks: 2, grade: "A", weight: 4.0 },
+      { code: "MKU102", name: "Bahasa Indonesia", sks: 2, grade: "A-", weight: 3.7 },
+      { code: "TIF101", name: "Algoritma & Pemrograman", sks: 3, grade: "A", weight: 4.0 },
+      { code: "TIF102", name: "Matematika Diskrit", sks: 3, grade: "B+", weight: 3.5 },
+      { code: "TIF103", name: "Pengantar Teknologi Informasi", sks: 2, grade: "A", weight: 4.0 },
+      { code: "TIF104", name: "Logika Informatika", sks: 3, grade: "B+", weight: 3.5 }
+    ]
+  },
+  {
+    semester: "Semester 2",
+    period: "Genap 2024/2025",
+    courses: [
+      { code: "MKU201", name: "Pendidikan Kewarganegaraan", sks: 2, grade: "A-", weight: 3.7 },
+      { code: "TIF201", name: "Struktur Data", sks: 3, grade: "A", weight: 4.0 },
+      { code: "TIF202", name: "Kalkulus", sks: 3, grade: "B+", weight: 3.5 },
+      { code: "TIF203", name: "Organisasi & Arsitektur Komputer", sks: 3, grade: "B", weight: 3.0 },
+      { code: "TIF204", name: "Basis Data", sks: 3, grade: "A-", weight: 3.7 },
+      { code: "TIF205", name: "Pemrograman Berorientasi Objek", sks: 3, grade: "A", weight: 4.0 }
+    ]
+  },
+  {
+    semester: "Semester 3",
+    period: "Ganjil 2025/2026 (Berjalan)",
+    courses: [
+      { code: "TIF301", name: "Jaringan Komputer", sks: 3, grade: "B", weight: 3.0 },
+      { code: "TIF302", name: "Sistem Operasi", sks: 3, grade: "B+", weight: 3.5 },
+      { code: "TIF303", name: "Pemrograman Web", sks: 3, grade: "A", weight: 4.0 },
+      { code: "TIF304", name: "Statistika", sks: 2, grade: "A-", weight: 3.7 }
+    ]
+  }
+];
 
 function initMockData() {
   if (!localStorage.getItem('mock_users')) {
@@ -153,6 +199,9 @@ function initMockData() {
   if (!localStorage.getItem('student_grades')) {
     localStorage.setItem('student_grades', JSON.stringify(DEFAULT_GRADES));
   }
+  if (!localStorage.getItem('student_transcript')) {
+    localStorage.setItem('student_transcript', JSON.stringify(DEFAULT_TRANSCRIPT));
+  }
   if (!localStorage.getItem('my_krs')) {
     localStorage.setItem('my_krs', JSON.stringify(["MK001", "MK002", "MK003"]));
   }
@@ -164,14 +213,10 @@ function initMockData() {
   }
 }
 
-// ============================================
-// AUTHENTICATION FUNCTIONS
-// ============================================
-
 function login(nim, password) {
   const users = JSON.parse(localStorage.getItem('mock_users') || '[]');
   const user = users.find(u => u.nim === nim && u.password === password);
-  
+
   if (user) {
     const session = {
       nim: user.nim,
@@ -211,10 +256,6 @@ function getCurrentUser() {
   return session ? JSON.parse(session) : null;
 }
 
-// ============================================
-// KRS FUNCTIONS
-// ============================================
-
 function getKRS() {
   const krsCodes = JSON.parse(localStorage.getItem('my_krs') || '[]');
   const allCourses = JSON.parse(localStorage.getItem('available_courses') || '[]');
@@ -229,21 +270,20 @@ function addCourse(courseCode) {
   const krs = JSON.parse(localStorage.getItem('my_krs') || '[]');
   const allCourses = JSON.parse(localStorage.getItem('available_courses') || '[]');
   const course = allCourses.find(c => c.code === courseCode);
-  
+
   if (!course) return { success: false, message: 'Mata kuliah tidak ditemukan' };
   if (krs.includes(courseCode)) return { success: false, message: 'Mata kuliah sudah diambil' };
-  
+
   const currentSKS = getTotalSKS();
   if (currentSKS + course.sks > 24) {
     return { success: false, message: 'Melebihi batas maksimal 24 SKS' };
   }
-  
-  // Check schedule conflict
+
   const conflict = checkScheduleConflict(course);
   if (conflict.hasConflict) {
     return { success: false, message: `Jadwal bentrok dengan ${conflict.course}` };
   }
-  
+
   krs.push(courseCode);
   localStorage.setItem('my_krs', JSON.stringify(krs));
   localStorage.setItem('krs_status', JSON.stringify('Draft'));
@@ -255,7 +295,7 @@ function dropCourse(courseCode) {
   if (!krs.includes(courseCode)) {
     return { success: false, message: 'Mata kuliah tidak ditemukan di KRS' };
   }
-  
+
   krs = krs.filter(code => code !== courseCode);
   localStorage.setItem('my_krs', JSON.stringify(krs));
   localStorage.setItem('krs_status', JSON.stringify('Draft'));
@@ -285,29 +325,24 @@ function approveKRS() {
   localStorage.setItem('krs_status', JSON.stringify('Disetujui'));
 }
 
-// ============================================
-// ATTENDANCE FUNCTIONS
-// ============================================
-
 function doAbsen(courseCode) {
   const attendanceLog = JSON.parse(localStorage.getItem('attendance_log') || '[]');
   const today = new Date().toISOString().split('T')[0];
-  
-  // Check if already attended today
+
   const alreadyAttended = attendanceLog.some(
     log => log.courseCode === courseCode && log.date === today
   );
-  
+
   if (alreadyAttended) {
     return { success: false, message: 'Anda sudah absen untuk mata kuliah ini hari ini' };
   }
-  
+
   const newLog = {
     courseCode: courseCode,
     date: today,
     status: "Hadir"
   };
-  
+
   attendanceLog.push(newLog);
   localStorage.setItem('attendance_log', JSON.stringify(attendanceLog));
   return { success: true, message: 'Absensi berhasil dicatat' };
@@ -322,10 +357,6 @@ function getAttendanceForCourse(courseCode) {
   return logs.filter(log => log.courseCode === courseCode);
 }
 
-// ============================================
-// PROFILE FUNCTIONS
-// ============================================
-
 function getProfile() {
   return JSON.parse(localStorage.getItem('student_profile') || '{}');
 }
@@ -337,26 +368,83 @@ function updateProfile(profileData) {
   return { success: true, message: 'Profil berhasil diperbarui' };
 }
 
-// ============================================
-// GRADES FUNCTIONS
-// ============================================
-
 function getGrades() {
   return JSON.parse(localStorage.getItem('student_grades') || '[]');
+}
+
+function getTranscript() {
+  return JSON.parse(localStorage.getItem('student_transcript') || '[]');
+}
+
+// Map a letter grade to a semantic badge color class
+function gradeClass(grade) {
+  const g = (grade || '').trim().toUpperCase();
+  if (g === 'A' || g === 'A-') return 'grade-a';
+  if (g === 'B+' || g === 'B' || g === 'B-') return 'grade-b';
+  if (g === 'C+' || g === 'C' || g === 'C-') return 'grade-c';
+  if (g === 'D') return 'grade-d';
+  return 'grade-e';
+}
+
+// Cumulative IPK + total SKS across all transcript semesters
+function getTranscriptSummary() {
+  const transcript = getTranscript();
+  let totalSks = 0;
+  let totalWeighted = 0;
+  transcript.forEach(sem => {
+    sem.courses.forEach(c => {
+      totalSks += c.sks;
+      totalWeighted += c.weight * c.sks;
+    });
+  });
+  return {
+    totalSks,
+    totalCourses: transcript.reduce((n, s) => n + s.courses.length, 0),
+    ipk: totalSks > 0 ? (totalWeighted / totalSks).toFixed(2) : '0.00'
+  };
+}
+
+function semesterIP(courses) {
+  let sks = 0, weighted = 0;
+  courses.forEach(c => { sks += c.sks; weighted += c.weight * c.sks; });
+  return { sks, ip: sks > 0 ? (weighted / sks).toFixed(2) : '0.00' };
+}
+
+// Change the password of the currently logged-in user
+function changePassword(currentPassword, newPassword) {
+  const session = getCurrentUser();
+  if (!session) return { success: false, message: 'Sesi tidak ditemukan, silakan login ulang.' };
+
+  const users = JSON.parse(localStorage.getItem('mock_users') || '[]');
+  const idx = users.findIndex(u => u.nim === session.nim);
+  if (idx === -1) return { success: false, message: 'Akun tidak ditemukan.' };
+  if (users[idx].password !== currentPassword) {
+    return { success: false, message: 'Password saat ini salah.' };
+  }
+  if (newPassword.length < 6) {
+    return { success: false, message: 'Password baru minimal 6 karakter.' };
+  }
+  if (newPassword === currentPassword) {
+    return { success: false, message: 'Password baru tidak boleh sama dengan password lama.' };
+  }
+
+  users[idx].password = newPassword;
+  localStorage.setItem('mock_users', JSON.stringify(users));
+  return { success: true, message: 'Password berhasil diperbarui.' };
 }
 
 function calculateGPA() {
   const grades = getGrades();
   if (grades.length === 0) return 0;
-  
+
   let totalWeightedPoints = 0;
   let totalCredits = 0;
-  
+
   for (const grade of grades) {
     totalWeightedPoints += grade.weight * grade.sks;
     totalCredits += grade.sks;
   }
-  
+
   return totalCredits > 0 ? (totalWeightedPoints / totalCredits).toFixed(2) : 0;
 }
 
@@ -364,10 +452,6 @@ function getTotalPassedCredits() {
   const grades = getGrades();
   return grades.reduce((total, grade) => total + grade.sks, 0);
 }
-
-// ============================================
-// UTILITY FUNCTIONS
-// ============================================
 
 function formatDate(dateString) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -386,60 +470,43 @@ function formatLongDate(date) {
   return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-// ============================================
-// APP SHELL (sidebar + topbar) — sesuai desain Figma
-// ============================================
-
 const NAV_GROUPS = [
   {
     title: 'Informasi Umum',
     items: [
-      { key: 'home',     label: 'Home',     icon: 'fa-house',          href: 'index.html' },
-      { key: 'panduan',  label: 'Panduan',  icon: 'fa-book-open',      href: 'panduan.html' }
+      { key: 'home',     label: 'Home',     icon: 'ph ph-house',          href: 'index.html' },
+      { key: 'panduan',  label: 'Panduan',  icon: 'ph ph-book-open',      href: 'panduan.html' }
     ]
   },
   {
     title: 'Menu Akademik',
     items: [
-      { key: 'krs',       label: 'Registrasi Matakuliah', icon: 'fa-clipboard-list', href: 'krs.html' },
-      { key: 'jadwal',    label: 'Jadwal Kuliah',         icon: 'fa-calendar-days',  href: 'jadwal-absen.html' },
-      { key: 'khs',       label: 'Hasil Studi',           icon: 'fa-graduation-cap', href: 'khs.html' },
-      { key: 'transkrip', label: 'Transkrip Nilai',       icon: 'fa-file-lines',     href: 'khs.html' }
+      { key: 'krs',       label: 'Registrasi Matakuliah', icon: 'ph ph-clipboard-text', href: 'krs.html' },
+      { key: 'jadwal',    label: 'Jadwal Kuliah',         icon: 'ph ph-calendar-dots',  href: 'jadwal-absen.html' },
+      { key: 'khs',       label: 'Hasil Studi',           icon: 'ph ph-graduation-cap', href: 'khs.html' },
+      { key: 'transkrip', label: 'Transkrip Nilai',       icon: 'ph ph-file-text',      href: 'khs.html' }
     ]
   },
   {
     title: 'Pengaturan Akun',
     items: [
-      { key: 'profil',   label: 'Data Pribadi',   icon: 'fa-user',  href: 'profil.html' },
-      { key: 'password', label: 'Ganti Password', icon: 'fa-key',   href: '#' }
+      { key: 'profil',   label: 'Data Pribadi',   icon: 'ph ph-user',  href: 'profil.html' },
+      { key: 'password', label: 'Ganti Password', icon: 'ph ph-key',   href: '#' }
     ]
   }
 ];
 
-/**
- * Render the app shell into a page.
- * Page markup only needs:
- *   <div class="app">
- *     <aside class="sidebar" id="sidebar"></aside>
- *     <div class="main">
- *       <div class="topbar" id="topbar"></div>
- *       <div class="content"> ...page content... </div>
- *     </div>
- *   </div>
- * @param {object} opts { active, title, greetingName }
- */
 function buildShell(opts) {
   const { active, title } = opts;
   const user = getCurrentUser();
   const name = (user && user.name) || 'Mahasiswa';
 
-  // ---- Sidebar ----
   const sidebar = document.getElementById('sidebar');
   if (sidebar) {
     let groupsHTML = NAV_GROUPS.map(group => {
       const items = group.items.map(item => `
         <a href="${item.href}" class="nav-item${item.key === active ? ' active' : ''}">
-          <i class="fas ${item.icon}"></i> ${item.label}
+          <i class="${item.icon}"></i> ${item.label}
         </a>`).join('');
       return `<div class="nav-group">
         <div class="nav-group-title">${group.title}</div>
@@ -458,20 +525,19 @@ function buildShell(opts) {
       ${groupsHTML}
       <div class="nav-group" style="margin-top:8px;">
         <a href="#" class="nav-item logout" onclick="logout(); return false;">
-          <i class="fas fa-arrow-right-from-bracket"></i> Logout
+          <i class="ph ph-sign-out"></i> Logout
         </a>
       </div>
       <div class="sidebar-footer">Cc: MieSo &middot; &copy; 2026</div>
     `;
   }
 
-  // ---- Topbar ----
   const topbar = document.getElementById('topbar');
   if (topbar) {
     topbar.innerHTML = `
       <div class="topbar-left">
         <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
-          <i class="fas fa-bars"></i>
+          <i class="ph ph-list"></i>
         </button>
         <div>
           <h1>${title}</h1>
@@ -479,11 +545,10 @@ function buildShell(opts) {
         </div>
       </div>
       <div class="topbar-right">
-        <span class="date-chip"><i class="far fa-calendar"></i> ${formatLongDate(new Date())}</span>
+        <span class="date-chip"><i class="ph ph-calendar-blank"></i> ${formatLongDate(new Date())}</span>
       </div>
     `;
   }
 }
 
-// Initialize data on script load
 initMockData();

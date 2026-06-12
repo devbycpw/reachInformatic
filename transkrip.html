@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transkrip Nilai - Portal Administratif Mahasiswa</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/transkrip.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+</head>
+<body>
+
+  <div class="main-container">
+
+    <aside class="sidebar" id="sidebar-app"></aside>
+
+    <main class="content-area">
+      <div class="trans-top-action-bar">
+        <h2 class="dashboard-title">Transkrip Nilai Akademik</h2>
+        <button class="btn-print-khs" onclick="window.print()">
+          <i class="ph ph-printer"></i> Cetak Transkrip
+        </button>
+      </div>
+
+      <div class="trans-summary">
+        <div class="trans-summary-card">
+          <div class="ts-icon violet"><i class="ph ph-chart-line-up"></i></div>
+          <div>
+            <div class="ts-label">IPK Kumulatif</div>
+            <div class="ts-value" id="ipkValue">0.00</div>
+          </div>
+        </div>
+        <div class="trans-summary-card">
+          <div class="ts-icon blue"><i class="ph ph-stack"></i></div>
+          <div>
+            <div class="ts-label">Total SKS Lulus</div>
+            <div class="ts-value" id="totalSks">0</div>
+          </div>
+        </div>
+        <div class="trans-summary-card">
+          <div class="ts-icon green"><i class="ph ph-books"></i></div>
+          <div>
+            <div class="ts-label">Total Mata Kuliah</div>
+            <div class="ts-value" id="totalCourses">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="semesterContainer"></div>
+
+      <div class="footer">
+        <p>&copy; 2026 Portal Administratif Mahasiswa &middot; Dokumen transkrip bersifat sementara dan belum disahkan sebagai dokumen resmi.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>
+    const user = checkSession();
+    renderReusableSidebar();
+
+    if (user) {
+      const summary = getTranscriptSummary();
+      document.getElementById('ipkValue').textContent = summary.ipk;
+      document.getElementById('totalSks').textContent = summary.totalSks + ' SKS';
+      document.getElementById('totalCourses').textContent = summary.totalCourses;
+
+      const transcript = getTranscript();
+      const container = document.getElementById('semesterContainer');
+      container.style.display = 'flex';
+      container.style.flexDirection = 'column';
+      container.style.gap = '24px';
+
+      if (transcript.length === 0) {
+        container.innerHTML = '<div class="table-card"><p style="text-align:center;color:#64748B;">Belum ada data transkrip.</p></div>';
+      } else {
+        transcript.forEach(sem => {
+          const ipData = semesterIP(sem.courses);
+
+          let rows = '';
+          sem.courses.forEach((c, i) => {
+            rows += `
+              <tr>
+                <td class="text-center">${i + 1}</td>
+                <td><strong>${c.code}</strong></td>
+                <td>${c.name}</td>
+                <td class="text-center font-semibold">${c.sks}</td>
+                <td class="text-center"><span class="grade-letter-badge ${gradeClass(c.grade)}">${c.grade}</span></td>
+                <td class="text-center">${c.weight.toFixed(2)}</td>
+                <td class="text-center font-semibold">${(c.weight * c.sks).toFixed(1)}</td>
+              </tr>`;
+          });
+
+          const card = document.createElement('div');
+          card.className = 'table-card';
+          card.innerHTML = `
+            <div class="semester-head">
+              <span class="sem-title">
+                <i class="ph ph-calendar-check"></i>
+                <span>${sem.semester}<span class="sem-period">${sem.period}</span></span>
+              </span>
+              <span class="sem-ip-chip"><span class="lbl">IP Semester</span>${ipData.ip}</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th width="5%" class="text-center">No</th>
+                    <th width="12%">Kode MK</th>
+                    <th>Nama Mata Kuliah</th>
+                    <th width="8%" class="text-center">SKS</th>
+                    <th width="12%" class="text-center">Nilai</th>
+                    <th width="10%" class="text-center">Bobot</th>
+                    <th width="12%" class="text-center">N &times; B</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rows}
+                  <tr class="trans-row-total">
+                    <td colspan="3" class="text-right">Subtotal Semester</td>
+                    <td class="text-center">${ipData.sks}</td>
+                    <td colspan="3" class="text-center">IP ${ipData.ip}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>`;
+          container.appendChild(card);
+        });
+      }
+    }
+  </script>
+</body>
+</html>

@@ -6,15 +6,14 @@
   <title>Hasil Studi - Portal Administratif Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="assets/khs.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 </head>
 <body>
-  <!-- Top Date Bar -->
+
   <div class="top-date-bar">
     <span id="currentDate"></span>
   </div>
 
-  <!-- Header Bar -->
   <div class="header-bar">
     <div class="header-info">
       <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
@@ -22,28 +21,27 @@
       <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
     </div>
     <a href="#" class="logout-btn" onclick="logout(); return false;">
-      <i class="fas fa-sign-out-alt"></i> Logout
+      <i class="ph ph-sign-out"></i> Logout
     </a>
   </div>
 
-  <!-- Main Container -->
   <div class="main-container">
-    <!-- Sidebar -->
+
     <aside class="sidebar" id="sidebar-app"></aside>
 
 <main class="content-area">
   <div class="khs-top-action-bar">
     <h2 class="dashboard-title">Kartu Hasil Studi (KHS)</h2>
     <button class="btn-print-khs" onclick="window.print()">
-      <i class="fas fa-print"></i> Cetak KHS
+      <i class="ph ph-printer"></i> Cetak KHS
     </button>
   </div>
 
   <div class="dashboard-grid-layout khs-grid-modifier">
-    
+
     <div class="grid-left-side">
       <div class="table-card">
-        <h3 class="table-card-title"><i class="fas fa-list-ol" style="color: var(--color-blue-primary);"></i> Rincian Nilai Akademik</h3>
+        <h3 class="table-card-title"><i class="ph ph-list-numbers" style="color: var(--color-blue-primary);"></i> Rincian Nilai Akademik</h3>
         <div class="table-responsive">
           <table class="data-table">
             <thead>
@@ -67,12 +65,12 @@
     <div class="side-card layout-gpa-widget">
       <div class="gpa-badge-container">
         <div class="gpa-icon-wrapper">
-          <i class="fas fa-award"></i>
+          <i class="ph ph-medal"></i>
         </div>
         <h4>Indeks Prestasi Kumulatif</h4>
         <div class="gpa-value-modern" id="gpaValue">0.00</div>
       </div>
-      
+
       <div class="gpa-widget-footer">
         <div class="gpa-footer-item">
           <span class="gpa-footer-label">Total SKS Lulus</span>
@@ -87,59 +85,53 @@
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
     const user = checkSession();
     renderReusableSidebar('krs.html');
-    
+
     if (user) {
-      // Set current date
       const now = new Date();
       const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
       const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
+      document.getElementById('currentDate').textContent =
         days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-      
-      // Update header with user info
+
       const headerInfo = document.querySelector('.header-info');
       headerInfo.innerHTML = `
         <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
         <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
         <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
       `;
-      
-      // Load GPA and stats
+
       document.getElementById('gpaValue').textContent = calculateGPA();
       document.getElementById('totalCredits').textContent = getTotalPassedCredits();
-      
-      // Load grades table
+
       const grades = getGrades();
       const gradesBody = document.getElementById('gradesBody');
-      
+
       if (grades.length === 0) {
   gradesBody.innerHTML = '<tr><td colspan="7" class="text-center">Belum ada data nilai</td></tr>';
 } else {
   let totalWeighted = 0;
   let totalSks = 0;
-  
+
   grades.forEach((grade, index) => {
     const weightedScore = grade.weight * grade.sks;
     totalWeighted += weightedScore;
     totalSks += grade.sks;
-    
+
     const row = document.createElement('tr');
     row.innerHTML = `
       <td class="text-center">${index + 1}</td>
       <td><strong>${grade.code}</strong></td>
       <td>${grade.name}</td>
       <td class="text-center font-semibold">${grade.sks}</td>
-      <td class="text-center"><span class="grade-letter-badge">${grade.grade}</span></td>
+      <td class="text-center"><span class="grade-letter-badge ${gradeClass(grade.grade)}">${grade.grade}</span></td>
       <td class="text-center">${grade.weight.toFixed(2)}</td>
       <td class="text-center font-semibold">${weightedScore.toFixed(1)}</td>
     `;
     gradesBody.appendChild(row);
   });
-        
-        // Add summary row
+
         const summaryRow = document.createElement('tr');
   summaryRow.className = "table-row-summary";
   summaryRow.innerHTML = `
@@ -149,8 +141,7 @@
     <td class="text-center font-semibold">${totalWeighted.toFixed(1)}</td>
   `;
   gradesBody.appendChild(summaryRow);
-        
-        // Add IPK row
+
         const ipkRow = document.createElement('tr');
   ipkRow.className = "table-row-gpa-summary";
   ipkRow.innerHTML = `

@@ -5,224 +5,173 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Pribadi - Portal Administratif Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/profil.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 </head>
 <body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
-  </div>
 
-  <!-- Header Bar -->
-  <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-    </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
-      <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
-  </div>
-
-  <!-- Main Container -->
   <div class="main-container">
-    <!-- Sidebar -->
+
     <aside class="sidebar" id="sidebar-app"></aside>
 
-    <!-- Content Area -->
-    <main class="content-area" style="background-color: #f8fafc; padding: 24px;">
-      
-      <!-- Top Alert -->
-      <div style="background-color: #ffedd5; border-left: 4px solid #ea580c; border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; align-items: flex-start; gap: 12px; color: #9a3412;">
-        <i class="fas fa-info-circle" style="font-size: 20px; margin-top: 2px;"></i>
-        <p style="font-size: 13px; font-weight: 500; margin: 0; line-height: 1.5; text-transform: uppercase;">
-          UNTUK KEPERLUAN ADMINISTRASI ANDA, SILAHKAN UPDATE ISIAN DI BAWAH INI. PASTIKAN DATA YANG ANDA MASUKKAN ADALAH BENAR DAN VALID.
-        </p>
+    <main class="content-area">
+      <div class="page-header">
+        <h2 class="dashboard-title">Data Pribadi</h2>
       </div>
-      
-      <!-- Form Container -->
-      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-        
-        <!-- Header Container -->
-        <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px 8px 0 0; display: flex; align-items: center; gap: 10px;">
-          <i class="fas fa-tasks" style="color: #0077E6;"></i>
-          <h3 style="font-size: 14px; color: #334155; margin: 0; font-weight: 600;">Form Pemutakhiran Data</h3>
+
+      <div class="profile-wrap">
+
+        <div class="notice warn">
+          <i class="ph ph-info"></i>
+          <p>Untuk keperluan administrasi, silakan perbarui isian di bawah ini. Pastikan data yang Anda masukkan benar dan valid.</p>
         </div>
 
-        <form id="profileForm" style="padding: 24px;">
-          
-          <!-- Section 1: Data Personal -->
-          <div style="margin-bottom: 24px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #0077E6; font-weight: 600; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
-              <i class="far fa-user"></i> DATA PERSONAL
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px;">
-              <div>
-                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">NIM</label>
-                <input type="text" id="nim" name="nim" readonly style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #f8fafc; color: #475569; font-size: 13px; outline: none; box-sizing: border-box;">
-              </div>
-              <div>
-                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Nama Lengkap</label>
-                <input type="text" id="name" name="name" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
-              </div>
-            </div>
-            
-            <div style="margin-bottom: 16px;">
-              <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Alamat</label>
-              <textarea id="address" name="address" required rows="3" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; font-family: inherit; resize: vertical; box-sizing: border-box;"></textarea>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-              <div>
-                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">No Telepon</label>
-                <div style="position: relative;">
-                  <i class="fas fa-phone-alt" style="position: absolute; left: 12px; top: 12px; color: #94a3b8; font-size: 13px;"></i>
-                  <input type="tel" id="phone" name="phone" required style="width: 100%; padding: 10px 12px 10px 36px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
+        <div class="form-card">
+          <div class="form-card-header">
+            <i class="ph ph-identification-card"></i>
+            <h3>Form Pemutakhiran Data</h3>
+          </div>
+
+          <form id="profileForm" class="profile-form" autocomplete="off">
+
+            <div class="form-section">
+              <div class="form-section-title"><i class="ph ph-user"></i> Data Personal</div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label for="nim">NIM</label>
+                  <input type="text" id="nim" name="nim" readonly>
+                </div>
+                <div class="field">
+                  <label for="name">Nama Lengkap</label>
+                  <input type="text" id="name" name="name" required>
                 </div>
               </div>
-              <div>
-                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Email</label>
-                <div style="position: relative;">
-                  <i class="far fa-envelope" style="position: absolute; left: 12px; top: 12px; color: #94a3b8; font-size: 13px;"></i>
-                  <input type="email" id="email" name="email" placeholder="email@student.univ.ac.id" style="width: 100%; padding: 10px 12px 10px 36px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
+
+              <div class="form-grid">
+                <div class="field field-full">
+                  <label for="address">Alamat</label>
+                  <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label for="phone">No Telepon</label>
+                  <div class="input-icon">
+                    <i class="ph ph-phone"></i>
+                    <input type="tel" id="phone" name="phone" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <div class="input-icon">
+                    <i class="ph ph-envelope-simple"></i>
+                    <input type="email" id="email" name="email" placeholder="email@student.univ.ac.id">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          
-          <!-- Section 2: Informasi Perbankan -->
-          <div style="margin-bottom: 30px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #0077E6; font-weight: 600; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
-              <i class="fas fa-university"></i> INFORMASI PERBANKAN
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px;">
-              <div>
-                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Nama Bank</label>
-                <select id="bank" name="bank" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background-color: #fff; appearance: auto; box-sizing: border-box;">
-                  <option value="">Pilih Bank</option>
-                  <option value="Bank Central Asia (BCA)">Bank Central Asia (BCA)</option>
-                  <option value="Bank Mandiri">Bank Mandiri</option>
-                  <option value="Bank Negara Indonesia (BNI)">Bank Negara Indonesia (BNI)</option>
-                  <option value="Bank Rakyat Indonesia (BRI)">Bank Rakyat Indonesia (BRI)</option>
-                </select>
+
+            <div class="form-section">
+              <div class="form-section-title"><i class="ph ph-bank"></i> Informasi Perbankan</div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label for="bank">Nama Bank</label>
+                  <select id="bank" name="bank" required>
+                    <option value="">Pilih Bank</option>
+                    <option value="Bank Central Asia (BCA)">Bank Central Asia (BCA)</option>
+                    <option value="Bank Mandiri">Bank Mandiri</option>
+                    <option value="Bank Negara Indonesia (BNI)">Bank Negara Indonesia (BNI)</option>
+                    <option value="Bank Rakyat Indonesia (BRI)">Bank Rakyat Indonesia (BRI)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="accountNumber">Nomor Rekening</label>
+                  <input type="text" id="accountNumber" name="accountNumber" required placeholder="Masukkan nomor rekening">
+                </div>
               </div>
-              <div>
-                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Nomor Rekening</label>
-                <input type="text" id="accountNumber" name="accountNumber" required placeholder="Masukkan nomor rekening" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
-              </div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-              <div>
-                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Atas Nama Rekening</label>
-                <input type="text" id="accountName" name="accountName" required placeholder="Nama sesuai buku tabungan" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
-              </div>
-              <div>
-                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Hubungan Dengan Pemilik Rekening</label>
-                <select id="accountRelation" name="accountRelation" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background-color: #fff; appearance: auto; box-sizing: border-box;">
-                  <option value="Diri Sendiri">Diri Sendiri</option>
-                  <option value="Orang Tua">Orang Tua</option>
-                  <option value="Wali">Wali</option>
-                </select>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label for="accountName">Atas Nama Rekening</label>
+                  <input type="text" id="accountName" name="accountName" required placeholder="Nama sesuai buku tabungan">
+                </div>
+                <div class="field">
+                  <label for="accountRelation">Hubungan Dengan Pemilik Rekening</label>
+                  <select id="accountRelation" name="accountRelation">
+                    <option value="Diri Sendiri">Diri Sendiri</option>
+                    <option value="Orang Tua">Orang Tua</option>
+                    <option value="Wali">Wali</option>
+                  </select>
+                </div>
               </div>
             </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-ghost" onclick="location.reload()">Batal</button>
+              <button type="submit" class="btn-save"><i class="ph ph-floppy-disk"></i> Simpan Perubahan</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="notice info">
+          <i class="ph ph-at"></i>
+          <div>
+            <h4>Informasi Pengiriman Email</h4>
+            <p>Segala notifikasi akademik, tagihan, dan pengumuman resmi dikirim ke alamat email yang terdaftar di atas. Pastikan email Anda aktif dan periksa folder 'Spam' secara berkala.</p>
           </div>
-          
-          <!-- Form Actions -->
-          <div style="display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
-            <button type="button" onclick="location.reload()" style="padding: 10px 20px; border: 1px solid #cbd5e1; background: #fff; color: #475569; border-radius: 6px; font-weight: 500; font-size: 13px; cursor: pointer; transition: all 0.2s;">
-              Batal
-            </button>
-            <button type="submit" style="padding: 10px 20px; border: none; background: #10b981; color: #fff; border-radius: 6px; font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
-              <i class="far fa-save"></i> Simpan Perubahan
-            </button>
-          </div>
-        </form>
-      </div>
-      
-      <!-- Bottom Alert -->
-      <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; align-items: flex-start; gap: 12px;">
-        <i class="fas fa-at" style="color: #2563eb; font-size: 20px; margin-top: 2px;"></i>
-        <div>
-          <h4 style="color: #1e3a8a; margin: 0 0 4px 0; font-size: 13px; font-weight: 600;">Informasi Pengiriman Email</h4>
-          <p style="color: #475569; font-size: 12px; margin: 0; line-height: 1.5;">
-            Segala bentuk notifikasi akademik, tagihan, dan pengumuman resmi akan dikirimkan ke alamat email yang terdaftar di atas. Pastikan email Anda aktif dan periksa folder 'Spam' secara berkala.
-          </p>
         </div>
       </div>
-      
-      <div class="footer" style="text-align: center; color: #94a3b8; font-size: 12px; margin-top: 40px; border-top: none; padding-top: 0;">
-        <p>&copy; 2024 Academic Information System - Universitas Teladan</p>
+
+      <div class="footer">
+        <p>&copy; 2026 Portal Administratif Mahasiswa &middot; Universitas Teladan</p>
       </div>
     </main>
   </div>
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
     const user = checkSession();
-    renderReusableSidebar('krs.html');
+    renderReusableSidebar();
+
     if (user) {
-      // Set current date
-      const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-      
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-      `;
-      
-      // Load profile data
       const profile = getProfile();
       document.getElementById('nim').value = profile.nim || '';
       document.getElementById('name').value = profile.name || '';
       document.getElementById('address').value = profile.address || '';
       document.getElementById('phone').value = profile.phone || '';
+      document.getElementById('email').value = profile.email || '';
       document.getElementById('bank').value = profile.bank || '';
       document.getElementById('accountNumber').value = profile.accountNumber || '';
       document.getElementById('accountName').value = profile.accountName || '';
+      document.getElementById('accountRelation').value = profile.accountRelation || 'Diri Sendiri';
     }
-    
-    // Handle form submission
-    document.getElementById('profileForm').addEventListener('submit', function(e) {
+
+    document.getElementById('profileForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      
+
       const profileData = {
         nim: document.getElementById('nim').value,
         name: document.getElementById('name').value,
         address: document.getElementById('address').value,
         phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
         bank: document.getElementById('bank').value,
         accountNumber: document.getElementById('accountNumber').value,
-        accountName: document.getElementById('accountName').value
+        accountName: document.getElementById('accountName').value,
+        accountRelation: document.getElementById('accountRelation').value
       };
-      
+
       const result = updateProfile(profileData);
       if (result.success) {
-        alert(result.message);
-        // Update session name if changed
         const session = getCurrentUser();
         if (session && session.name !== profileData.name) {
           session.name = profileData.name;
-          session.loginAt = new Date().toISOString();
           localStorage.setItem('active_session', JSON.stringify(session));
         }
-        // Update header
-        const headerInfo = document.querySelector('.header-info');
-        headerInfo.innerHTML = `
-          <div><strong>:: ${profileData.nim} - ${profileData.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-          <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-          <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-        `;
+        alert(result.message);
       } else {
         alert('Gagal memperbarui profil');
       }

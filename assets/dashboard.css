@@ -1,4 +1,4 @@
-/* --- SIDEBAR MENU UTILITAS (STRUKTUR JALUR BARU) --- */
+
 .sidebar-menu {
   flex: 1;
   overflow-y: auto;
@@ -33,7 +33,6 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* Kotak pembungkus icon agar sejajar vertikal secara konsisten */
 .menu-icon {
   width: 28px;
   display: flex;
@@ -46,7 +45,6 @@
   font-weight: 500;
 }
 
-/* HOVER STATE & ACTIVE STATE (CLEAR BACKGROUND + BORDER) */
 .menu-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }

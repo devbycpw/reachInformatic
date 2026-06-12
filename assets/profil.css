@@ -1,0 +1,114 @@
+/* Data Pribadi — page-specific */
+
+.profile-wrap { max-width: 920px; display: flex; flex-direction: column; gap: 20px; }
+
+/* Notice banners */
+.notice {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+.notice i { font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
+.notice.warn { background: #FFF7ED; border: 1px solid #FED7AA; border-left: 4px solid #EA580C; color: #9A3412; }
+.notice.info { background: var(--color-blue-50); border: 1px solid #BFDBFE; color: #1E3A8A; }
+.notice.info h4 { font-size: 0.82rem; margin-bottom: 2px; color: #1E3A8A; }
+.notice.info p { color: #475569; font-size: 0.78rem; margin: 0; }
+
+/* Form card */
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.form-card-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-muted);
+  display: flex; align-items: center; gap: 10px;
+}
+.form-card-header i { color: var(--color-blue-primary); }
+.form-card-header h3 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin: 0; }
+
+.profile-form { padding: 24px; }
+
+.form-section { margin-bottom: 26px; }
+.form-section:last-of-type { margin-bottom: 0; }
+.form-section-title {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--color-blue-primary);
+  font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.4px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px; margin-bottom: 16px;
+}
+
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; }
+.form-grid + .form-grid { margin-top: 16px; }
+.field-full { grid-column: 1 / -1; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); }
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-family: var(--font-family);
+  color: var(--text);
+  outline: none;
+  background: var(--surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field textarea { resize: vertical; min-height: 76px; }
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--color-blue-primary);
+  box-shadow: 0 0 0 3px rgba(0, 119, 230, 0.12);
+}
+.field input[readonly] { background: var(--surface-muted); color: var(--text-muted); cursor: not-allowed; }
+
+.input-icon { position: relative; }
+.input-icon i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-subtle); font-size: 0.82rem; }
+.input-icon input { padding-left: 36px; }
+
+.form-actions {
+  display: flex; justify-content: flex-end; gap: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px; margin-top: 24px;
+}
+.btn-ghost {
+  padding: 10px 20px;
+  border: 1px solid #CBD5E1;
+  background: var(--surface);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  font-weight: 600; font-size: 0.85rem; cursor: pointer;
+  font-family: var(--font-family);
+}
+.btn-ghost:hover { background: var(--surface-muted); }
+.btn-save {
+  padding: 10px 20px;
+  border: none;
+  background: var(--green);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 600; font-size: 0.85rem; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-family);
+  transition: background 0.18s ease;
+}
+.btn-save:hover { background: #059669; }
+
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: minmax(0, 1fr); }
+  .form-actions { flex-direction: column-reverse; }
+  .form-actions button { width: 100%; justify-content: center; }
+}
