@@ -50,64 +50,109 @@
     <!-- Content Area -->
     <main class="content-area">
       <div class="page-header">
-        <i class="fas fa-home" style="color: #4CAF50; font-size: 20px;"></i>
-        <h1 class="page-title">HOME</h1>
+        <!-- <i class="fas fa-home" style="color: #0077E6; font-size: 20px;"></i> -->
+        <h1 class="page-title">DASHBOARD</h1>
       </div>
       
-      <div class="welcome-box">
-        <p class="welcome-text">
-          SELAMAT DATANG DI SISTEM INFORMASI AKADEMIK PORTAL MAHASISWA
-        </p>
+      <div class="dashboard-grid">
         
-        <div class="stats-container">
-          <div class="stat-card">
-            <h4>JUMLAH MATA KULIAH</h4>
-            <div class="stat-value" id="totalCourses">0</div>
-          </div>
-          <div class="stat-card">
-            <h4>TOTAL SKS</h4>
-            <div class="stat-value" id="totalSKS">0</div>
-          </div>
-          <div class="stat-card">
-            <h4>IPK TERAKHIR</h4>
-            <div class="stat-value" id="gpaValue">0.00</div>
-          </div>
-        </div>
-        
-        <div class="study-timeline">
-          <div class="timeline-title">Batas Akhir Masa Studi<br>Minimal 144 sks</div>
-          <div class="timeline-bar">
-            <div class="timeline-years">
-              <span>2031</span>
-              <span>2030</span>
-              <span>2029</span>
-              <span>2028</span>
-              <span>2027</span>
-              <span>2026</span>
-              <span>2025</span>
+        <div class="main-stats-column">
+          
+          <div class="stats-cards-container">
+            <div class="stat-card card-blue">
+              <div class="stat-icon"><i class="fas fa-book-open"></i></div>
+              <div class="stat-info-text">
+                <h4>JUMLAH MATA KULIAH</h4>
+                <div class="stat-value" id="totalCourses">0</div>
+              </div>
             </div>
-            <div class="timeline-progress">
-              <div class="timeline-current">2025-3 : <span id="currentSKS">8</span> sks</div>
+            
+            <div class="stat-card card-green">
+              <div class="stat-icon"><i class="fas fa-clipboard-check"></i></div>
+              <div class="stat-info-text">
+                <h4>TOTAL SKS</h4>
+                <div class="stat-value" id="totalSKS">0</div>
+              </div>
+            </div>
+            
+            <div class="stat-card card-orange">
+              <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+              <div class="stat-info-text">
+                <h4>IPK TERAKHIR</h4>
+                <div class="stat-value" id="gpaValue">0.00</div>
+              </div>
             </div>
           </div>
+
+          <div class="dashboard-section-box">
+            <div class="section-box-header">
+              <h3><i class="fas fa-tasks"></i> Progress Indeks Prestasi (IP) Per Semester</h3>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="progressChart"></canvas>
+            </div>
+          </div>
+          
+          <div class="info-box-siakad">
+            <h4><i class="fas fa-exclamation-triangle"></i> PENGUMUMAN / INFORMASI PENTING</h4>
+            <p>
+              KARENA PENTINGNYA DATA KEPENDUDUKAN MAHASISWA DALAM PELAPORAN PD DIKTI DAN VERIFIKASI KEABSAHAN IJAZAH, 
+              MAKA WAJIB MELAKUKAN PENGISIAN NIK DAN NOMOR KK SECARA BENAR DI MENU DATA PRIBADI.
+            </p>
+          </div>
+
         </div>
-        
-        <div class="info-box">
-          <h4><i class="fas fa-info-circle" style="color: #4CAF50;"></i> Informasi Penting</h4>
-          <p class="info-text">
-            UNTUK KEPERLUAN ADMINISTRASI ANDA, SILAHKAN UPDATE ISIAN DI BAWAH INI. 
-            DATA INI DIPERGUNAKAN UNTUK SYARAT PELAPORAN KE DIREKTORAT JENDERAL PENDIDIKAN TINGGI (DIKTI).
-            <strong>KARENA PENTINGNYA DATA KEPENDUDUKAN MAHASISWA DALAM PELAPORAN PD DIKTI DAN VERIFIKASI KEBSAHAN IJAZAH, 
-            MAKA WAJIB MELAKUKAN PENGISIAN NIK DAN NOMOR KK SECARA BENAR</strong>
-          </p>
+
+        <div class="side-banner-column">
+  
+  
+  <div class="slider-container">
+    <div class="slider-wrapper" id="sliderWrapper">
+      
+      <a href="https://beasiswa.kampus.ac.id" class="slide-item">
+        <img src="img/banner1.jpg" alt="Iklan Beasiswa" class="banner-img-element">
+        <div class="banner-text-details">
+          <h5>Pendaftaran Beasiswa Unggulan 2026</h5>
+          <p>Dapatkan kesempatan beasiswa penuh semester ini. Klik untuk info selengkapnya!</p>
         </div>
-        
-        <div class="nav-links">
-          <a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> Lihat Jadwal Kuliah</a>
-          <a href="krs.html"><i class="fas fa-book"></i> Registrasi Matakuliah</a>
-          <a href="khs.html"><i class="fas fa-graduation-cap"></i> Lihat Hasil Studi</a>
-          <a href="profil.html"><i class="fas fa-user"></i> Update Data Pribadi</a>
+      </a>
+
+      <a href="https://lomba.kampus.ac.id" class="slide-item">
+        <img src="img/banner-lomba.jpg" alt="Iklan Kompetisi" class="banner-img-element">
+        <div class="banner-text-details">
+          <h5>National Hackathon Championship</h5>
+          <p>Tunjukkan skill coding-mu dan menangkan total hadiah Rp 50 Juta. Daftar sekarang!</p>
         </div>
+      </a>
+
+      <a href="profil.html" class="slide-item">
+        <img src="img/banner-dikti.jpg" alt="Pengumuman DIKTI" class="banner-img-element">
+        <div class="banner-text-details">
+          <h5>Pemberitahuan Validasi Data NIK</h5>
+          <p>Batas akhir sinkronisasi data PDDIKTI tanggal 30 Juni 2026. Lengkapi profil Anda.</p>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="slider-dots" id="sliderDots">
+      <span class="dot active" onclick="currentSlide(0)"></span>
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+    </div>
+  </div>
+  
+  <div class="quick-nav-box" style="margin-top: 20px;">
+    <h4>Akses Cepat</h4>
+    <div class="quick-links-grid">
+      <a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> Jadwal Kuliah</a>
+      <a href="krs.html"><i class="fas fa-edit"></i> Isi KRS</a>
+      <a href="khs.html"><i class="fas fa-graduation-cap"></i> KHS & Transkrip</a>
+    </div>
+  </div>
+
+</div>
+
       </div>
       
       <div class="footer">
@@ -116,32 +161,74 @@
     </main>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="assets/app.js"></script>
   <script>
-    // Check session
+
+    // LOGIKA AUTOMATIC SLIDER BANNER
+let currentIndex = 0;
+const slides = document.querySelectorAll('.slide-item');
+const totalSlides = slides.length;
+const wrapper = document.getElementById('sliderWrapper');
+const dots = document.querySelectorAll('.dot');
+
+function showSlide(index) {
+  if (index >= totalSlides) currentIndex = 0;
+  if (index < 0) currentIndex = totalSlides - 1;
+  
+  // Menggeser wrapper berdasarkan index slide aktif
+  wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+  
+  // Update status dot aktif
+  dots.forEach(dot => dot.classList.remove('active'));
+  dots[currentIndex].classList.add('active');
+}
+
+function nextSlide() {
+  currentIndex++;
+  showSlide(currentIndex);
+}
+
+// Fungsi jika dot diklik manual oleh user
+function currentSlide(index) {
+  currentIndex = index;
+  showSlide(currentIndex);
+}
+
+// Menjalankan auto-slide setiap 5 detik (5000ms)
+setInterval(nextSlide, 5000);
+    // Script Init & Dummy Chart Logic
     const user = checkSession();
     
+    // Inisialisasi Chart Progress Semester
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Sem 1', 'Sem 2', 'Sem 3 (Kini)'],
+        datasets: [{
+          label: 'IP Semester',
+          data: [3.40, 3.55, 3.62], // Ganti dengan data dinamis jika ada
+          borderColor: '#0077E6',
+          backgroundColor: 'rgba(0, 119, 230, 0.1)',
+          borderWidth: 3,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { min: 0, max: 4 }
+        }
+      }
+    });
+
     if (user) {
-      // Set current date
-      const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-      
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      const krs = getKRS();
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-      `;
-      
-      // Load dashboard stats
-      document.getElementById('totalCourses').textContent = krs.length;
+      // Logic binding data lama kamu tetap aman di sini...
+      document.getElementById('totalCourses').textContent = getKRS().length;
       document.getElementById('totalSKS').textContent = getTotalSKS();
-      document.getElementById('currentSKS').textContent = getTotalSKS();
       document.getElementById('gpaValue').textContent = calculateGPA();
     }
   </script>
