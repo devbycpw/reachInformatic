@@ -6,30 +6,67 @@
   <title>Dashboard - Portal Administrasi Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar" id="sidebar"></aside>
-    <div class="main">
-      <div class="topbar" id="topbar"></div>
-      <div class="content">
+  <!-- Top Date Bar -->
+  <div class="top-date-bar">
+    <span id="currentDate"></span>
+  </div>
 
-        <!-- Informasi Pribadi -->
-        <h2 class="section-title first">Informasi Pribadi</h2>
-        <div class="card card-pad">
-          <div class="info-grid">
-            <div class="info-row"><div class="k">NIM</div><div class="v" id="infoNim">-</div></div>
-            <div class="info-row"><div class="k">Nama</div><div class="v" id="infoName">-</div></div>
-            <div class="info-row"><div class="k">Program Studi</div><div class="v">Teknik Informatika &mdash; FTI</div></div>
-            <div class="info-row"><div class="k">Semester</div><div class="v">Semester 3 &middot; TA 2025/2026</div></div>
-            <div class="info-row"><div class="k">Beban SKS Maksimal</div><div class="v">24 SKS</div></div>
-            <div class="info-row"><div class="k">Status</div><div class="v"><span class="badge approved"><i class="fas fa-circle-check"></i> Aktif</span></div></div>
-          </div>
-        </div>
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-info">
+      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+    </div>
+    <a href="#" class="logout-btn" onclick="logout(); return false;">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </div>
 
-        <!-- Performa Semester Ini -->
-        <h2 class="section-title">Performa Semester Ini</h2>
-        <div class="stat-grid">
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li><a href="index.html" class="active"><i class="fas fa-home"></i> HOME</a></li>
+        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
+      </ul>
+      
+      <ul class="sidebar-menu" style="margin-top: 15px;">
+        <li><a href="krs.html"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
+        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
+        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
+        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
+      </ul>
+      
+      <ul class="sidebar-menu" style="margin-top: 15px;">
+        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
+        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
+      </ul>
+      
+      <div class="online-users">
+        <i class="fas fa-users"></i> 127 user online
+      </div>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="content-area">
+      <div class="page-header">
+        <i class="fas fa-home" style="color: #4CAF50; font-size: 20px;"></i>
+        <h1 class="page-title">HOME</h1>
+      </div>
+      
+      <div class="welcome-box">
+        <p class="welcome-text">
+          SELAMAT DATANG DI SISTEM INFORMASI AKADEMIK PORTAL MAHASISWA
+        </p>
+        
+        <div class="stats-container">
           <div class="stat-card">
             <div class="chip blue"><i class="fas fa-clipboard-list"></i></div>
             <div class="stat-label">SKS Diambil</div>
