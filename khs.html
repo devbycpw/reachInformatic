@@ -9,107 +9,69 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
-  </div>
 
-  <!-- Header Bar -->
-  <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-    </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
-      <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
-  </div>
-
-  <!-- Main Container -->
-  <div class="main-container">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar-app"></aside>
-
-<main class="content-area">
-  <div class="khs-top-action-bar">
-    <h2 class="dashboard-title">Kartu Hasil Studi (KHS)</h2>
-    <button class="btn-print-khs" onclick="window.print()">
-      <i class="fas fa-print"></i> Cetak KHS
-    </button>
-  </div>
-
-  <div class="dashboard-grid-layout khs-grid-modifier">
-    
-    <div class="grid-left-side">
-      <div class="table-card">
-        <h3 class="table-card-title"><i class="fas fa-list-ol" style="color: var(--color-blue-primary);"></i> Rincian Nilai Akademik</h3>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th width="5%" class="text-center">No</th>
-                <th width="15%">Kode MK</th>
-                <th>Nama Mata Kuliah</th>
-                <th width="10%" class="text-center">SKS</th>
-                <th width="15%" class="text-center">Nilai Huruf</th>
-                <th width="12%" class="text-center">Bobot</th>
-                <th width="15%" class="text-center">Nilai × Bobot</th>
-              </tr>
-            </thead>
-            <tbody id="gradesBody">
-              </tbody>
-          </table>
-        </div>
-      </div>
+  <!-- Content Area -->
+  <main class="content-area">
+    <div class="khs-top-action-bar">
+      <h2 class="dashboard-title">Kartu Hasil Studi (KHS)</h2>
+      <button class="btn-print-khs" onclick="window.print()">
+        <i class="fas fa-print"></i> Cetak KHS
+      </button>
     </div>
 
-    <div class="side-card layout-gpa-widget">
-      <div class="gpa-badge-container">
-        <div class="gpa-icon-wrapper">
-          <i class="fas fa-award"></i>
-        </div>
-        <h4>Indeks Prestasi Kumulatif</h4>
-        <div class="gpa-value-modern" id="gpaValue">0.00</div>
-      </div>
+    <div class="dashboard-grid khs-grid-modifier">
       
-      <div class="gpa-widget-footer">
-        <div class="gpa-footer-item">
-          <span class="gpa-footer-label">Total SKS Lulus</span>
-          <span class="gpa-footer-value" id="totalCredits">0 SKS</span>
+      <div class="grid-left-side">
+        <div class="table-card">
+          <h3 class="table-card-title"><i class="fas fa-list-ol" style="color: var(--color-blue-primary);"></i> Rincian Nilai Akademik</h3>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th width="5%" class="text-center">No</th>
+                  <th width="15%">Kode MK</th>
+                  <th>Nama Mata Kuliah</th>
+                  <th width="12%" class="text-center">SKS</th>
+                  <th width="15%" class="text-center">Nilai Huruf</th>
+                  <th width="12%" class="text-center">Bobot</th>
+                  <th width="15%" class="text-center">Nilai &times; Bobot</th>
+                </tr>
+              </thead>
+              <tbody id="gradesBody">
+                <!-- Will be dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
 
-  </div>
-</main>
-  </div>
+      <div class="side-card layout-gpa-widget table-card">
+        <div class="gpa-badge-container">
+          <div class="gpa-icon-wrapper">
+            <i class="fas fa-award"></i>
+          </div>
+          <h4>Indeks Prestasi Kumulatif</h4>
+          <div class="gpa-value-modern" id="gpaValue">0.00</div>
+        </div>
+        
+        <div class="gpa-widget-footer">
+          <div class="gpa-footer-item">
+            <span class="gpa-footer-label">Total SKS Lulus</span>
+            <span class="gpa-footer-value" id="totalCredits">0 SKS</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
-    const user = checkSession();
-    renderReusableSidebar('krs.html');
-    
+    // Load KHS data
+    const user = getCurrentUser();
     if (user) {
-      // Set current date
-      const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-      
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-      `;
-      
-      // Load GPA and stats
       document.getElementById('gpaValue').textContent = calculateGPA();
-      document.getElementById('totalCredits').textContent = getTotalPassedCredits();
+      document.getElementById('totalCredits').textContent = getTotalPassedCredits() + ' SKS';
       
       // Load grades table for the latest semester only
       const allGrades = getGrades();
@@ -121,6 +83,7 @@
       if (grades.length === 0) {
         gradesBody.innerHTML = '<tr><td colspan="7" class="text-center">Belum ada data nilai semester ini</td></tr>';
       } else {
+        gradesBody.innerHTML = '';
         let totalWeighted = 0;
         let totalSks = 0;
         

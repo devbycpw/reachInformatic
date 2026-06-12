@@ -9,114 +9,81 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- Top Date Bar -->
-  <div class="top-date-bar">
-    <span id="currentDate"></span>
-  </div>
 
-  <!-- Header Bar -->
-  <div class="header-bar">
-    <div class="header-info">
-      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-    </div>
-    <a href="#" class="logout-btn" onclick="logout(); return false;">
-      <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
-  </div>
-
-  <!-- Main Container -->
-  <aside class="sidebar" id="sidebar-app"></aside>
-
+  <!-- Content Area -->
   <main class="content-area">
     <h2 class="dashboard-title">Jadwal & Absensi</h2>
 
-    <div class="dashboard-grid-layout page-schedule-grid">
+    <div class="dashboard-grid page-schedule-grid">
       
       <div class="grid-left-side">
         <div class="table-card">
-          <h3 class="table-card-title"><i class="fas fa-calendar-alt"></i> Jadwal Kuliah Semester Ini</h3>
+          <h3 class="table-card-title"><i class="fas fa-calendar-alt" style="color: var(--color-blue-primary);"></i> Jadwal Kuliah Semester Ini</h3>
           <div class="table-responsive">
             <table class="data-table" id="scheduleTable">
               <thead>
                 <tr>
-                  <th width="5%">No</th>
-                  <th width="15%">Hari / Jam</th>
+                  <th width="5%" class="text-center">No</th>
+                  <th width="20%">Hari / Jam</th>
                   <th>Mata Kuliah</th>
-                  <th width="10%">SKS</th>
+                  <th width="12%" class="text-center">SKS</th>
                   <th>Ruang & Dosen</th>
-                  <th width="15%">Aksi</th>
+                  <th width="15%" class="text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody id="scheduleBody">
-                </tbody>
+                <!-- Will be dynamically loaded -->
+              </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <div class="side-card layout-attendance-card">
-        <h3 class="table-card-title"><i class="fas fa-history"></i> Riwayat Presensi</h3>
+      <div class="side-card layout-attendance-card table-card">
+        <h3 class="table-card-title"><i class="fas fa-history" style="color: #A855F7;"></i> Riwayat Presensi</h3>
         <div class="table-responsive">
           <table class="data-table" id="attendanceTable">
             <thead>
               <tr>
                 <th>Mata Kuliah</th>
                 <th>Tanggal</th>
-                <th>Status</th>
+                <th class="text-center">Status</th>
               </tr>
             </thead>
             <tbody id="attendanceBody">
-              </tbody>
+              <!-- Will be dynamically loaded -->
+            </tbody>
           </table>
         </div>
       </div>
 
     </div>
   </main>
-  </div>
 
   <script src="assets/app.js"></script>
   <script>
-    // Check session
-    const user = checkSession();
-    renderReusableSidebar('krs.html');
+    // Load schedule and attendance history
+    const user = getCurrentUser();
     if (user) {
-      // Set current date
-      const now = new Date();
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('currentDate').textContent = 
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-      
-      // Update header with user info
-      const headerInfo = document.querySelector('.header-info');
-      headerInfo.innerHTML = `
-        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
-        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
-        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
-      `;
-      
-      // Load schedule
       const krs = getKRS();
       const scheduleBody = document.getElementById('scheduleBody');
       
       if (krs.length === 0) {
-        scheduleBody.innerHTML = '<tr><td colspan="9" class="text-center">Belum ada mata kuliah yang diambil</td></tr>';
+        scheduleBody.innerHTML = '<tr><td colspan="6" class="text-center">Belum ada mata kuliah yang diambil di KRS</td></tr>';
       } else {
-        // Sort by day
+        // Sort by day order
         const dayOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
         krs.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
         
+        scheduleBody.innerHTML = '';
         krs.forEach((course, index) => {
           const row = document.createElement('tr');
           row.innerHTML = `
             <td class="text-center">${index + 1}</td>
-            <td><strong>${course.day}</strong><br><small style="color:#64748B;">${course.time}</small></td>
+            <td><strong>${course.day}</strong><br><small style="color: #64748B;">${course.time}</small></td>
             <td><strong>${course.code}</strong><br>${course.name}</td>
             <td class="text-center">${course.sks} SKS</td>
-            <td><i class="fas fa-door-open"></i> ${course.room}<br><small style="color:#64748B;"><i class="fas fa-user-tie"></i> ${course.lecturer}</small></td>
+            <td><i class="fas fa-door-open"></i> ${course.room}<br><small style="color: #64748B;"><i class="fas fa-user-tie"></i> ${course.lecturer}</small></td>
             <td class="text-center">
               <button class="btn-absen" onclick="attendClass('${course.code}')">
                 <i class="fas fa-check"></i> Absen
@@ -127,7 +94,6 @@
         });
       }
       
-      // Load attendance history
       loadAttendanceHistory();
     }
     
@@ -146,22 +112,22 @@
       const attendanceBody = document.getElementById('attendanceBody');
       
       if (attendanceLog.length === 0) {
-        attendanceBody.innerHTML = '<tr><td colspan="5" class="text-center">Belum ada riwayat absensi</td></tr>';
+        attendanceBody.innerHTML = '<tr><td colspan="3" class="text-center">Belum ada riwayat absensi</td></tr>';
       } else {
         // Sort by date (newest first)
         const sortedLog = [...attendanceLog].sort((a, b) => new Date(b.date) - new Date(a.date));
         
         attendanceBody.innerHTML = '';
         sortedLog.forEach((log) => {
-        const course = getCourseByCode(log.courseCode);
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td><strong>${log.courseCode}</strong><br><small style="color:#64748B;">${course ? course.name : '-'}</small></td>
-          <td><small>${formatDate(log.date)}</small></td>
-          <td class="text-center"><span class="badge-status success"><i class="fas fa-check-circle"></i> ${log.status}</span></td>
-        `;
-        attendanceBody.appendChild(row);
-      });
+          const course = getCourseByCode(log.courseCode);
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td><strong>${log.courseCode}</strong><br><small style="color: #64748B;">${course ? course.name : '-'}</small></td>
+            <td><small>${formatDate(log.date)}</small></td>
+            <td class="text-center"><span class="badge-status success"><i class="fas fa-check-circle"></i> ${log.status}</span></td>
+          `;
+          attendanceBody.appendChild(row);
+        });
       }
     }
   </script>

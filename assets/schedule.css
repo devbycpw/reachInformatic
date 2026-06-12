@@ -1,83 +1,34 @@
 /* --- LAYOUT GRID KHUSUS HALAMAN JADWAL --- */
 .page-schedule-grid {
-  grid-template-columns: 1.6fr 1.1fr !important; /* Proporsi tabel jadwal (kiri) dan riwayat presensi (kanan) */
+  grid-template-columns: 1.6fr 1.1fr !important;
   align-items: start;
 }
 
-/* --- WRAPPER BOX TABEL --- */
-.table-card {
-  background-color: var(--color-white);
-  border: 1px solid var(--color-gray-light);
-  border-radius: 12px;
-  padding: 24px;
+@media (max-width: 992px) {
+  .page-schedule-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
-.table-card-title {
-  font-size: 1.125rem; /* Title S */
-  font-weight: 600;
-  color: var(--color-dark);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-}
-
-/* --- DESIGN TABEL MODERN --- */
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.875rem; /* Body M */
-}
-
-.data-table th {
-  background-color: #F1F5F9;
-  color: var(--color-dark);
-  font-weight: 600;
-  padding: 14px 16px;
-  border-bottom: 2px solid var(--color-gray-light);
-}
-
-.data-table td {
-  padding: 16px;
-  border-bottom: 1px solid #E2E8F0;
-  vertical-align: middle;
-  color: #334155;
-  line-height: 1.4;
-}
-
-.data-table tbody tr:hover {
-  background-color: #F8FAFC; /* Efek hover halus pada baris data */
-}
-
-.text-center {
-  text-align: center;
-}
-
-/* --- TOMBOL ABSEN (Mengikuti Aturan Blue Primary) --- */
+/* --- TOMBOL ABSEN --- */
 .btn-absen {
   background-color: var(--color-blue-primary);
   color: var(--color-white);
   border: none;
   padding: 8px 14px;
   font-family: var(--font-family);
-  font-size: 0.75rem; /* Headline Caps / Body S */
+  font-size: 0.75rem;
   font-weight: 600;
-  border-radius: 6px;
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-fast);
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
 .btn-absen:hover {
-  background-color: #005FBC;
+  background-color: var(--color-blue-hover);
 }
 
 /* --- BADGE STATUS PRESENSI --- */
@@ -92,7 +43,7 @@
 }
 
 .badge-status.success {
-  background-color: #DCFCE7; /* Hijau muda estetik */
+  background-color: #DCFCE7;
   color: #15803D;
 }
 
@@ -101,5 +52,5 @@
   box-shadow: none;
 }
 .layout-attendance-card .data-table th {
-  background-color: #FAF5FF; /* Memberikan sedikit nuansa berbeda untuk riwayat */
+  background-color: #FAF5FF;
 }
