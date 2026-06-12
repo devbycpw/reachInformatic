@@ -31,90 +31,131 @@
     <aside class="sidebar" id="sidebar-app"></aside>
 
     <!-- Content Area -->
-    <main class="content-area">
-      <div class="page-header">
-        <i class="fas fa-user"></i>
-        <h1 class="page-title">DATA PRIBADI MAHASISWA</h1>
-      </div>
+    <main class="content-area" style="background-color: #f8fafc; padding: 24px;">
       
-      <div class="info-box">
-        <p class="info-text">
-          UNTUK KEPERLUAN ADMINISTRASI ANDA, SILAHKAN UPDATE ISIAN DI BAWAH INI. 
-          DATA INI DIPERGUNAKAN UNTUK SYARAT PELAPORAN KE DIREKTORAT JENDERAL PENDIDIKAN TINGGI (DIKTI).
-          <strong>KARENA PENTINGNYA DATA KEPENDUDUKAN MAHASISWA DALAM PELAPORAN PD DIKTI DAN VERIFIKASI KEBSAHAN IJAZAH, 
-          MAKA WAJIB MELAKUKAN PENGISIAN NIK DAN NOMOR KK SECARA BENAR</strong>
+      <!-- Top Alert -->
+      <div style="background-color: #ffedd5; border-left: 4px solid #ea580c; border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; align-items: flex-start; gap: 12px; color: #9a3412;">
+        <i class="fas fa-info-circle" style="font-size: 20px; margin-top: 2px;"></i>
+        <p style="font-size: 13px; font-weight: 500; margin: 0; line-height: 1.5; text-transform: uppercase;">
+          UNTUK KEPERLUAN ADMINISTRASI ANDA, SILAHKAN UPDATE ISIAN DI BAWAH INI. PASTIKAN DATA YANG ANDA MASUKKAN ADALAH BENAR DAN VALID.
         </p>
       </div>
       
-      <form id="profileForm">
-        <table class="form-table">
-          <tr>
-            <td>NIM</td>
-            <td>:</td>
-            <td><input type="text" id="nim" name="nim" readonly></td>
-          </tr>
-          <tr>
-            <td>Nama Lengkap</td>
-            <td>:</td>
-            <td><input type="text" id="name" name="name" required></td>
-          </tr>
-          <tr>
-            <td>Alamat</td>
-            <td>:</td>
-            <td><input type="text" id="address" name="address" required></td>
-          </tr>
-          <tr>
-            <td>No. Telepon / Handphone</td>
-            <td>:</td>
-            <td><input type="tel" id="phone" name="phone" required></td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td>:</td>
-            <td><input type="email" id="email" name="email" placeholder="email@student.univ.ac.id"></td>
-          </tr>
-          <tr>
-            <td>Nama Bank</td>
-            <td>:</td>
-            <td><input type="text" id="bank" name="bank" required></td>
-          </tr>
-          <tr>
-            <td>Nomor Rekening</td>
-            <td>:</td>
-            <td><input type="text" id="accountNumber" name="accountNumber" required></td>
-          </tr>
-          <tr>
-            <td>Atas Nama Rekening</td>
-            <td>:</td>
-            <td><input type="text" id="accountName" name="accountName" required></td>
-          </tr>
-          <tr>
-            <td>Hubungan Dengan Pemilik Rekening</td>
-            <td>:</td>
-            <td><input type="text" id="accountRelation" name="accountRelation" value="Saya sendiri"></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td>
-              <button type="submit" class="btn">
-                <i class="fas fa-save"></i> Simpan
-              </button>
-            </td>
-          </tr>
-        </table>
-      </form>
-      
-      <div class="info-box" >
-        <p class="info-text">
-          <i class="fas fa-info-circle"></i> 
-          Demi kelancaran pengiriman email dari Bagian Administrasi Akademik, silahkan menggunakan email student.univ.ac.id yang telah diberikan.<br>
-          Bagian Administrasi Akademik tidak bertanggung jawab, apabila data yang anda berikan salah.
-        </p>
+      <!-- Form Container -->
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        
+        <!-- Header Container -->
+        <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px 8px 0 0; display: flex; align-items: center; gap: 10px;">
+          <i class="fas fa-tasks" style="color: #0077E6;"></i>
+          <h3 style="font-size: 14px; color: #334155; margin: 0; font-weight: 600;">Form Pemutakhiran Data</h3>
+        </div>
+
+        <form id="profileForm" style="padding: 24px;">
+          
+          <!-- Section 1: Data Personal -->
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #0077E6; font-weight: 600; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+              <i class="far fa-user"></i> DATA PERSONAL
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px;">
+              <div>
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">NIM</label>
+                <input type="text" id="nim" name="nim" readonly style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #f8fafc; color: #475569; font-size: 13px; outline: none; box-sizing: border-box;">
+              </div>
+              <div>
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Nama Lengkap</label>
+                <input type="text" id="name" name="name" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Alamat</label>
+              <textarea id="address" name="address" required rows="3" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; font-family: inherit; resize: vertical; box-sizing: border-box;"></textarea>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div>
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">No Telepon</label>
+                <div style="position: relative;">
+                  <i class="fas fa-phone-alt" style="position: absolute; left: 12px; top: 12px; color: #94a3b8; font-size: 13px;"></i>
+                  <input type="tel" id="phone" name="phone" required style="width: 100%; padding: 10px 12px 10px 36px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
+                </div>
+              </div>
+              <div>
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Email</label>
+                <div style="position: relative;">
+                  <i class="far fa-envelope" style="position: absolute; left: 12px; top: 12px; color: #94a3b8; font-size: 13px;"></i>
+                  <input type="email" id="email" name="email" placeholder="email@student.univ.ac.id" style="width: 100%; padding: 10px 12px 10px 36px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Section 2: Informasi Perbankan -->
+          <div style="margin-bottom: 30px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #0077E6; font-weight: 600; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+              <i class="fas fa-university"></i> INFORMASI PERBANKAN
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px;">
+              <div>
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Nama Bank</label>
+                <select id="bank" name="bank" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background-color: #fff; appearance: auto; box-sizing: border-box;">
+                  <option value="">Pilih Bank</option>
+                  <option value="Bank Central Asia (BCA)">Bank Central Asia (BCA)</option>
+                  <option value="Bank Mandiri">Bank Mandiri</option>
+                  <option value="Bank Negara Indonesia (BNI)">Bank Negara Indonesia (BNI)</option>
+                  <option value="Bank Rakyat Indonesia (BRI)">Bank Rakyat Indonesia (BRI)</option>
+                </select>
+              </div>
+              <div>
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Nomor Rekening</label>
+                <input type="text" id="accountNumber" name="accountNumber" required placeholder="Masukkan nomor rekening" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
+              </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div>
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Atas Nama Rekening</label>
+                <input type="text" id="accountName" name="accountName" required placeholder="Nama sesuai buku tabungan" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box;">
+              </div>
+              <div>
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">Hubungan Dengan Pemilik Rekening</label>
+                <select id="accountRelation" name="accountRelation" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background-color: #fff; appearance: auto; box-sizing: border-box;">
+                  <option value="Diri Sendiri">Diri Sendiri</option>
+                  <option value="Orang Tua">Orang Tua</option>
+                  <option value="Wali">Wali</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Form Actions -->
+          <div style="display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+            <button type="button" onclick="location.reload()" style="padding: 10px 20px; border: 1px solid #cbd5e1; background: #fff; color: #475569; border-radius: 6px; font-weight: 500; font-size: 13px; cursor: pointer; transition: all 0.2s;">
+              Batal
+            </button>
+            <button type="submit" style="padding: 10px 20px; border: none; background: #10b981; color: #fff; border-radius: 6px; font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+              <i class="far fa-save"></i> Simpan Perubahan
+            </button>
+          </div>
+        </form>
       </div>
       
-      <div class="footer">
-        <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
+      <!-- Bottom Alert -->
+      <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; align-items: flex-start; gap: 12px;">
+        <i class="fas fa-at" style="color: #2563eb; font-size: 20px; margin-top: 2px;"></i>
+        <div>
+          <h4 style="color: #1e3a8a; margin: 0 0 4px 0; font-size: 13px; font-weight: 600;">Informasi Pengiriman Email</h4>
+          <p style="color: #475569; font-size: 12px; margin: 0; line-height: 1.5;">
+            Segala bentuk notifikasi akademik, tagihan, dan pengumuman resmi akan dikirimkan ke alamat email yang terdaftar di atas. Pastikan email Anda aktif dan periksa folder 'Spam' secara berkala.
+          </p>
+        </div>
+      </div>
+      
+      <div class="footer" style="text-align: center; color: #94a3b8; font-size: 12px; margin-top: 40px; border-top: none; padding-top: 0;">
+        <p>&copy; 2024 Academic Information System - Universitas Teladan</p>
       </div>
     </main>
   </div>
