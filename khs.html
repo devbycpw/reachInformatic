@@ -111,54 +111,59 @@
       document.getElementById('gpaValue').textContent = calculateGPA();
       document.getElementById('totalCredits').textContent = getTotalPassedCredits();
       
-      // Load grades table
-      const grades = getGrades();
+      // Load grades table for the latest semester only
+      const allGrades = getGrades();
+      const latestSemester = '2025-2026/2';
+      const grades = allGrades.filter(g => g.tahun === latestSemester);
+      
       const gradesBody = document.getElementById('gradesBody');
       
       if (grades.length === 0) {
-  gradesBody.innerHTML = '<tr><td colspan="7" class="text-center">Belum ada data nilai</td></tr>';
-} else {
-  let totalWeighted = 0;
-  let totalSks = 0;
-  
-  grades.forEach((grade, index) => {
-    const weightedScore = grade.weight * grade.sks;
-    totalWeighted += weightedScore;
-    totalSks += grade.sks;
-    
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td class="text-center">${index + 1}</td>
-      <td><strong>${grade.code}</strong></td>
-      <td>${grade.name}</td>
-      <td class="text-center font-semibold">${grade.sks}</td>
-      <td class="text-center"><span class="grade-letter-badge">${grade.grade}</span></td>
-      <td class="text-center">${grade.weight.toFixed(2)}</td>
-      <td class="text-center font-semibold">${weightedScore.toFixed(1)}</td>
-    `;
-    gradesBody.appendChild(row);
-  });
+        gradesBody.innerHTML = '<tr><td colspan="7" class="text-center">Belum ada data nilai semester ini</td></tr>';
+      } else {
+        let totalWeighted = 0;
+        let totalSks = 0;
+        
+        grades.forEach((grade, index) => {
+          const weightedScore = grade.weight * grade.sks;
+          totalWeighted += weightedScore;
+          totalSks += grade.sks;
+          
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td class="text-center">${index + 1}</td>
+            <td><strong>${grade.code}</strong></td>
+            <td>${grade.name}</td>
+            <td class="text-center font-semibold">${grade.sks}</td>
+            <td class="text-center"><span class="grade-letter-badge">${grade.grade}</span></td>
+            <td class="text-center">${grade.weight.toFixed(2)}</td>
+            <td class="text-center font-semibold">${weightedScore.toFixed(1)}</td>
+          `;
+          gradesBody.appendChild(row);
+        });
+        
+        const ips = totalSks > 0 ? (totalWeighted / totalSks).toFixed(2) : 0;
         
         // Add summary row
         const summaryRow = document.createElement('tr');
-  summaryRow.className = "table-row-summary";
-  summaryRow.innerHTML = `
-    <td colspan="3" class="text-right">TOTAL BEBAN STUDI</td>
-    <td class="text-center font-semibold">${totalSks}</td>
-    <td colspan="2"></td>
-    <td class="text-center font-semibold">${totalWeighted.toFixed(1)}</td>
-  `;
-  gradesBody.appendChild(summaryRow);
+        summaryRow.className = "table-row-summary";
+        summaryRow.innerHTML = `
+          <td colspan="3" class="text-right">TOTAL BEBAN STUDI SEMESTER INI</td>
+          <td class="text-center font-semibold">${totalSks}</td>
+          <td colspan="2"></td>
+          <td class="text-center font-semibold">${totalWeighted.toFixed(1)}</td>
+        `;
+        gradesBody.appendChild(summaryRow);
         
-        // Add IPK row
-        const ipkRow = document.createElement('tr');
-  ipkRow.className = "table-row-gpa-summary";
-  ipkRow.innerHTML = `
-    <td colspan="3" class="text-right">INDEKS PRESTASI KUMULATIF (IPK)</td>
-    <td colspan="4" class="text-center summary-gpa-highlight">${calculateGPA()}</td>
-  `;
-  gradesBody.appendChild(ipkRow);
-}
+        // Add IPS row
+        const ipsRow = document.createElement('tr');
+        ipsRow.className = "table-row-gpa-summary";
+        ipsRow.innerHTML = `
+          <td colspan="3" class="text-right">INDEKS PRESTASI SEMESTER (IPS)</td>
+          <td colspan="4" class="text-center summary-gpa-highlight">${ips}</td>
+        `;
+        gradesBody.appendChild(ipsRow);
+      }
     }
   </script>
 </body>

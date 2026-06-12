@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transkrip Nilai - Portal Administratif Mahasiswa</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .transkrip-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+    }
+    .transkrip-table th, .transkrip-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .transkrip-table th {
+      background-color: #f8fafc; 
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+    .transkrip-table td {
+      color: #334155;
+      background-color: #ffffff;
+    }
+    .transkrip-table tbody tr:hover td {
+      background-color: #f1f5f9;
+    }
+    .transkrip-table .text-center {
+      text-align: center;
+    }
+    
+    /* Highlight for grades */
+    .grade-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 12px;
+      background-color: #f1f5f9;
+      color: #0f172a;
+    }
+    .grade-A { background-color: #dcfce7; color: #166534; }
+    .grade-AB { background-color: #fef9c3; color: #854d0e; }
+    .grade-B { background-color: #e0f2fe; color: #075985; }
+    .grade-C { background-color: #ffedd5; color: #9a3412; }
+    .grade-D, .grade-E { background-color: #fee2e2; color: #991b1b; }
+
+    /* Summary Section */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .summary-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .summary-card-title {
+      font-size: 11px;
+      color: #64748b;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .summary-card-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .summary-card-highlight {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+    .summary-card-highlight .summary-card-value {
+      color: #1d4ed8;
+    }
+
+    /* Pagination */
+    .pagination-btn {
+      padding: 6px 12px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pagination-btn:hover:not(:disabled) {
+      background-color: #f1f5f9;
+      color: #0f172a;
+    }
+    .pagination-btn.active {
+      background-color: #0077E6;
+      color: #ffffff;
+      border-color: #0077E6;
+      font-weight: 600;
+    }
+    .pagination-btn:disabled {
+      background-color: #f8fafc;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Date Bar -->
+  <div class="top-date-bar">
+    <span id="currentDate"></span>
+  </div>
+
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-info">
+      <div><strong>:: NIM - NAMA</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+      <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+      <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+    </div>
+    <a href="#" class="logout-btn" onclick="logout(); return false;">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </div>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar-app"></aside>
+
+    <!-- Content Area -->
+    <main class="content-area" style="background-color: #f8fafc; padding: 24px;">
+      
+      <!-- Top Alert -->
+      <div style="background-color: #ffedd5; border-left: 4px solid #ea580c; border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; align-items: flex-start; gap: 12px; color: #9a3412;">
+        <i class="fas fa-info-circle" style="font-size: 20px; margin-top: 2px;"></i>
+        <div>
+          <h4 style="color: #9a3412; margin: 0 0 4px 0; font-size: 13px; font-weight: 600; text-transform: uppercase;">Catatan Transkrip</h4>
+          <p style="font-size: 12px; margin: 0; line-height: 1.5;">
+            Nilai dengan warna merah (D/E) wajib diulang. Lakukan penghapusan matakuliah duplikat dan pastikan semua nilai lulus pada transkrip Anda sebagai syarat pengajuan yudisium.
+          </p>
+        </div>
+      </div>
+
+      <!-- Container -->
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden;">
+        
+        <!-- Header Container & Filters -->
+        <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; background: #ffffff; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-file-alt" style="color: #0077E6; font-size: 18px;"></i>
+            <h3 style="font-size: 15px; color: #1e293b; margin: 0; font-weight: 600;">Data Transkrip Nilai</h3>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <!-- Filters -->
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: #64748b; font-weight: 500;"><i class="fas fa-filter"></i> Filter:</span>
+              <select id="filterTahun" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; outline: none; color: #475569; background-color: #f8fafc; cursor: pointer;">
+                <option value="Semua">Semua Tahun Ambil</option>
+              </select>
+              <select id="filterNilai" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; outline: none; color: #475569; background-color: #f8fafc; cursor: pointer;">
+                <option value="Semua">Semua Nilai</option>
+                <option value="A">Nilai A (Tertinggi)</option>
+                <option value="AB">Nilai AB</option>
+                <option value="B">Nilai B</option>
+                <option value="C">Nilai C</option>
+                <option value="D">Nilai D/E (Mengulang)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding: 0; overflow-x: auto;">
+          <table class="transkrip-table" id="transkripTable">
+            <thead>
+              <tr>
+                <th width="5%">No</th>
+                <th width="12%">Kode</th>
+                <th width="45%">Matakuliah</th>
+                <th width="8%" class="text-center">Sks</th>
+                <th width="8%" class="text-center">Nilai</th>
+                <th width="10%" class="text-center">AK</th>
+                <th width="12%">Tahun Ambil</th>
+              </tr>
+            </thead>
+            <tbody id="transkripBody">
+              <!-- Data will be populated here -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination Controls -->
+        <div style="padding: 16px 20px; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; background: #f8fafc; display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-size: 12px; color: #64748b;" id="paginationInfo">
+            Menampilkan 0-0 dari 0 data
+          </div>
+          <div style="display: flex; gap: 4px;" id="paginationControls">
+            <!-- Buttons will be rendered here -->
+          </div>
+        </div>
+        
+        <!-- Summary Dashboard -->
+        <div style="padding: 24px; background-color: #ffffff;">
+          <div class="summary-grid">
+            <div class="summary-card">
+              <div class="summary-card-title">Total SKS Coba</div>
+              <div class="summary-card-value" id="valSksCoba">-</div>
+            </div>
+            <div class="summary-card">
+              <div class="summary-card-title">Total SKS Peroleh</div>
+              <div class="summary-card-value" id="valSksPeroleh">-</div>
+            </div>
+            <div class="summary-card summary-card-highlight">
+              <div class="summary-card-title">IPK Coba</div>
+              <div class="summary-card-value" id="valIpkCoba">-</div>
+            </div>
+            <div class="summary-card summary-card-highlight">
+              <div class="summary-card-title">IPK Peroleh</div>
+              <div class="summary-card-value" id="valIpkPeroleh">-</div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end; padding-top: 24px; margin-top: 24px; border-top: 1px solid #e2e8f0;">
+            <button onclick="requestTranskrip()" style="padding: 10px 20px; border: 1px solid #0077E6; background: #0077E6; color: #fff; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background-color 0.2s;">
+              <i class="fas fa-file-signature"></i> Request Transkrip dari BAA
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer" style="text-align: center; color: #94a3b8; font-size: 12px; margin-top: 40px; border-top: none; padding-top: 0;">
+        <p>&copy; 2024 Academic Information System - Universitas Teladan</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>
+    // Check session
+    const user = checkSession();
+    renderReusableSidebar();
+    
+    if (user) {
+      // Set current date
+      const now = new Date();
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      document.getElementById('currentDate').textContent = 
+        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+      
+      // Update header with user info
+      const headerInfo = document.querySelector('.header-info');
+      headerInfo.innerHTML = `
+        <div><strong>:: ${user.nim} - ${user.name.toUpperCase()}</strong> (FAKULTAS TEKNOLOGI INFORMASI - TEKNIK INFORMATIKA)</div>
+        <div><strong>:: SEMESTER 3</strong> TA 2025 - 2026</div>
+        <div><strong>:: BEBAN SKS MAKSIMAL : 24 sks</strong></div>
+      `;
+
+      // Helper function for grade styling
+      function getGradeClass(grade) {
+        if (grade === 'A') return 'grade-A';
+        if (grade === 'AB' || grade === 'B+') return 'grade-AB';
+        if (grade === 'B') return 'grade-B';
+        if (grade === 'C') return 'grade-C';
+        if (grade === 'D' || grade === 'E') return 'grade-D';
+        return '';
+      }
+
+      // Get synced data from app.js central store
+      const transkripData = getGrades();
+      const totalSks = getTotalPassedCredits();
+      const ipk = calculateGPA();
+
+      document.getElementById('valSksCoba').textContent = totalSks;
+      document.getElementById('valSksPeroleh').textContent = totalSks;
+      document.getElementById('valIpkCoba').textContent = ipk;
+      document.getElementById('valIpkPeroleh').textContent = ipk;
+
+      let filteredData = [...transkripData];
+      let currentPage = 1;
+      const itemsPerPage = 7;
+
+      const tbody = document.getElementById('transkripBody');
+      const filterTahun = document.getElementById('filterTahun');
+      const filterNilai = document.getElementById('filterNilai');
+      const paginationInfo = document.getElementById('paginationInfo');
+      const paginationControls = document.getElementById('paginationControls');
+
+      // Populate Tahun options dynamically
+      const tahunSet = new Set(transkripData.map(item => item.tahun));
+      tahunSet.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t;
+        filterTahun.appendChild(opt);
+      });
+
+      function renderTable() {
+        tbody.innerHTML = '';
+        
+        const totalPages = Math.ceil(filteredData.length / itemsPerPage) || 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+        
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const displayData = filteredData.slice(startIndex, endIndex);
+
+        if (filteredData.length === 0) {
+           tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="padding: 24px; color: #64748b;">Tidak ada data matakuliah yang sesuai dengan filter.</td></tr>';
+           paginationInfo.textContent = 'Menampilkan 0 dari 0 data';
+           paginationControls.innerHTML = '';
+           return;
+        }
+
+        const realEnd = Math.min(endIndex, filteredData.length);
+        paginationInfo.textContent = `Menampilkan ${startIndex + 1}-${realEnd} dari ${filteredData.length} data`;
+
+        displayData.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${item.no}.</td>
+            <td style="font-weight: 500; color: #0077E6;">${item.code}</td>
+            <td style="font-weight: 500;">${item.name}</td>
+            <td class="text-center">${item.sks}</td>
+            <td class="text-center"><span class="grade-badge ${getGradeClass(item.grade)}">${item.grade}</span></td>
+            <td class="text-center">${item.ak}</td>
+            <td style="color: #64748b;">${item.tahun}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        renderPagination(totalPages);
+      }
+
+      function renderPagination(totalPages) {
+        paginationControls.innerHTML = '';
+        
+        // Prev button
+        const btnPrev = document.createElement('button');
+        btnPrev.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        btnPrev.className = 'pagination-btn';
+        btnPrev.disabled = currentPage === 1;
+        btnPrev.onclick = () => { if(currentPage > 1) { currentPage--; renderTable(); } };
+        paginationControls.appendChild(btnPrev);
+
+        // Page numbers
+        for(let i = 1; i <= totalPages; i++) {
+          const btnPage = document.createElement('button');
+          btnPage.textContent = i;
+          btnPage.className = 'pagination-btn ' + (i === currentPage ? 'active' : '');
+          btnPage.onclick = () => { currentPage = i; renderTable(); };
+          paginationControls.appendChild(btnPage);
+        }
+
+        // Next button
+        const btnNext = document.createElement('button');
+        btnNext.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        btnNext.className = 'pagination-btn';
+        btnNext.disabled = currentPage === totalPages;
+        btnNext.onclick = () => { if(currentPage < totalPages) { currentPage++; renderTable(); } };
+        paginationControls.appendChild(btnNext);
+      }
+
+      function applyFilters() {
+        const valTahun = filterTahun.value;
+        const valNilai = filterNilai.value;
+
+        filteredData = transkripData.filter(item => {
+          let matchTahun = (valTahun === 'Semua') || (item.tahun === valTahun);
+          
+          let matchNilai = true;
+          if (valNilai === 'D') {
+            matchNilai = (item.grade === 'D' || item.grade === 'E');
+          } else if (valNilai !== 'Semua') {
+            matchNilai = (item.grade === valNilai);
+          }
+          
+          return matchTahun && matchNilai;
+        });
+
+        currentPage = 1; 
+        renderTable();
+      }
+
+      filterTahun.addEventListener('change', applyFilters);
+      filterNilai.addEventListener('change', applyFilters);
+
+      // Initial render
+      renderTable();
+    }
+
+    function requestTranskrip() {
+      alert("Permintaan Transkrip Legalisir Anda telah dikirim ke Bagian Administrasi Akademik (BAA). Silahkan tunggu notifikasi via Email.");
+    }
+  </script>
+</body>
+</html>

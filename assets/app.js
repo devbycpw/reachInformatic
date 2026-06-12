@@ -131,9 +131,27 @@ const DEFAULT_PROFILE = {
 };
 
 const DEFAULT_GRADES = [
-  { code: "MK001", name: "Algoritma & Pemrograman", sks: 3, grade: "A", weight: 4.0 },
-  { code: "MK003", name: "Kalkulus", sks: 2, grade: "B+", weight: 3.5 },
-  { code: "MK005", name: "Jaringan Komputer", sks: 3, grade: "B", weight: 3.0 }
+  { no: 1, code: 'TC511H', name: 'MATEMATIKA DISKRIT', sks: 3, grade: 'AB', weight: 3.5, ak: '10,5', tahun: '2024-2025/1' },
+  { no: 2, code: 'TC513H', name: 'DASAR-DASAR PEMROGRAMAN', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2024-2025/1' },
+  { no: 3, code: 'TC512H', name: 'PENGANTAR TEKNOLOGI INFORMASI', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2024-2025/1' },
+  { no: 4, code: 'TC515C', name: 'SISTEM BASIS DATA', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2024-2025/1' },
+  { no: 5, code: 'TC514I', name: 'BAHASA INGGRIS', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2024-2025/1' },
+  { no: 6, code: 'MU116K', name: 'BAHASA INDONESIA', sks: 2, grade: 'A', weight: 4.0, ak: '8', tahun: '2024-2025/2' },
+  { no: 7, code: 'TC521A', name: 'ALJABAR LINIER DAN MATRIX', sks: 2, grade: 'A', weight: 4.0, ak: '8', tahun: '2024-2025/2' },
+  { no: 8, code: 'MU114G', name: 'PANCASILA', sks: 2, grade: 'A', weight: 4.0, ak: '8', tahun: '2024-2025/2' },
+  { no: 9, code: 'MU117E', name: 'PENDIDIKAN AGAMA (KRISTEN)', sks: 2, grade: 'A', weight: 4.0, ak: '8', tahun: '2024-2025/2' },
+  { no: 10, code: 'TC534F', name: 'ALGORITMA DAN STRUKTUR DATA', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2024-2025/3' },
+  { no: 11, code: 'TC532B', name: 'STATISTIKA DAN PROBABILITAS', sks: 2, grade: 'A', weight: 4.0, ak: '8', tahun: '2024-2025/3' },
+  { no: 12, code: 'TC533A', name: 'JARINGAN KOMPUTER', sks: 3, grade: 'AB', weight: 3.5, ak: '10,5', tahun: '2024-2025/3' },
+  { no: 13, code: 'TC535G', name: 'INTERAKSI MANUSIA DAN KOMPUTER', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2024-2025/3' },
+  { no: 14, code: 'TC531E', name: 'TEORI BAHASA DAN AUTOMATA', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2024-2025/3' },
+  { no: 15, code: 'MU115N', name: 'KEWARGANEGARAAN', sks: 2, grade: 'A', weight: 4.0, ak: '8', tahun: '2025-2026/1' },
+  { no: 16, code: 'TC212C', name: 'PEMROGRAMAN BERORIENTASI OBJEK', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2025-2026/1' },
+  { no: 17, code: 'TC223E', name: 'PEMROGRAMAN WEB', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2025-2026/1' },
+  { no: 18, code: 'TC614F', name: 'DASAR PEMROGRAMAN JARINGAN', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2025-2026/1' },
+  { no: 19, code: 'TC611E', name: 'KECERDASAN BUATAN', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2025-2026/1' },
+  { no: 20, code: 'MU118C', name: 'PENGEMBANGAN KEPRIBADIAN ENTREPRENEURIAL', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2025-2026/2' },
+  { no: 21, code: 'TC615H', name: 'ARSITEKTUR DAN ORGANISASI KOMPUTER', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2025-2026/2' }
 ];
 
 // ============================================
@@ -150,9 +168,8 @@ function initMockData() {
   if (!localStorage.getItem('student_profile')) {
     localStorage.setItem('student_profile', JSON.stringify(DEFAULT_PROFILE));
   }
-  if (!localStorage.getItem('student_grades')) {
-    localStorage.setItem('student_grades', JSON.stringify(DEFAULT_GRADES));
-  }
+  // FORCE update grades to ensure synchronization across pages
+  localStorage.setItem('student_grades', JSON.stringify(DEFAULT_GRADES));
   if (!localStorage.getItem('my_krs')) {
     localStorage.setItem('my_krs', JSON.stringify(["MK001", "MK002", "MK003"]));
   }
