@@ -225,7 +225,7 @@ a:hover {
   width: 100%;
   height: auto;
   max-height: 160px;
-  object-fit: ;
+  object-fit: cover;
   display: block;
   background-color: #f1f5f9; /* Fallback jika gambar kosong */
 }
