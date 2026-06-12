@@ -10,50 +10,40 @@
   <!-- Connect to Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900">
+<body class="bg-white">
 <div class="grid min-h-screen grid-cols-1 lg:grid-cols-2">
   <!-- Left Side: Login Form -->
   <div class="flex flex-col justify-center px-6 py-12 sm:px-12 lg:px-20 xl:px-24">
     <div class="mx-auto w-full max-w-sm">
-      <div>
-        <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" class="h-10 w-auto" />
-
-        <h2 class="mt-10 text-2xl/9 font-bold tracking-tight text-white">Login</h2>
-        <h3 class="text-gray-400">masuk ke portal administrasi akademik</h3>
+      <div class="text-center">
+        <h2 class="mt-10 text-3xl font-bold tracking-tight text-Black">Login</h2>
+        <h3 class="mt-1 text-lg text-Gray">masuk ke portal administrasi akademik</h3>
       </div>
 
       <div class="mt-10">
         <form id="loginForm" action="#" method="POST" class="space-y-6">
           <div>
-            <label for="nim" class="block text-sm/6 font-medium text-gray-100">NIM</label>
+            <label for="nim" class="block text-base font-medium text-Black">NIM</label>
             <div class="mt-2">
-              <input id="nim" type="text" name="nim" required class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+              <input id="nim" type="text" name="nim" required placeholder="Masukkan NIM" class="block w-full rounded-md bg-white px-4 py-2 text-lg text-gray-900 border border-gray-300 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500" />
             </div>
           </div>
 
           <div>
             <div class="flex items-center justify-between">
-              <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
-              <div class="text-sm">
-                <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
-              </div>
+              <label for="password" class="block text-base font-medium text-Black">Password</label>
             </div>
             <div class="mt-2">
-              <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+              <input id="password" type="password" name="password" required autocomplete="current-password" placeholder="Masukkan Password" class="block w-full rounded-md bg-white px-4 py-2 text-lg text-gray-900 border border-gray-300 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500" />
             </div>
           </div>
 
           <div>
-            <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-gray-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
-              <i class="bi bi-box-arrow-in-right"></i> Login
+            <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-md bg-black px-4 py-2 text-lg font-semibold text-white hover:bg-gray-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
+              <i class="bi bi-box-arrow-in-right text-[#2C79DE]"></i> Login
             </button>
           </div>
         </form>
-
-        <p class="mt-10 text-center text-sm/6 text-gray-400">
-          Not a member?
-          <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Start a 14 day free trial</a>
-        </p>
       </div>
     </div>
   </div>
@@ -61,7 +51,7 @@
   <!-- Right Side: Branding image (Figma Group 18) -->
   <div class="hidden lg:flex items-center justify-center p-6">
     <img src="img/Group 18.jpg" alt="Portal Administrasi Mahasiswa"
-         class="h-[85%] w-[85%] rounded-2xl object-cover" />
+         class="w-[80%] h-auto rounded-2xl object-contain" />
   </div>
 </div>
 
