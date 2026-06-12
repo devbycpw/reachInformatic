@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrasi Matakuliah - Portal Administratif Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/krs.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -29,90 +30,139 @@
   <div class="main-container">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu">
-        <li><a href="krs.html" class="active"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu">
-        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users"></i> 127 user online
-      </div>
-    </aside>
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <span class="logo-icon">★</span> 
+      <span class="logo-text">PortalKU</span>
+    </div>
+  </div>
 
-    <!-- Content Area -->
-    <main class="content-area">
-      <div class="page-header">
-        <i class="fas fa-clipboard-list"></i>
-        <h1 class="page-title">KARTU RENCANA STUDI (KRS)</h1>
+  <nav class="sidebar-menu">
+    <div class="menu-group">
+      <p class="menu-title">Informasi Umum</p>
+      <ul>
+        <li class="menu-item" onclick="window.location.href='index.html'">
+          <span class="menu-icon">🏠</span>
+          <span class="menu-label">Home</span>
+        </li>
+        <li class="menu-item" onclick="window.location.href='panduan.html'">
+          <span class="menu-icon">📖</span>
+          <span class="menu-label">Panduan</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="menu-group">
+      <p class="menu-title">Menu Akademik</p>
+      <ul>
+        <li class="menu-item active" onclick="window.location.href='krs.html'">
+          <span class="menu-icon">📝</span>
+          <span class="menu-label">Registrasi Matakuliah</span>
+        </li>
+        <li class="menu-item" onclick="window.location.href='jadwal-absen.html'">
+          <span class="menu-icon">📅</span>
+          <span class="menu-label">Jadwal Kuliah</span>
+        </li>
+        <li class="menu-item" onclick="window.location.href='khs.html'">
+          <span class="menu-icon">🎓</span>
+          <span class="menu-label">Hasil Studi</span>
+        </li>
+        <li class="menu-item">
+          <span class="menu-icon">📄</span>
+          <span class="menu-label">Transkrip Nilai</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="menu-group">
+      <p class="menu-title">Pengaturan Akun</p>
+      <ul>
+        <li class="menu-item" onclick="window.location.href='profil.html'">
+          <span class="menu-icon">👤</span>
+          <span class="menu-label">Data Pribadi</span>
+        </li>
+        <li class="menu-item" onclick="window.location.href='ganti-password.html'">
+          <span class="menu-icon">🔑</span>
+          <span class="menu-label">Ganti Password</span>
+        </li>
+        <li class="menu-item logout" onclick="logout()">
+          <span class="menu-icon">⮞</span>
+          <span class="menu-label">Logout</span>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <p class="caption">Cc:MieSo</p>
+  </div>
+</aside>
+
+<main class="content-area">
+  <div class="krs-header-wrapper">
+    <h2 class="dashboard-title">Kartu Rencana Studi (KRS)</h2>
+    
+    <div class="krs-status-badge-box">
+      <div class="status-item">
+        <span class="status-label">Beban SKS</span>
+        <span class="status-value-text"><strong id="totalSKS">0</strong> / 24 SKS</span>
       </div>
-      
-      <div class="krs-status-box">
-        <strong>Total SKS Diambil:</strong> <span id="totalSKS">0</span> / 24 SKS | 
-        <strong>Status KRS:</strong> <span id="krsStatus" class="status-draft">Draft</span>
+      <div class="status-divider"></div>
+      <div class="status-item">
+        <span class="status-label">Status Verifikasi</span>
+        <span id="krsStatus" class="status-badge-modern draft">Draft</span>
       </div>
-      
-      <h3 class="section-header"><i class="fas fa-list"></i> Mata Kuliah yang Sudah Diambil</h3>
-      <table class="data-table" id="myKRSTable">
+    </div>
+  </div>
+
+  <div class="table-card">
+    <h3 class="table-card-title"><i class="fas fa-folder-check" style="color: var(--color-blue-primary);"></i> Mata Kuliah yang Sudah Diambil</h3>
+    <div class="table-responsive">
+      <table class="data-table">
         <thead>
           <tr>
-            <th>No</th>
-            <th>Kode MK</th>
+            <th width="5%">No</th>
+            <th width="12%">Kode MK</th>
             <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Ruangan</th>
-            <th>Dosen</th>
-            <th>Aksi</th>
+            <th width="8%" class="text-center">SKS</th>
+            <th>Jadwal Pelaksanaan</th>
+            <th>Ruang & Dosen</th>
+            <th width="12%" class="text-center">Aksi</th>
           </tr>
         </thead>
         <tbody id="myKRSBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
+          </tbody>
       </table>
-      
-      <h3 class="section-header"><i class="fas fa-plus-circle"></i> Daftar Mata Kuliah Tersedia</h3>
-      <table class="data-table" id="availableTable">
+    </div>
+    
+    <div class="krs-action-container">
+      <button class="btn-submit-krs" onclick="approveKRSHandler()">
+        <i class="fas fa-paper-plane"></i> Ajukan Persetujuan KRS
+      </button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <h3 class="table-card-title"><i class="fas fa-plus-circle" style="color: #10B981;"></i> Daftar Mata Kuliah Tersedia</h3>
+    <div class="table-responsive">
+      <table class="data-table">
         <thead>
           <tr>
-            <th>No</th>
-            <th>Kode MK</th>
+            <th width="5%">No</th>
+            <th width="12%">Kode MK</th>
             <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Ruangan</th>
-            <th>Dosen</th>
-            <th>Aksi</th>
+            <th width="8%" class="text-center">SKS</th>
+            <th>Jadwal Pelaksanaan</th>
+            <th>Ruang & Dosen</th>
+            <th width="12%" class="text-center">Aksi</th>
           </tr>
         </thead>
         <tbody id="availableBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
+          </tbody>
       </table>
-      
-      <div class="action-buttons">
-        <button class="btn" onclick="approveKRSHandler()">
-          <i class="fas fa-check-double"></i> Ajukan Persetujuan KRS
-        </button>
-      </div>
-      
-      <div class="footer">
-        <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
-      </div>
-    </main>
+    </div>
+  </div>
+</main>
   </div>
 
   <script src="assets/app.js"></script>
@@ -157,24 +207,22 @@
       } else {
         myKRSBody.innerHTML = '';
         myKRS.forEach((course, index) => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td class="text-center">${course.sks}</td>
-            <td>${course.day}</td>
-            <td>${course.time}</td>
-            <td>${course.room}</td>
-            <td>${course.lecturer}</td>
-            <td class="text-center">
-              <button class="btn btn-danger" onclick="dropCourseHandler('${course.code}')">
-                <i class="fas fa-times"></i> Batal
-              </button>
-            </td>
-          `;
-          myKRSBody.appendChild(row);
-        });
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="text-center">${index + 1}</td>
+          <td><strong>${course.code}</strong></td>
+          <td>${course.name}</td>
+          <td class="text-center font-semibold">${course.sks}</td>
+          <td><strong>${course.day}</strong><br><small style="color: #64748B;">${course.time}</small></td>
+          <td><i class="fas fa-door-open"></i> ${course.room}<br><small style="color: #64748B;"><i class="fas fa-user-tie"></i> ${course.lecturer}</small></td>
+          <td class="text-center">
+            <button class="btn-action-drop" onclick="dropCourseHandler('${course.code}')">
+              <i class="fas fa-trash-alt"></i> Batal
+            </button>
+          </td>
+        `;
+        myKRSBody.appendChild(row);
+      });
       }
       
       // Load available courses
@@ -184,28 +232,26 @@
       
       availableBody.innerHTML = '';
       let availableCount = 0;
-      availableCourses.forEach((course, index) => {
-        if (!myKRSCodes.includes(course.code)) {
-          availableCount++;
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td class="text-center">${availableCount}</td>
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td class="text-center">${course.sks}</td>
-            <td>${course.day}</td>
-            <td>${course.time}</td>
-            <td>${course.room}</td>
-            <td>${course.lecturer}</td>
-            <td class="text-center">
-              <button class="btn" onclick="addCourseHandler('${course.code}')">
-                <i class="fas fa-plus"></i> Ambil
-              </button>
-            </td>
-          `;
-          availableBody.appendChild(row);
-        }
-      });
+      availableCourses.forEach((course) => {
+  if (!myKRSCodes.includes(course.code)) {
+    availableCount++;
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="text-center">${availableCount}</td>
+      <td><strong>${course.code}</strong></td>
+      <td>${course.name}</td>
+      <td class="text-center font-semibold">${course.sks}</td>
+      <td><strong>${course.day}</strong><br><small style="color: #64748B;">${course.time}</small></td>
+      <td><i class="fas fa-door-open"></i> ${course.room}<br><small style="color: #64748B;"><i class="fas fa-user-tie"></i> ${course.lecturer}</small></td>
+      <td class="text-center">
+        <button class="btn-action-add" onclick="addCourseHandler('${course.code}')">
+          <i class="fas fa-plus"></i> Ambil
+        </button>
+      </td>
+    `;
+    availableBody.appendChild(row);
+  }
+});
       
       if (availableCount === 0) {
         availableBody.innerHTML = '<tr><td colspan="9" class="text-center">Tidak ada mata kuliah tersedia</td></tr>';

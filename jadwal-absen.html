@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jadwal Kuliah - Portal Administratif Mahasiswa</title>
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/schedule.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -26,78 +27,121 @@
   </div>
 
   <!-- Main Container -->
-  <div class="main-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> PANDUAN</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu">
-        <li><a href="krs.html"><i class="fas fa-clipboard-list"></i> REGISTRASI MATAKULIAH</a></li>
-        <li><a href="jadwal-absen.html" class="active"><i class="fas fa-calendar-alt"></i> JADWAL KULIAH</a></li>
-        <li><a href="khs.html"><i class="fas fa-graduation-cap"></i> HASIL STUDI</a></li>
-        <li><a href="khs.html"><i class="fas fa-file-alt"></i> TRANSKRIP NILAI</a></li>
-      </ul>
-      
-      <ul class="sidebar-menu" >
-        <li><a href="profil.html"><i class="fas fa-user"></i> DATA PRIBADI</a></li>
-        <li><a href="#"><i class="fas fa-key"></i> GANTI PASSWORD</a></li>
-      </ul>
-      
-      <div class="online-users">
-        <i class="fas fa-users"></i> 127 user online
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-icon">★</span> 
+        <span class="logo-text">PortalKU</span>
       </div>
-    </aside>
+    </div>
 
-    <!-- Content Area -->
-    <main class="content-area">
-      <div class="page-header">
-        <i class="fas fa-calendar-alt"></i>
-        <h1 class="page-title">JADWAL KULIAH & PRESENSI</h1>
+    <nav class="sidebar-menu">
+      <div class="menu-group">
+        <p class="menu-title">Informasi Umum</p>
+        <ul>
+          <li class="menu-item" onclick="window.location.href='index.html'">
+            <span class="menu-icon">🏠</span>
+            <span class="menu-label">Home</span>
+          </li>
+          <li class="menu-item" onclick="window.location.href='panduan.html'">
+            <span class="menu-icon">📖</span>
+            <span class="menu-label">Panduan</span>
+          </li>
+        </ul>
       </div>
-      
-      <h3 class="section-header"><i class="fas fa-table"></i> Jadwal Kuliah Semester Ini</h3>
-      <table class="data-table" id="scheduleTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Ruangan</th>
-            <th>Dosen</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="scheduleBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <h3 class="section-header"><i class="fas fa-history"></i> Riwayat Absensi</h3>
-      <table class="data-table" id="attendanceTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Kode MK</th>
-            <th>Nama Mata Kuliah</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="attendanceBody">
-          <!-- Will be filled by JavaScript -->
-        </tbody>
-      </table>
-      
-      <div class="footer">
-        <p>&copy; 2026 Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
+
+      <div class="menu-group">
+        <p class="menu-title">Menu Akademik</p>
+        <ul>
+          <li class="menu-item" onclick="window.location.href='krs.html'">
+            <span class="menu-icon">📝</span>
+            <span class="menu-label">Registrasi Matakuliah</span>
+          </li>
+          <li class="menu-item active" onclick="window.location.href='jadwal-absen.html'">
+            <span class="menu-icon">📅</span>
+            <span class="menu-label">Jadwal Kuliah</span>
+          </li>
+          <li class="menu-item" onclick="window.location.href='khs.html'">
+            <span class="menu-icon">🎓</span>
+            <span class="menu-label">Hasil Studi</span>
+          </li>
+          <li class="menu-item">
+            <span class="menu-icon">📄</span>
+            <span class="menu-label">Transkrip Nilai</span>
+          </li>
+        </ul>
       </div>
-    </main>
+
+      <div class="menu-group">
+        <p class="menu-title">Pengaturan Akun</p>
+        <ul>
+          <li class="menu-item" onclick="window.location.href='profil.html'">
+            <span class="menu-icon">👤</span>
+            <span class="menu-label">Data Pribadi</span>
+          </li>
+          <li class="menu-item" onclick="window.location.href='ganti-password.html'">
+            <span class="menu-icon">🔑</span>
+            <span class="menu-label">Ganti Password</span>
+          </li>
+          <li class="menu-item logout" onclick="logout()">
+            <span class="menu-icon">⮞</span>
+            <span class="menu-label">Logout</span>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p class="caption">Cc:MieSo</p>
+    </div>
+  </aside>
+
+  <main class="content-area">
+    <h2 class="dashboard-title">Jadwal & Absensi</h2>
+
+    <div class="dashboard-grid-layout page-schedule-grid">
+      
+      <div class="grid-left-side">
+        <div class="table-card">
+          <h3 class="table-card-title"><i class="fas fa-calendar-alt"></i> Jadwal Kuliah Semester Ini</h3>
+          <div class="table-responsive">
+            <table class="data-table" id="scheduleTable">
+              <thead>
+                <tr>
+                  <th width="5%">No</th>
+                  <th width="15%">Hari / Jam</th>
+                  <th>Mata Kuliah</th>
+                  <th width="10%">SKS</th>
+                  <th>Ruang & Dosen</th>
+                  <th width="15%">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleBody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card layout-attendance-card">
+        <h3 class="table-card-title"><i class="fas fa-history"></i> Riwayat Presensi</h3>
+        <div class="table-responsive">
+          <table class="data-table" id="attendanceTable">
+            <thead>
+              <tr>
+                <th>Mata Kuliah</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceBody">
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
   </div>
 
   <script src="assets/app.js"></script>
@@ -136,15 +180,12 @@
           const row = document.createElement('tr');
           row.innerHTML = `
             <td class="text-center">${index + 1}</td>
-            <td>${course.day}</td>
-            <td>${course.time}</td>
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td class="text-center">${course.sks}</td>
-            <td>${course.room}</td>
-            <td>${course.lecturer}</td>
+            <td><strong>${course.day}</strong><br><small style="color:#64748B;">${course.time}</small></td>
+            <td><strong>${course.code}</strong><br>${course.name}</td>
+            <td class="text-center">${course.sks} SKS</td>
+            <td><i class="fas fa-door-open"></i> ${course.room}<br><small style="color:#64748B;"><i class="fas fa-user-tie"></i> ${course.lecturer}</small></td>
             <td class="text-center">
-              <button class="btn" onclick="attendClass('${course.code}')">
+              <button class="btn-absen" onclick="attendClass('${course.code}')">
                 <i class="fas fa-check"></i> Absen
               </button>
             </td>
@@ -178,18 +219,16 @@
         const sortedLog = [...attendanceLog].sort((a, b) => new Date(b.date) - new Date(a.date));
         
         attendanceBody.innerHTML = '';
-        sortedLog.forEach((log, index) => {
-          const course = getCourseByCode(log.courseCode);
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td>${formatDate(log.date)}</td>
-            <td>${log.courseCode}</td>
-            <td>${course ? course.name : '-'}</td>
-            <td class="text-center"><span style="color: #4CAF50;"><i class="fas fa-check-circle"></i> ${log.status}</span></td>
-          `;
-          attendanceBody.appendChild(row);
-        });
+        sortedLog.forEach((log) => {
+        const course = getCourseByCode(log.courseCode);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${log.courseCode}</strong><br><small style="color:#64748B;">${course ? course.name : '-'}</small></td>
+          <td><small>${formatDate(log.date)}</small></td>
+          <td class="text-center"><span class="badge-status success"><i class="fas fa-check-circle"></i> ${log.status}</span></td>
+        `;
+        attendanceBody.appendChild(row);
+      });
       }
     }
   </script>
