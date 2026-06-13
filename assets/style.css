@@ -228,7 +228,6 @@ a:hover {
 /* --- TOPBAR STYLE --- */
 .topbar {
   background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-gray-light);
   padding: 16px 40px;
   display: flex;
   justify-content: space-between;
@@ -243,7 +242,7 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--color-gray-dark);
+  color: var(--color-dark);
   font-weight: 500;
   font-size: 0.85rem;
 }
@@ -321,7 +320,6 @@ a:hover {
   margin-top: auto;
 }
 
-/* --- WELCOME BOX --- */
 .welcome-box {
   background: linear-gradient(135deg, var(--color-blue-primary) 0%, #005FBC 100%);
   color: var(--color-white);
@@ -649,6 +647,11 @@ select.form-control {
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
+
+.stat-card.card-orange.animate-on-scroll.delay-300 {
+  animation-delay: 0.3s;
+}
+
 
 @media (max-width: 768px) {
   .stats-container, .stats-cards-container {
@@ -1072,7 +1075,6 @@ select.form-control {
 .delay-400 { transition-delay: 400ms; }
 .delay-500 { transition-delay: 500ms; }
 
-/* Micro-animations */
 .stat-card {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
 }
@@ -1089,11 +1091,6 @@ select.form-control {
 }
 
 
-/* ============================================
-   RESPONSIVE DESIGN FOR APP DASHBOARD
-   ============================================ */
-
-/* Mobile Menu Button */
 .mobile-menu-btn {
   display: none;
   background: none;
@@ -1104,14 +1101,12 @@ select.form-control {
   padding: 4px;
 }
 
-/* Topbar Date */
 .topbar-date {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* Sidebar Overlay */
 .sidebar-overlay {
   position: fixed;
   top: 0;
@@ -1130,9 +1125,7 @@ select.form-control {
   visibility: visible;
 }
 
-/* General Layout Responsive Rules */
 @media (max-width: 992px) {
-  /* Sidebar Drawer */
   .sidebar {
     left: -280px;
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1142,14 +1135,12 @@ select.form-control {
     left: 0;
   }
   
-  /* Main Content Wrapper */
   .main-content-wrapper {
     margin-left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
   }
 
-  /* Topbar Adjustments */
   .mobile-menu-btn {
     display: block;
   }
@@ -1162,30 +1153,25 @@ select.form-control {
     gap: 16px;
   }
   
-  /* Hide the text "Logout" on small screens, keep icon */
   .logout-text {
     display: none;
   }
   
-  /* User badge compact */
   .user-academic-badge .user-meta {
     display: none;
   }
   
-  /* Content Area */
   .content-area {
     padding: 20px;
     gap: 20px;
   }
 
-  /* Chart height adjustment */
   .chart-wrapper {
     height: 220px;
   }
 }
 
 @media (max-width: 768px) {
-  /* Grid conversions */
   .stats-container, .stats-cards-container {
     grid-template-columns: 1fr;
   }

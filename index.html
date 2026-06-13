@@ -92,8 +92,8 @@
               </div>
             </a>
 
-            <a href="https://lomba.kampus.ac.id" target="_blank" class="slide-item">
-              <img src="img/banner1.jpg" alt="Iklan Kompetisi" class="banner-img-element" style="filter: hue-rotate(90deg);">
+            <a href="https://lomba.kampus.ac.id" class="slide-item">
+              <img src="img/banner3.jpg" alt="Iklan Kompetisi" class="banner-img-element">
               <div class="banner-text-details">
                 <h5>National Hackathon Championship</h5>
                 <p>Tunjukkan skill coding-mu dan menangkan total hadiah Rp 50 Juta. Daftar sekarang!</p>
@@ -101,7 +101,7 @@
             </a>
 
             <a href="profil.html" class="slide-item">
-              <img src="img/banner1.jpg" alt="Pengumuman DIKTI" class="banner-img-element" style="filter: hue-rotate(180deg);">
+              <img src="img/banner2.jpg" alt="Pengumuman DIKTI" class="banner-img-element">
               <div class="banner-text-details">
                 <h5>Pemberitahuan Validasi Data NIK</h5>
                 <p>Batas akhir sinkronisasi data PDDIKTI tanggal 30 Juni 2026. Lengkapi profil Anda.</p>
@@ -176,28 +176,33 @@
     const semesterData = [3.40, 3.55, 3.62, 3.50, 3.75, 3.80, 3.65, 3.70];
     
     const ctx = document.getElementById('progressChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: semesterLabels,
-        datasets: [{
-          label: 'IP Semester',
-          data: semesterData,
-          borderColor: '#0077E6',
-          backgroundColor: 'rgba(0, 119, 230, 0.08)',
-          borderWidth: 3,
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: { min: 0, max: 4 }
-        }
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: semesterLabels,
+    datasets: [{
+      label: 'IP Semester',
+      data: semesterData,
+      borderColor: '#0077E6',
+      backgroundColor: 'rgba(0, 119, 230, 0.08)',
+      borderWidth: 3,
+      fill: true,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: { min: 0, max: 4 }
+    },
+    plugins: {
+      legend: {
+        display: false
       }
-    });
+    }
+  }
+});
 
     // Kalkulasi Trend IPK
     const currentIP = semesterData[semesterData.length - 1];

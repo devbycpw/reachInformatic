@@ -17,7 +17,6 @@
 
 <div class="login-container">
 
-    <!-- Left Side -->
     <div class="login-side">
 
         <div class="login-card">
@@ -36,7 +35,7 @@
                             type="text"
                             id="nim"
                             name="nim"
-                            placeholder="Masukkan NIM"
+                            placeholder="123456789"
                             required>
                     </div>
 
@@ -46,19 +45,18 @@
                             type="password"
                             id="password"
                             name="password"
-                            placeholder="Masukkan Password"
+                            placeholder="Masukan Password Anda"
                             required>
                     </div>
 
                     <div id="loginAlert" class="login-alert" style="display: none;"></div>
 
                     <button type="submit" class="login-btn" id="loginBtn">
-                        <i class="bi bi-box-arrow-in-right"></i>
+                        <i class="bi bi-box-arrow-in-right fa-xl"></i>
                         <span id="loginBtnText">Login</span>
                     </button>
                 </div>
 
-                <!-- Animasi Cool Loading -->
                 <div id="coolLoading" class="cool-loading" style="display: none;">
                     <div class="spinner-container" id="spinnerContainer">
                         <div class="cool-spinner"></div>
@@ -75,7 +73,6 @@
 
     </div>
 
-    <!-- Right Side -->
     <div class="image-side">
         <img
             src="img/Group 18.jpg"
@@ -86,7 +83,6 @@
 
 <script src="assets/app.js"></script>
 <script>
-    // Check if already logged in (redirects if active)
     checkSession();
     
     document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -102,7 +98,6 @@
       const coolLoadingText = document.getElementById('coolLoadingText');
       const alertBox = document.getElementById('loginAlert');
       
-      // Reset alert
       alertBox.style.display = 'none';
       alertBox.className = 'login-alert';
       

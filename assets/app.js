@@ -1,11 +1,3 @@
-/**
- * Student Administrative Portal - Main Logic
- * All data stored in localStorage
- */
-
-// ============================================
-// MOCK DATA INITIALIZATION
-// ============================================
 const SIDEBAR_MENU_DATA = [
   {
     groupTitle: "Informasi Umum",
@@ -24,6 +16,12 @@ const SIDEBAR_MENU_DATA = [
     ]
   },
   {
+    groupTitle: "Administrasi",
+    menus: [
+      { label: "Tagihan", icon: "fas fa-money-bill", path: "tagihan.html" },
+    ]
+  },
+  {
     groupTitle: "Pengaturan Akun",
     menus: [
       { label: "Data Pribadi", icon: "fas fa-user", path: "profil.html" },
@@ -32,9 +30,7 @@ const SIDEBAR_MENU_DATA = [
   }
 ];
 
-// Reusable Sidebar Backwards Compatibility
 function renderReusableSidebar() {
-  // Deprecated: Layout is now automatically managed by initAppLayout()
 }
 
 const DEFAULT_USERS = [
@@ -95,9 +91,7 @@ const DEFAULT_GRADES = [
   { no: 21, code: 'TC615H', name: 'ARSITEKTUR DAN ORGANISASI KOMPUTER', sks: 3, grade: 'A', weight: 4.0, ak: '12', tahun: '2025-2026/2' }
 ];
 
-// ============================================
-// INITIALIZATION FUNCTIONS
-// ============================================
+
 
 function initMockData() {
   if (!localStorage.getItem('mock_users')) {
@@ -109,7 +103,6 @@ function initMockData() {
   if (!localStorage.getItem('student_profile')) {
     localStorage.setItem('student_profile', JSON.stringify(DEFAULT_PROFILE));
   }
-  // FORCE update grades to ensure synchronization across pages
   localStorage.setItem('student_grades', JSON.stringify(DEFAULT_GRADES));
   if (!localStorage.getItem('my_krs')) {
     localStorage.setItem('my_krs', JSON.stringify(["MK001", "MK002", "MK003"]));
@@ -122,50 +115,39 @@ function initMockData() {
   }
 }
 
-// ============================================
-// LAYOUT MANAGER (MODULAR & DYNAMIC)
-// ============================================
 
 function initAppLayout() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   if (currentPage === 'login.html') {
-    return; // Don't run layout manager on login page
+    return;
   }
 
-  // 1. Check Session
   const user = checkSession();
-  if (!user) return; // checkSession will redirect to login if session is empty
+  if (!user) return;
 
-  // 2. Find main content-area
   const contentArea = document.querySelector('main.content-area');
   if (!contentArea) return;
 
-  // 3. Create structural wrapper elements
   const mainContainer = document.createElement('div');
   mainContainer.className = 'main-container';
 
   const mainContentWrapper = document.createElement('div');
   mainContentWrapper.className = 'main-content-wrapper';
 
-  // 4. Rearrange DOM: Wrap contentArea inside mainContentWrapper, inside mainContainer
   const body = document.body;
   
-  // Clean up any remaining legacy top date bars, headers, sidebars or footers
   const legacyBars = document.querySelectorAll('.top-date-bar, .header-bar, .sidebar, .footer, footer');
   legacyBars.forEach(el => el.remove());
 
-  // Wrap the content area
   body.appendChild(mainContainer);
   mainContainer.appendChild(mainContentWrapper);
   mainContentWrapper.appendChild(contentArea);
 
-  // 5. Create Sidebar
   const sidebar = document.createElement('aside');
   sidebar.className = 'sidebar';
   sidebar.id = 'sidebar-app';
   mainContainer.insertBefore(sidebar, mainContentWrapper); // Insert sidebar before content wrapper
 
-  // Render Sidebar HTML
   let sidebarHTML = `
     <div class="sidebar-header">
       <div class="sidebar-logo">
@@ -214,12 +196,10 @@ function initAppLayout() {
   `;
   sidebar.innerHTML = sidebarHTML;
 
-  // 6. Create Topbar
   const topbar = document.createElement('div');
   topbar.className = 'topbar';
-  mainContentWrapper.insertBefore(topbar, contentArea); // Insert topbar before content area
+  mainContentWrapper.insertBefore(topbar, contentArea); 
 
-  // Format Current Date
   const now = new Date();
   const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
   const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
@@ -243,25 +223,19 @@ function initAppLayout() {
     </div>
   `;
 
-  // Create Sidebar Overlay
   const overlay = document.createElement('div');
   overlay.className = 'sidebar-overlay';
   overlay.id = 'sidebar-overlay';
   overlay.onclick = toggleMobileSidebar;
   body.appendChild(overlay);
 
-  // 7. Create Footer
   const footer = document.createElement('footer');
   footer.className = 'footer';
   footer.innerHTML = `
     <p>&copy; ${now.getFullYear()} Portal Administratif Mahasiswa. Bagian Administrasi Akademik tidak bertanggung jawab apabila data yang anda berikan salah.</p>
   `;
-  mainContentWrapper.appendChild(footer); // Insert footer after content area
+  mainContentWrapper.appendChild(footer);
 }
-
-// ============================================
-// UI & LAYOUT UTILITIES
-// ============================================
 
 window.toggleMobileSidebar = function() {
   const sidebar = document.getElementById('sidebar-app');
@@ -271,10 +245,6 @@ window.toggleMobileSidebar = function() {
     overlay.classList.toggle('mobile-active');
   }
 };
-
-// ============================================
-// AUTHENTICATION FUNCTIONS
-// ============================================
 
 function login(nim, password) {
   const users = JSON.parse(localStorage.getItem('mock_users') || '[]');
@@ -319,9 +289,6 @@ function getCurrentUser() {
   return session ? JSON.parse(session) : null;
 }
 
-// ============================================
-// KRS FUNCTIONS
-// ============================================
 
 function getKRS() {
   const krsCodes = JSON.parse(localStorage.getItem('my_krs') || '[]');
@@ -346,7 +313,6 @@ function addCourse(courseCode) {
     return { success: false, message: 'Melebihi batas maksimal 24 SKS' };
   }
   
-  // Check schedule conflict
   const conflict = checkScheduleConflict(course);
   if (conflict.hasConflict) {
     return { success: false, message: `Jadwal bentrok dengan ${conflict.course}` };
@@ -370,7 +336,6 @@ function dropCourse(courseCode) {
   return { success: true, message: 'Mata kuliah berhasil dibatalkan' };
 }
 
-// Update local storage key on profile name change
 function syncSessionName(newName) {
   const session = getCurrentUser();
   if (session && session.name !== newName) {
@@ -402,15 +367,12 @@ function approveKRS() {
   localStorage.setItem('krs_status', JSON.stringify('Disetujui'));
 }
 
-// ============================================
-// ATTENDANCE FUNCTIONS
-// ============================================
+//ABSEN 
 
 function doAbsen(courseCode) {
   const attendanceLog = JSON.parse(localStorage.getItem('attendance_log') || '[]');
   const today = new Date().toISOString().split('T')[0];
   
-  // Check if already attended today
   const alreadyAttended = attendanceLog.some(
     log => log.courseCode === courseCode && log.date === today
   );
@@ -439,9 +401,6 @@ function getAttendanceForCourse(courseCode) {
   return logs.filter(log => log.courseCode === courseCode);
 }
 
-// ============================================
-// PROFILE FUNCTIONS
-// ============================================
 
 function getProfile() {
   return JSON.parse(localStorage.getItem('student_profile') || '{}');
@@ -452,7 +411,6 @@ function updateProfile(profileData) {
   const updatedProfile = { ...currentProfile, ...profileData };
   localStorage.setItem('student_profile', JSON.stringify(updatedProfile));
   
-  // Update current session name too
   if (profileData.name) {
     syncSessionName(profileData.name);
   }
@@ -460,9 +418,6 @@ function updateProfile(profileData) {
   return { success: true, message: 'Profil berhasil diperbarui' };
 }
 
-// ============================================
-// GRADES FUNCTIONS
-// ============================================
 
 function getGrades() {
   return JSON.parse(localStorage.getItem('student_grades') || '[]');
@@ -488,9 +443,6 @@ function getTotalPassedCredits() {
   return grades.reduce((total, grade) => total + grade.sks, 0);
 }
 
-// ============================================
-// UTILITY FUNCTIONS
-// ============================================
 
 function formatDate(dateString) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -502,12 +454,8 @@ function getCourseByCode(code) {
   return courses.find(c => c.code === code);
 }
 
-// Initialize data and run layout on script load
 initMockData();
 
-// ============================================
-// GLOBAL ANIMATIONS
-// ============================================
 
 function initGlobalAnimations() {
   const selectors = [
@@ -548,7 +496,6 @@ function initGlobalAnimations() {
   animElements.forEach(el => observer.observe(el));
 }
 
-// Run layout and animations synchronously to prevent FOUC
-// since this script is loaded at the end of the body
+
 initAppLayout();
 initGlobalAnimations();
