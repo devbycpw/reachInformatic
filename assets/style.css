@@ -685,9 +685,9 @@ select.form-control {
   justify-content: center;
 }
 
-.card-blue .stat-icon { background: var(--color-blue-soft); color: var(--color-blue-primary); }
-.card-green .stat-icon { background: #DCFCE7; color: #10B981; }
-.card-orange .stat-icon { background: #FFF7ED; color: #F97316; }
+.card-blue .stat-icon { background: #ffffff; color: var(--color-blue-primary); }
+.card-green .stat-icon { background: #ffffff; color: #10B981; }
+.card-orange .stat-icon { background: #ffffff; color: #F97316; }
 
 .stat-info-text h4 {
   font-size: 0.65rem;
