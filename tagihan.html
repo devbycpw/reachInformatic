@@ -1,134 +1,105 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jadwal Kuliah - Portal Administratif Mahasiswa</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/schedule.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagihan Kewajiban Pembayaran Uang Kuliah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/tagihan.css">
 </head>
 <body>
 
-  <!-- Content Area -->
-  <main class="content-area">
-    <h2 class="dashboard-title">Jadwal & Absensi</h2>
-
-    <div class="dashboard-grid page-schedule-grid">
-      
-      <div class="grid-left-side">
-        <div class="table-card">
-          <h3 class="table-card-title"><i class="fas fa-calendar-alt" style="color: var(--color-blue-primary);"></i> Jadwal Kuliah Semester Ini</h3>
-          <div class="table-responsive">
-            <table class="data-table" id="scheduleTable">
-              <thead>
-                <tr>
-                  <th width="5%" class="text-center">No</th>
-                  <th width="20%">Hari / Jam</th>
-                  <th>Mata Kuliah</th>
-                  <th width="12%" class="text-center">SKS</th>
-                  <th>Ruang & Dosen</th>
-                  <th width="15%" class="text-center">Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="scheduleBody">
-                <!-- Will be dynamically loaded -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="side-card layout-attendance-card table-card">
-        <h3 class="table-card-title"><i class="fas fa-history"></i> Riwayat Presensi</h3>
-        <div class="table-responsive">
-          <table class="data-table" id="attendanceTable">
-            <thead>
-              <tr>
-                <th>Mata Kuliah</th>
-                <th>Tanggal</th>
-                <th class="text-center">Status</th>
-              </tr>
-            </thead>
-            <tbody id="attendanceBody">
-              <!-- Will be dynamically loaded -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <script src="assets/app.js"></script>
-  <script>
-    // Load schedule and attendance history
-    const user = getCurrentUser();
-    if (user) {
-      const krs = getKRS();
-      const scheduleBody = document.getElementById('scheduleBody');
-      
-      if (krs.length === 0) {
-        scheduleBody.innerHTML = '<tr><td colspan="6" class="text-center">Belum ada mata kuliah yang diambil di KRS</td></tr>';
-      } else {
-        // Sort by day order
-        const dayOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
-        krs.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
+    <main class="content-area">
         
-        scheduleBody.innerHTML = '';
-        krs.forEach((course, index) => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td class="text-center">${index + 1}</td>
-            <td><strong>${course.day}</strong><br><small style="color: #64748B;">${course.time}</small></td>
-            <td><strong>${course.code}</strong><br>${course.name}</td>
-            <td class="text-center">${course.sks} SKS</td>
-            <td><i class="fas fa-door-open"></i> ${course.room}<br><small style="color: #64748B;"><i class="fas fa-user-tie"></i> ${course.lecturer}</small></td>
-            <td class="text-center">
-              <button class="btn-absen" onclick="attendClass('${course.code}')">
-                <i class="fas fa-check"></i> Absen
-              </button>
-            </td>
-          `;
-          scheduleBody.appendChild(row);
-        });
-      }
-      
-      loadAttendanceHistory();
-    }
-    
-    function attendClass(courseCode) {
-      const result = doAbsen(courseCode);
-      if (result.success) {
-        alert(result.message);
-        loadAttendanceHistory();
-      } else {
-        alert(result.message);
-      }
-    }
-    
-    function loadAttendanceHistory() {
-      const attendanceLog = getAttendanceLog();
-      const attendanceBody = document.getElementById('attendanceBody');
-      
-      if (attendanceLog.length === 0) {
-        attendanceBody.innerHTML = '<tr><td colspan="3" class="text-center">Belum ada riwayat absensi</td></tr>';
-      } else {
-        const sortedLog = [...attendanceLog].sort((a, b) => new Date(b.date) - new Date(a.date));
-        
-        attendanceBody.innerHTML = '';
-        sortedLog.forEach((log) => {
-          const course = getCourseByCode(log.courseCode);
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td><strong>${log.courseCode}</strong><br><small style="color: #64748B;">${course ? course.name : '-'}</small></td>
-            <td><small>${formatDate(log.date)}</small></td>
-            <td class="text-center"><span class="badge-status success"><i class="fas fa-check-circle"></i> ${log.status}</span></td>
-          `;
-          attendanceBody.appendChild(row);
-        });
-      }
-    }
-  </script>
+        <div class="invoice-header-flex">
+            <div>
+                <h1 class="dashboard-title">Tagihan & Pembayaran</h1>
+                <p style="color: var(--color-gray-dark); margin-top: 4px;">Pantau status kewajiban administrasi keuangan kuliah Anda.</p>
+            </div>
+            <div id="invoiceStatusBadge">
+                </div>
+        </div>
+
+        <div class="dashboard-grid-layout">
+            
+            <div class="grid-left-side">
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <span id="invoiceTitleSemester">Rincian Kewajiban Pembayaran Kuliah</span>
+                    </div>
+                    <div class="panel-body" style="padding: 0;">
+                        <div class="table-responsive">
+                            <table class="table-modern" id="invoiceTable">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 80px;" class="text-center">No</th>
+                                        <th>Item Komponen Biaya</th>
+                                        <th class="text-right">Jumlah (Rp)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="invoiceItemsBody">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="margin-bottom: 0;">
+                    <i class="fas fa-info-circle" style="font-size: 1.2rem; margin-top: 2px;"></i>
+                    <div>
+                        <h4>Informasi Ketentuan Denda</h4>
+                        <p>Nominal di atas belum termasuk denda keterlambatan jika pembayaran dilakukan melewati batas tanggal jatuh tempo pelunasan yang telah ditetapkan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-banner-column">
+                <div class="quick-nav-box invoice-summary-card">
+                    <h4><i class="fas fa-receipt"></i> Ringkasan Tagihan</h4>
+                    
+                    <div class="summary-status-list">
+                        <div class="summary-item">
+                            <span class="summary-label">Total Utang</span>
+                            <span class="summary-value" id="summaryTotalUtang">Rp0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Terbayar</span>
+                            <span class="summary-value text-success" id="summaryTerbayar">Rp0</span>
+                        </div>
+                        <div class="summary-item total-line">
+                            <span class="summary-label">Sisa Tagihan</span>
+                            <span class="summary-value highlight-blue" id="summarySisaBayar">Rp0</span>
+                        </div>
+                    </div>
+
+                    <div class="invoice-dates-box">
+                        <div class="date-row">
+                            <i class="far fa-calendar"></i>
+                            <div>
+                                <small>Jatuh Tempo</small>
+                                <p id="dateJatuhTempo">-</p>
+                            </div>
+                        </div>
+                        <div class="date-row">
+                            <i class="far fa-calendar-check"></i>
+                            <div>
+                                <small>Jatuh Tempo Pelunasan</small>
+                                <p id="datePelunasan">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-success" style="width: 100%; margin-top: 8px; padding: 12px;" onclick="downloadInvoicePDF()">
+                        <i class="fas fa-file-pdf"></i> Download Tagihan (PDF)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="assets/app.js"></script>
+    <script src="assets/tagihan.js"></script>
 </body>
 </html>

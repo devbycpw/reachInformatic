@@ -1,0 +1,131 @@
+/* --- CSS Khusus Halaman Tagihan --- */
+
+.invoice-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+/* Modifikasi badge agar lebih elok untuk status keuangan */
+.invoice-status-pill {
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.invoice-status-pill.paid {
+    background-color: #DCFCE7;
+    color: #15803D;
+    border: 1px solid #BBF7D0;
+}
+
+.invoice-status-pill.unpaid {
+    background-color: #FEF3C7;
+    color: #B45309;
+    border: 1px solid #FDE68A;
+}
+
+/* Kustomisasi Row Summary di Sebelah Kanan */
+.invoice-summary-card {
+    border: 1px solid var(--color-gray-light);
+}
+
+.summary-status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+    background-color: var(--color-gray-bg);
+    padding: 16px;
+    border-radius: var(--border-radius-md);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.summary-label {
+    color: var(--color-gray-dark);
+    font-weight: 500;
+}
+
+.summary-value {
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.summary-item.total-line {
+    border-top: 1px dashed var(--color-gray-light);
+    padding-top: 14px;
+    margin-top: 4px;
+}
+
+.summary-value.highlight-blue {
+    font-size: 1.2rem;
+    color: var(--color-blue-primary);
+    font-weight: 800;
+}
+
+/* Struktur Box Tanggal */
+.invoice-dates-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 0 4px;
+}
+
+.date-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.date-row i {
+    font-size: 1.1rem;
+    color: var(--color-blue-primary);
+    background-color: var(--color-blue-soft);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-sm);
+}
+
+.date-row small {
+    display: block;
+    color: var(--color-gray-dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.date-row p {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.text-success {
+    color: #166534 !important;
+}
+
+@media (max-width: 992px) {
+    .invoice-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
